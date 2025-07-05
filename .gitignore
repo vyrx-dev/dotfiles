@@ -1,0 +1,5 @@
+nvim/init.lua.bak
+
+
+# *.bak   #ignore all backup files
+
