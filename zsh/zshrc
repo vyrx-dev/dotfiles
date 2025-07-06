@@ -100,13 +100,22 @@ export EDITOR=nvim
 
 
 alias last-updated='grep -i "full system upgrade" /var/log/pacman.log | tail -n 1'
-
 alias ac='ani-cli'  # to open ani-cli
-
 alias zfile='nvim ~/.zshrc'  # Zsh config file
-
 alias zz='nvim'  #neovvim
-
 alias open='dolphin'  #open file manager
-
 alias cache='du -sh /var/cache/pacman/pkg .cache/yay' #check cache of pacman and yay 
+
+
+#
+
+
+# HyDE Package Manager
+PM_COMMAND=(hyde-shell pm)
+
+alias c='clear' \
+alias in='${PM_COMMAND[@]} install' 
+alias un='${PM_COMMAND[@]} remove' 
+alias up='${PM_COMMAND[@]} upgrade' 
+alias pl='${PM_COMMAND[@]} search installed' 
+alias pa='${PM_COMMAND[@]} search all' 
