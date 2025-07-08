@@ -8,23 +8,30 @@ This repository contains my configuration files for an Arch Linux system running
 
 Below is the layout of the repository:
 
-```
-dotfiles/
-├── bin/
-│   └── gcal_notify.sh          # Script for calendar event notifications
-├── zsh/
-│   └── zshrc                   # zsh configuration
-├── config/
-│   ├── hypr/
-│   │   ├── hyprland.conf       # Hyprland window manager configuration
-│   │   └── keybindings.conf    # Hyprland keybindings
-│   └── nvim/
-│       └── init.lua            # Neovim configuration
-├── images/
-│   └── neovim_setup.png        # Screenshot of my Neovim setup
-├── setup.sh                    # Script to create symlinks for configs
-└── README.md                   # This file
-```
+
+dotfiles
+├── bin
+│   └── gcal_notify.sh              # Google Calendar CLI 
+│
+├── config
+│   ├── hypr
+│   │   ├── hyprland.conf
+│   │   └── keybindings.conf
+│   └── zsh
+│       ├── zsh_config_guide.md     # explains zsh config setup
+│       └── zsh_file_explained.md   # explains each zsh file
+│
+├── images
+│   └── neovim_setup.png
+│
+├── nvim
+│   ├── init.lua
+│   └── init.lua.bak
+│
+├── scripts
+│   └── setup.sh                
+│
+└── README.md                       #Main dotfiles overview
 
 ### Configurations
 
