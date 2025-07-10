@@ -53,7 +53,7 @@ ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 
 ### **🛠️ CLI Tools (For Aliases & Visuals)**
 ```bash
-sudo pacman -S eza xclip tree reflector neofetch timeshift pacman-contrib
+sudo pacman -S eza xclip tree reflector timeshift pacman-contrib
 yay -S pokemon-colorscripts fastfetch lazygit zoxide yazi
 ```
 
@@ -135,7 +135,7 @@ Peek at `.zshrc` for:
 
 ## **✅ Final Check**
 
-- Update `.zprofile` paths with your home dir (e.g., `/home/amitwt/`).
+- Update `.zprofile` paths with your home dir (e.g., `/home/april/`).
 - Test with `update`, `gs`, or `pacclean`.
 
 You’re good to go! Let me know if you tweak it—I’d love to hear how it works for you. 😄
