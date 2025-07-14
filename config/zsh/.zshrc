@@ -122,6 +122,10 @@ alias fdh='fd --hidden'
 alias zz='nvim'              # Open neovim
 alias vi='nvim'              # Alias for neovim
 alias vc='code'
+alias gcalm='gcalcli calm'
+alias gcalw='gcalcli calw'
+alias last-updated='grep -i "full system upgrade" /var/log/pacman.log | tail -n 1'
+alias ac='ani-cli'  # to open ani-cli
 #alias vg='nvim-godot.sh'     # Open Godot script in neovim
 alias lgit='lazygit'         # Launch lazygit
 alias t='tree -L 1'          # Show directory tree (level 1)
@@ -132,6 +136,7 @@ alias z='yazi'               # Launch yazi file manager
 alias lg='lazygit'           # Launch lazygit (duplicate for consistency)
 alias x='exit' # exit the teminal
 alias zfile='nvim ~/.config/zsh/.zshrc'  # Zsh config file  or ~/.zshrc
+alias shader='.local/lib/hyde/./shaders.sh --select'   # shader switch for HyDE
 
 # Productivity aliases (inspired by Arch/Hyprland/Linux workflows)
 # [Useful commands for system and workflow efficiency]
