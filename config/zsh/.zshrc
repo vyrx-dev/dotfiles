@@ -1,4 +1,3 @@
-# ZSH Configuration for amitwt - Powered by a touch of double k
 # [A clean, structured zsh setup with productivity tools and a personal flair]
 
 # ┌──────────────────────┐
