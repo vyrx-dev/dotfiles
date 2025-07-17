@@ -1,0 +1,278 @@
+[
+  {
+    "layer": "top",
+    "position": "top",
+    "spacing": 0,
+    "output": [
+      "eDP-1"
+    ],
+    "modules-left": [
+      "hyprland/workspaces",
+      "wlr/taskbar"
+    ],
+    "modules-center": [
+      "clock",
+      "custom/playerctl"
+    ],
+    "modules-right": [
+      "tray",
+      "backlight",
+      "pulseaudio",
+      "memory",
+      "battery"
+    ],
+    "custom/separator": {
+      "format": ""
+    },
+    "wlr/taskbar": {
+      "format": "{icon}",
+      "on-click": "activate",
+      "on-click-right": "fullscreen",
+      "icon-size": 13,
+      "tooltip-format": "{title}"
+    },
+    "custom/playerctl": {
+      "format": "  ::  <span>{}</span>",
+      "return-type": "json",
+      "max-length": 30,
+      "exec": "playerctl -a metadata --format '{\"text\": \"{{artist}}{{markup_escape(title)}}\", \"tooltip\": \"{{playerName}} : {{markup_escape(title)}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
+      "on-click-middle": "playerctl play-pause",
+      "on-click": "playerctl previous",
+      "on-click-right": "playerctl next",
+      "format-icons": {
+        "Playing": "<span foreground='#62b389'>󰝚</span>",
+        "Paused": "<span foreground='#47423E'>󰝛</span>"
+      }
+    },
+    "hyprland/workspaces": {
+      "active-only": false,
+      "all-outputs": true,
+      "format-alt": "{icon} <sub>{name}</sub>",
+      "format": "{name}: {icon}",
+      "format-icons": {
+        "1": "",
+        "2": "",
+        "3": "",
+        "4": "",
+        "5": "",
+        "6": "",
+        "7": "",
+        "8": "",
+        "9": "",
+        "default": "",
+        "persistent": "",
+        "special": ""
+      }
+    },
+    "memory": {
+      "interval": 5,
+      "format": "󰍛 {}%",
+      "max-length": 10
+    },
+    "tray": {
+      "spacing": 20
+    },
+    "clock": {
+      "timezone": "Asia/Kolkata",
+      "format": "󰥔  {:%I:%M %p}",
+      "format-alt": "󰥔  {:%a, %d · %b  %I:%M %p}"
+    },
+    "pulseaudio": {
+      "format": "{icon}  {volume}",
+      "rotate": 0,
+      "format-muted": "婢",
+      "on-click": "pavucontrol -t 3",
+      "on-click-middle": "volumecontrol.sh -o m",
+      "on-scroll-up": "volumecontrol.sh -o i",
+      "on-scroll-down": "volumecontrol.sh -o d",
+      "tooltip-format": "{icon} {desc} // {volume}%",
+      "scroll-step": 5,
+      "format-icons": {
+        "headphone": "",
+        "hands-free": "",
+        "headset": "",
+        "phone": "",
+        "portable": "",
+        "car": "",
+        "default": [
+          "",
+          "",
+          ""
+        ]
+      }
+    },
+    "battery": {
+      "format": "{icon} {capacity}%",
+      "format-icons": {
+        "charging": [
+          "󰢜",
+          "󰂆",
+          "󰂇",
+          "󰂈",
+          "󰢝",
+          "󰂉",
+          "󰢞",
+          "󰂊",
+          "󰂋",
+          "󰂅"
+        ],
+        "default": [
+          "󰁺",
+          "󰁻",
+          "󰁼",
+          "󰁽",
+          "󰁾",
+          "󰁿",
+          "󰂀",
+          "󰂁",
+          "󰂂",
+          "󰁹"
+        ]
+      },
+      "format-full": "Charged ",
+      "interval": 5,
+      "states": {
+        "warning": 20,
+        "critical": 10
+      },
+      "tooltip": false
+    },
+    "backlight": {
+      "interval": 2,
+      "align": 0,
+      "rotate": 0,
+      "format": "{icon}  {percent}%",
+      "format-icons": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "tooltip-format": "backlight {percent}%",
+      "icon-size": 10,
+      "on-click": "",
+      "on-click-middle": "",
+      "on-click-right": "",
+      "on-update": "",
+      "on-scroll-up": "brightnessctl set 5%+",
+      "on-scroll-down": "brightnessctl set 5%-",
+      "smooth-scrolling-threshold": 1
+    }
+  },
+  {
+    "layer": "top",
+    "position": "top",
+    "spacing": 0,
+    "output": [
+      "HDMI-A-1"
+    ],
+    "modules-left": [
+      "hyprland/workspaces"
+    ],
+    "modules-center": [
+      "clock"
+    ],
+    "modules-right": [
+      "tray",
+      "pulseaudio",
+      "battery"
+    ],
+    "custom/separator": {
+      "format": ""
+    },
+    "hyprland/workspaces": {
+      "active-only": false,
+      "all-outputs": true,
+      "format-alt": "{icon} <sub>{name}</sub>",
+      "format": "{name}: {icon}",
+      "format-icons": {
+        "1": "",
+        "2": "",
+        "3": "",
+        "4": "",
+        "5": "",
+        "default": "",
+        "persistent": "",
+        "special": ""
+      }
+    },
+    "tray": {
+      "spacing": 20
+    },
+    "clock": {
+      "format-alt": "󰥔  {:%a, %d · %b  %I:%M %p}",
+      "format": "󰥔  {:%I:%M %p}"
+    },
+    "pulseaudio": {
+      "format": "{icon}  {volume}",
+      "rotate": 0,
+      "format-muted": "婢",
+      "on-click": "pavucontrol -t 3",
+      "on-click-middle": "volumecontrol.sh -o m",
+      "on-scroll-up": "volumecontrol.sh -o i",
+      "on-scroll-down": "volumecontrol.sh -o d",
+      "tooltip-format": "{icon} {desc} // {volume}%",
+      "scroll-step": 5,
+      "format-icons": {
+        "headphone": "",
+        "hands-free": "",
+        "headset": "",
+        "phone": "",
+        "portable": "",
+        "car": "",
+        "default": [
+          "",
+          "",
+          ""
+        ]
+      }
+    },
+    "battery": {
+      "format": "{icon} {capacity}% ",
+      "format-icons": {
+        "charging": [
+          "󰢜",
+          "󰂆",
+          "󰂇",
+          "󰂈",
+          "󰢝",
+          "󰂉",
+          "󰢞",
+          "󰂊",
+          "󰂋",
+          "󰂅"
+        ],
+        "default": [
+          "󰁺",
+          "󰁻",
+          "󰁼",
+          "󰁽",
+          "󰁾",
+          "󰁿",
+          "󰂀",
+          "󰂁",
+          "󰂂",
+          "󰁹"
+        ]
+      },
+      "format-full": "Charged ",
+      "interval": 5,
+      "states": {
+        "warning": 20,
+        "critical": 10
+      },
+      "tooltip": true
+    }
+  }
+]

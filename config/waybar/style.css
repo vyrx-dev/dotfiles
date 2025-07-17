@@ -1,0 +1,106 @@
+@import url("theme.css");
+
+* {
+  border: none;
+  font-family: "Maple Mono NF";
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 0px;
+}
+
+window#waybar {
+  background-color: @bar-bg;
+  border-bottom: 3px solid @border-color;
+  animation: dimBrighten 3s ease-in-out infinite;
+}
+
+@keyframes dimBrighten {
+  0% {
+    border-color: @border-color;
+  }
+
+  100% {
+    border-color: @border-color;
+  }
+
+  50% {
+    border-color: transparent;
+  }
+}
+
+#workspaces {
+  background-color: @workspace-bg;
+  color: @pulseaudio-color;
+  border-radius: 0;
+}
+
+#workspaces,
+#workspaces button,
+#pulseaudio-slider,
+#backlight-slider {
+  all: unset;
+
+}
+
+#workspaces>button {
+  padding: 0 15px;
+  font-weight: bold;
+}
+
+#workspaces>button.active {
+  color: @button-hover-color;
+  background: @button-hover-bg;
+  border-bottom: 3px solid @border-color;
+}
+
+#workspaces>button:hover {
+  background: @button-hover-bg;
+  color: @button-hover-color;
+  border-bottom: 3px solid @border-color;
+}
+
+
+#battery.warning,
+#battery.critical,
+#battery.urgent {
+  color: red;
+}
+
+#battery.charging {
+  color: @battery-color;
+}
+
+/*#taskbar {*/
+/*  padding-left: 20px;*/
+/*}*/
+
+#taskbar>button:hover {
+  background-color: transparent;
+}
+
+/*#workspaces {*/
+/*  padding: 0px 20px 0px 0px;*/
+/*}*/
+
+#custom-separator {
+  color: @work-hav;
+  font-weight: bold;
+}
+
+
+
+#memory,
+#custom-power,
+#battery,
+#backlight,
+#pulseaudio,
+#network,
+#clock,
+#tray,
+#custom-playerctl,
+#custom-notifications {
+  padding: 8px 25px;
+  color: @pulseaudio-color;
+}
+
+

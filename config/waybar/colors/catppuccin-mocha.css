@@ -1,0 +1,38 @@
+
+/*
+*
+* Kanagawa palette
+* 
+*/
+
+@define-color base   #1F1F28; /* sumiInk0 */
+@define-color mantle #16161D; /* sumiInk1 */
+@define-color crust  #1B1B23; /* sumiInk2 */
+
+@define-color text     #DCD7BA; /* fujiWhite */
+@define-color subtext0 #C8C093; /* oldWhite */
+@define-color subtext1 #717C7C; /* stormGray */
+
+@define-color surface0 #282828; /* waveBlue1 */
+@define-color surface1 #3B4261; /* waveBlue2 */
+@define-color surface2 #54546D; /* waveBlue3 */
+
+@define-color overlay0 #54546D; /* stormGray */
+@define-color overlay1 #565F89; /* waveAqua1 */
+@define-color overlay2 #7E9CD8; /* springViolet2 */
+
+@define-color blue      #7E9CD8; /* lightBlue */
+@define-color lavender  #957FB8; /* oniViolet */
+@define-color sapphire  #7FB4CA; /* waveAqua2 */
+@define-color sky       #89DCEB; /* surimiBlue */
+@define-color teal      #98BB6C; /* autumnGreen */
+@define-color green     #A3D4B8; /* springGreen */
+@define-color yellow    #E6C384; /* autumnYellow */
+@define-color peach     #FF9E3B; /* autumnOrange */
+@define-color maroon    #D8616B; /* samuraiRed */
+@define-color red       #E46876; /* lightRed */
+@define-color mauve     #957FB8; /* oniViolet */
+@define-color pink      #D27E99; /* sakuraPink */
+@define-color flamingo  #E5ABBE; /* peachRed */
+@define-color rosewater #DCD7BA; /* fujiWhite */
+
