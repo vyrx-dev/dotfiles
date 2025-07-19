@@ -21,7 +21,7 @@ keymap.set("n", "<C-a>", "gg<S-v>G")
 
 -- Tab
 keymap.set("n", "te", ":tabedit")
-keymap.set("n", "tw", ":tabclose<Return>", opts)
+keymap.set("n", "tw", ":tabclose<Return>", opts) --not working
 keymap.set("n", "<tab>", ":tabnext<Return>", opts)
 keymap.set("n", "<s-tab>", ":tabprev<Return>", opts)
 
