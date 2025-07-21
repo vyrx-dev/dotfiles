@@ -13,15 +13,25 @@ keymap.set("n", "-", "<C-x>")
 -- jj to escape insert mode
 keymap.set("i", "jj", "<Esc>", opts)
 
+-- Toggle Screenkey
+keymap.set("n", "<leader>vk", "<cmd>Screenkey<CR>", opts)
+
+-- Delete a word backwards
+keymap.set("n", "dw", 'vb"_d')
+
 -- Select all
 keymap.set("n", "<C-a>", "gg<S-v>G")
 
+-- Disable continuations
+keymap.set("n", "<Leader>o", "o<Esc>^Da", opts)
+keymap.set("n", "<Leader>O", "O<Esc>^Da", opts)
+
 -- Paste in visual mode without yanking replaced text
--- keymap.set("x", "p", [["_dP]])
+keymap.set("x", "p", [["_dP]])
 
 -- Tab
 keymap.set("n", "te", ":tabedit")
-keymap.set("n", "tw", ":tabclose<Return>", opts) --not working
+keymap.set("n", "tw", ":tabclose<Return>", opts)
 keymap.set("n", "<tab>", ":tabnext<Return>", opts)
 keymap.set("n", "<s-tab>", ":tabprev<Return>", opts)
 
