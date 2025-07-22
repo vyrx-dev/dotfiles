@@ -10,6 +10,18 @@ local opts = { noremap = true, silent = true }
 keymap.set("n", "+", "<C-a>")
 keymap.set("n", "-", "<C-x>")
 
+-- Center the screen after scrolling up/down with Ctrl-u/d
+keymap.set("n", "<C-u>", "<C-u>zz")
+keymap.set("n", "<C-d>", "<C-d>zz")
+
+-- save, quit
+keymap.set("n", "<leader>w", ":w<cr>")
+keymap.set("n", "<leader>c", ":q<cr>")
+
+-- move a blocks of text up/down with K/J in visual mode
+keymap.set("v", "K", ":m '<-2<CR>gv=gv", { silent = true })
+keymap.set("v", "J", ":m '>+1<CR>gv=gv", { silent = true })
+
 -- jj to escape insert mode
 keymap.set("i", "jj", "<Esc>", opts)
 
@@ -18,6 +30,15 @@ keymap.set("n", "<leader>vk", "<cmd>Screenkey<CR>", opts)
 
 -- Delete a word backwards
 keymap.set("n", "dw", 'vb"_d')
+
+-- zen mode
+--keymap.set("n", "<leader>zm", ":ZenMode<cr>")
+
+-- delete without yanking
+keymap.set({ "n", "v" }, "<leader>d", [["_d]])
+
+-- search and replace the word under cursor in the file with <leader>s
+keymap.set("n", "<leader>sr", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
 -- Select all
 keymap.set("n", "<C-a>", "gg<S-v>G")
