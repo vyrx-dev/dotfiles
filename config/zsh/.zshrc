@@ -126,7 +126,6 @@ alias gcalw='gcalcli calw'
 alias last-updated='grep -i "full system upgrade" /var/log/pacman.log | tail -n 1'
 alias ac='ani-cli'  # to open ani-cli
 #alias vg='nvim-godot.sh'     # Open Godot script in neovim
-alias lgit='lazygit'         # Launch lazygit
 alias t='tree -L 1'          # Show directory tree (level 1)
 alias nd='npm run dev'       # Run npm dev script
 alias open='dolphin'         # Open file manager
@@ -170,6 +169,7 @@ alias path='echo $PATH | tr ":" "\n"'   # Display PATH
 alias pacclean='sudo paccache -r'       # Clean all but latest 3 versions
 alias paccleanall='sudo paccache -r -c /var/cache/pacman/pkg -u'  # Clean all cached packages
 alias pacckeep='sudo paccache -k 3'     # Keep latest 3 versions, remove rest
+alias cleanc='sudo pacman -Sc && yay -Sc'
 
 # ┌──────────────────────┐
 # │ Keybindings          │
