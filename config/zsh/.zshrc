@@ -170,6 +170,7 @@ alias pacclean='sudo paccache -r'       # Clean all but latest 3 versions
 alias paccleanall='sudo paccache -r -c /var/cache/pacman/pkg -u'  # Clean all cached packages
 alias pacckeep='sudo paccache -k 3'     # Keep latest 3 versions, remove rest
 alias cleanc='sudo pacman -Sc && yay -Sc'
+alias dot='cd ~/dotfiles/'
 
 # ┌──────────────────────┐
 # │ Keybindings          │
