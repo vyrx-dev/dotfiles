@@ -17,6 +17,28 @@ keymap.set("n", "-", "<C-x>")
 keymap.set("n", "<C-u>", "<C-u>zz")
 keymap.set("n", "<C-d>", "<C-d>zz")
 
+-- harpoon
+local mark = require("harpoon.mark")
+local ui = require("harpoon.ui")
+
+keymap.set("n", "<leader>ha", mark.add_file, opts) -- Harpoon add
+keymap.set("n", "<leader>h", ui.toggle_quick_menu, opts) -- Harpoon menu
+keymap.set("n", "hp", ui.nav_next, opts) -- Harpoon next file
+keymap.set("n", "hn", ui.nav_prev, opts) -- Harpoon previous
+
+keymap.set("n", "<leader>1", function()
+	ui.nav_file(1)
+end, opts)
+keymap.set("n", "<leader>2", function()
+	ui.nav_file(2)
+end, opts)
+keymap.set("n", "<leader>3", function()
+	ui.nav_file(3)
+end, opts)
+keymap.set("n", "<leader>4", function()
+	ui.nav_file(4)
+end, opts)
+
 -- save, quit
 keymap.set("n", "<leader>w", ":w<cr>")
 keymap.set("n", "<leader>c", ":q<cr>")
