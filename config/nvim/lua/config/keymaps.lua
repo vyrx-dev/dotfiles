@@ -9,6 +9,9 @@ pacekeeper.chill()
 local keymap = vim.keymap
 local opts = { noremap = true, silent = true }
 
+-- -- markdown preview
+-- vim.keymap.set("n", "<leader>mp", ":MarkdownPreviewToggle<cr>") -- using peek.nvim
+
 -- Increment/decrement
 keymap.set("n", "+", "<C-a>")
 keymap.set("n", "-", "<C-x>")
@@ -47,11 +50,17 @@ keymap.set("n", "<leader>c", ":q<cr>")
 keymap.set("v", "K", ":m '<-2<CR>gv=gv", { silent = true })
 keymap.set("v", "J", ":m '>+1<CR>gv=gv", { silent = true })
 
+-- change inner word
+vim.keymap.set("n", "<C-c>", "ciw")
+
 -- jj to escape insert mode
 keymap.set("i", "jj", "<Esc>", opts)
 
 -- Toggle Screenkey
 keymap.set("n", "<leader>vk", "<cmd>Screenkey<CR>", opts)
+
+--live server
+keymap.set("n", "<C-g>", "<cmd>terminal live-server<CR>", opts)
 
 -- Delete a word backwards
 keymap.set("n", "dw", 'vb"_d')
