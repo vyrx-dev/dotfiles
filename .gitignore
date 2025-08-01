@@ -1,5 +1,4 @@
-nvim/init.lua.bak
+*.bak   #ignore all backup files
 
-
-# *.bak   #ignore all backup files
+config/tmux/plugins
 
