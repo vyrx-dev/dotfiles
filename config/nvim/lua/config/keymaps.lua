@@ -95,11 +95,11 @@ keymap.set("n", "ss", ":split<Return>", opts)
 keymap.set("n", "sv", ":vsplit<Return>", opts)
 keymap.set("n", "sx", "<cmd>close<CR>", opts)
 
--- Move window
-keymap.set("n", "sh", "<C-w>h")
-keymap.set("n", "sk", "<C-w>k")
-keymap.set("n", "sj", "<C-w>j")
-keymap.set("n", "sl", "<C-w>l")
+-- -- Move window (Using vim-tmux-navigator)
+-- keymap.set("n", "sh", "<C-w>h")
+-- keymap.set("n", "sk", "<C-w>k")
+-- keymap.set("n", "sj", "<C-w>j")
+-- keymap.set("n", "sl", "<C-w>l")
 
 -- Resize window
 keymap.set("n", "<leader><left>", ":vertical resize +20<cr>")
@@ -110,7 +110,7 @@ keymap.set("n", "<leader><down>", ":resize -10<cr>")
 -- Diagnostics
 
 -- Go to next diagnostic
-keymap.set("n", "<C-j>", function()
+keymap.set("n", "<C-n>", function()
   vim.diagnostic.jump({ count = 1, float = true })
 end, opts)
 
