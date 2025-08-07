@@ -12,11 +12,11 @@ general.import = [
 TERM = "xterm-256color"
 
 [window]
-padding.x = 1
+padding.x = 10
 padding.y = 1
 # dynamic_padding = true
 decorations = "None"
-opacity = 0.98
+opacity = 0.90
 
 [font]
 normal = { family = "JetBrains Mono" }
