@@ -1,0 +1,33 @@
+general.import = [
+  # "~/.config/alacritty/Themes/catppuccin_mocha.toml",
+  # "~/.config/alacritty/Themes/tokyo_night.toml",
+  # "~/.config/alacritty/Themes/tokyo_night_enhanced.toml",
+  # "~/.config/alacritty/Themes/gruvbox-dark.toml",
+  # "~/.config/alacritty/Themes/kanagawa_wave.toml",
+  "~/.config/alacritty/Themes/solarized_osaka.toml",
+  # "~/.config/omarchy/current/theme/alacritty.toml"
+]
+
+[env]
+TERM = "xterm-256color"
+
+[window]
+padding.x = 10
+padding.y = 1
+# dynamic_padding = true
+decorations = "None"
+opacity = 0.96
+
+[font]
+normal = { family = "JetBrains Mono" }
+bold = { family = "JetBrains Mono" }
+italic = { family = "JetBrains Mono" }
+size = 12
+
+# previous "font = CaskaydiaCove Nerd Font"
+
+[keyboard]
+bindings = [
+{ key = "F11", action = "ToggleFullscreen" }
+]
+
