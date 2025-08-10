@@ -1,89 +1,65 @@
-# Dotfiles (Arch + Hyprland)
+# MyDotfile
 
-This repository contains my configuration files for an Arch Linux system running Hyprland and zsh. It’s a collection of settings and scripts tailored to my workflow, built to simplify system setup and track changes to configurations like shell and window manager keybindings. Some elements are inspired by open-source dotfiles and scripts from the community, including projects like JaKooLit’s and prasanthrangan’s, among others, which I’ve adapted to suit my needs.
+![My Homescreen](images/Desktop.png)
 
----
+This is my personal configuration for a productive and enjoyable Linux environment. It's built around Hyprland on Arch Linux and includes tools I use daily. While I did take inspiration from various amazing dotfile setups shared by the community, these configs have been carefully tweaked by me to suit my own workflow and preferences. It's not a straight copy but a personalized blend to make things just right for me.
 
-## 📂 Repository Structure
+## Tools Included
+
+- **Hyprland** — Wayland compositor I rely on for a smooth graphical experience
+- **Kitty** — My favorite terminal emulator, powerful and flexible
+- **Alacritty** — Another terminal I use; simple and fast, though it lacks image rendering
+- **Lazygit** — Handy terminal UI for Git operations
+- **Neovim** — The best text editor I’ve used, highly configurable
+- **Tmux** — Terminal multiplexer to manage multiple sessions efficiently
+- **Bash** — The classic shell that still gets the job done
+- **Starship** — My shell prompt for a clean, informative terminal look
+
+## Neovim & Tmux
+
+![My Neovim Setup](images/neovim_setup.png)
+
+## What’s Next (TODO)
+
+- [ ] Add custom scripts automation
+- [ ] Integrate better clipboard management
+
+## Installation Guide
+
+### 1. Remove Old Configs (to avoid conflicts)
+
 ```
-dotfiles
-├── bin
-│   └── gcal_notify.sh           # Google Calendar CLI
-├── config
-│   ├── hypr
-│   │   ├── hyprland.conf        # Hyprland configuration
-│   │   └── keybindings.conf     # Hyprland keybindings
-│   └── zsh
-│       ├── zsh_config_guide.md     # Explains Zsh config setup
-│       └── zsh_file_explained.md   # Describes each Zsh config file
-├── images
-│   └── neovim_setup.png         # Visual setup guides
-├── nvim
-│   ├── init.lua                 # Neovim configuration
-│   └── init.lua.bak            # Backup config
-├── scripts
-│   └── setup.sh                # Dotfiles setup script
-└── README.md                   # Main dotfiles overview
-```
-
-
-### Configurations
-
-- **Hyprland**: Custom window manager settings (`config/hypr/hyprland.conf`) and keybindings (`config/hypr/keybindings.conf`) for a fast, modern desktop experience.
-- **zsh**: Shell configuration (`zsh/zshrc`) with plugins and aliases for efficient command-line workflows.
-- **Neovim**: My custom Neovim setup (`config/nvim/init.lua`) for coding on Arch + Hyprland. I use Telescope to zip through files with `<space>sf` or search code with `<space>sg`. Treesitter makes code look crisp, LSP handles completion and jumps like `grd` for go-to-definition, and `cord.nvim` shows what I’m coding on Discord. Managed with `lazy.nvim` for plugins. Try `:Tutor` to start, `<space>sh` to dig into help, or `:checkhealth` if something’s off.
-  ![My Neovim Setup](images/neovim_setup.png)
-
----
-
-## ⚡ Setup Instructions
-
-To apply these configurations on a fresh Arch Linux system:
-
-```bash
-# 1. Clone the repository
-git clone https://github.com/theamit-969/dotfiles.git ~/dotfiles
-
-# 2. Run the setup script
-cd ~/dotfiles
-chmod +x setup.sh
-./setup.sh
+rm ~/.bashrc
+rm -r ~/.config/alacritty
+rm -r ~/.config/hypr
+rm -r ~/.config/kitty
+rm -r ~/.config/lazygit
+rm -r ~/.config/nvim
+rm -r ~/.config/tmux
 ```
 
-The `setup.sh` script creates symlinks to place the configurations in their appropriate system locations.
+### 2. Clone the Repository
 
-### 🔗 Symlink Mappings
+```
+git clone https://github.com/theamit-969/dotfiles.git
 
-| Repository Path                    | Symlinked To                          | Purpose                       |
-|------------------------------------|---------------------------------------|-------------------------------|
-| `zsh/zshrc`                        | `~/.zshrc`                            | zsh configuration             |
-| `config/hypr/hyprland.conf`        | `~/.config/hypr/hyprland.conf`        | Hyprland main configuration   |
-| `config/hypr/keybindings.conf`     | `~/.config/hypr/keybindings.conf`     | Hyprland keybindings          |
-| `config/nvim/init.lua`             | `~/.config/nvim/init.lua`             | Neovim configuration          |
-| `bin/gcal_notify.sh`               | `~/.local/bin/gcal_notify.sh`         | Calendar notification script  |
+cd dotfiles
+```
 
-### 🧠 Why Symlinks?
+### 3. Create Symlinks
 
-Symlinks allow changes to be made directly in this repository, which are then reflected in the system's configuration paths. This keeps everything centralized and version-controlled.
+From inside the `dotfiles` folder:
 
----
+```
+stow .
+```
 
-## ✍️ Notes
+## What is Symlinking?
 
-- Edit configurations within the `~/dotfiles` directory.
-- Use `git add . && git commit && git push` to save and back up changes.
-- If issues arise, use `git reset` or review commit history to revert changes.
+Symlinking (symbolic linking) is like creating a shortcut.  
+It **points from the location where your system expects configs** → **to the version inside your dotfiles folder**.
 
----
+- **Source:** the config in your dotfiles folder (e.g., `~/dotfiles/nvim`)
+- **Target:** where the system looks for it (e.g., `~/.config/nvim`)
 
-## 🚧 Planned Additions
-
-- Starship prompt setup
-- Package list for system restoration
-- GTK or Waybar theme configurations
-
----
-
-## 🔒 License
-
-These configurations are shared for personal reference and inspiration. Feel free to use or adapt anything that’s helpful. No formal license is applied.
+This way, you update configs in one place and your system will always use the latest version.
