@@ -1,5 +1,5 @@
 # Comments and blank lines are allowed.
-
+*.bak 
 RCS
 .+,v
 
