@@ -1,6 +1,6 @@
 # MyDotfile
 
-![My Homescreen](images/Desktop.png)
+![My Homescreen](images/desktop_2.png)
 
 This is my personal configuration for a productive and enjoyable Linux environment. It's built around Hyprland on Arch Linux and includes tools I use daily. While I did take inspiration from various amazing dotfile setups shared by the community, these configs have been carefully tweaked by me to suit my own workflow and preferences.
 
@@ -16,6 +16,7 @@ This is my personal configuration for a productive and enjoyable Linux environme
 - **Tmux** --- Terminal multiplexer to manage multiple sessions efficiently
 - **Bash** --- The classic shell that still gets the job done
 - **Starship** --- My shell prompt for a clean, informative terminal look (default config)
+- **Xcompose** — Is a feature that allows users to input special characters by pressing a designated key
 
 ## Neovim & Tmux
 
@@ -27,6 +28,7 @@ This is my personal configuration for a productive and enjoyable Linux environme
 
 ```
 rm ~/.bashrc
+rm ~/.Xcompose
 rm -r ~/.config/alacritty
 rm -r ~/.config/hypr
 rm -r ~/.config/kitty
@@ -55,9 +57,9 @@ stow .
 
 ## What’s Next (TODO)
 
-- [ ] Add automation
-- [ ] Obsidian purple colorscheme
-- [ ] Customize Starship
+- [ ] automate Installation process
+- [ ] obsidian purple colorscheme
+- [ ] customize Starship or maybe try zsh
 
 <!-- ## What is Symlinking? -->
 <!---->
