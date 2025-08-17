@@ -31,7 +31,7 @@ include "%H/.local/share/omarchy/default/xcompose"
 # <Multi_key> <m> <g> : "👋" # greeting
 # <Multi_key> <m> <a> : "💪" # arm
 # <Multi_key> <m> <b> : "🤯" # blowing
-# <Multi_key> <m> <z> : "😢" # crying face
+<Multi_key> <m> <z> : "😢" # crying face
 
 # Typography
 # <Multi_key> <space> <space> : "—"
