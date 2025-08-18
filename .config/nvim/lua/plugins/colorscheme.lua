@@ -29,6 +29,18 @@ return {
       transparent_mode = true,
     },
   },
+  {
+    "sainnhe/gruvbox-material",
+    lazy = true,
+    priority = 1000,
+    opts = {},
+    config = function()
+      vim.g.gruvbox_material_background = "hard"
+      vim.g.gruvbox_material_foreground = "material"
+      vim.g.gruvbox_material_palette = "material"
+      vim.opt.termguicolors = true
+    end,
+  },
   -- Catppuccin (pre-installed, added for custom settings)
   {
     "catppuccin/nvim",
@@ -53,7 +65,7 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "catppuccin", -- Change the Themes
+      colorscheme = "gruvbox-material", -- Change the Themes
     },
   },
 }
