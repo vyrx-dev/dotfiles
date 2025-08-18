@@ -9,9 +9,6 @@ pacekeeper.chill()
 local keymap = vim.keymap
 local opts = { noremap = true, silent = true }
 
--- -- markdown preview
--- vim.keymap.set("n", "<leader>mp", ":MarkdownPreviewToggle<cr>") -- using peek.nvim
-
 -- Increment/decrement
 keymap.set("n", "+", "<C-a>")
 keymap.set("n", "-", "<C-x>")
@@ -19,6 +16,10 @@ keymap.set("n", "-", "<C-x>")
 -- Center the screen after scrolling up/down with Ctrl-u/d
 keymap.set("n", "<C-u>", "<C-u>zz")
 keymap.set("n", "<C-d>", "<C-d>zz")
+
+-- live-server
+keymap.set("n", "<leader>ps", ":LiveServerStart<CR>", { desc = "Start Live Server" })
+keymap.set("n", "<leader>pe", ":LiveServerStop<CR>", { desc = "Stop Live Server" })
 
 -- harpoon
 local mark = require("harpoon.mark")
@@ -60,13 +61,10 @@ keymap.set("i", "jj", "<Esc>", opts)
 keymap.set("n", "<leader>vk", "<cmd>Screenkey<CR>", opts)
 
 --live server
-keymap.set("n", "<C-g>", "<cmd>terminal live-server<CR>", opts)
+-- keymap.set("n", "<C-g>", "<cmd>terminal live-server<CR>", opts)
 
 -- Delete a word backwards
 keymap.set("n", "dw", 'vb"_d')
-
--- zen mode
---keymap.set("n", "<leader>zm", ":ZenMode<cr>")
 
 -- delete without yanking
 keymap.set({ "n", "v" }, "<leader>d", [["_d]])
@@ -94,12 +92,6 @@ keymap.set("n", "<s-tab>", ":tabprev<Return>", opts)
 keymap.set("n", "ss", ":split<Return>", opts)
 keymap.set("n", "sv", ":vsplit<Return>", opts)
 keymap.set("n", "sx", "<cmd>close<CR>", opts)
-
--- -- Move window (Using vim-tmux-navigator)
--- keymap.set("n", "sh", "<C-w>h")
--- keymap.set("n", "sk", "<C-w>k")
--- keymap.set("n", "sj", "<C-w>j")
--- keymap.set("n", "sl", "<C-w>l")
 
 -- Resize window
 keymap.set("n", "<leader><left>", ":vertical resize +20<cr>")
