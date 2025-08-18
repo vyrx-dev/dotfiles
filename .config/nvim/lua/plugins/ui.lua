@@ -49,13 +49,25 @@ return {
   -- InclineNormalNC = Inactive filename bar
   {
     "b0o/incline.nvim",
-    dependencies = { "catppuccin/nvim" },
+    -- dependencies = { "catppuccin/nvim" },
     -- dependencies = { "craftzdog/solarized-osaka.nvim" },
+    -- dependencies = { "sainnhe/gruvbox-material" },
     event = "BufReadPre",
     priority = 1200,
     config = function()
-      local colors = require("catppuccin.palettes").get_palette("mocha")
+      -- local colors = require("catppuccin.palettes").get_palette("mocha")
       -- local colors = require("solarized-osaka.colors").setup()
+      local colors = {
+        -- Gruvbox Material colors
+        magenta500 = "#b16286", -- deep muted magenta
+        base04 = "#928374", -- lighter gray
+        violet500 = "#8f3f71", -- violet-ish
+        base03 = "#3c3836", -- dark background
+        mauve = "#b16286", -- use magenta500 as mauve
+        crust = "#1d2021", -- crust dark bg
+        overlay2 = "#7c6f64", -- gray overlay
+        surface0 = "#504945", -- medium brown tone
+      }
       require("incline").setup({
         highlight = {
           groups = {
@@ -63,8 +75,11 @@ return {
             -- InclineNormal = { guibg = colors.magenta500, guifg = colors.base04 },
             -- InclineNormalNC = { guifg = colors.violet500, guibg = colors.base03 },
             -- catppuccin 👇
-            InclineNormal = { guibg = colors.mauve, guifg = colors.crust },
-            InclineNormalNC = { guifg = colors.overlay2, guibg = colors.surface0 },
+            -- InclineNormal = { guibg = colors.mauve, guifg = colors.crust },
+            -- InclineNormalNC = { guifg = colors.overlay2, guibg = colors.surface0 },
+            -- gruvbox-material 👇
+            InclineNormal = { guibg = "#d79921", guifg = colors.crust },
+            InclineNormalNC = { guifg = "#d4be98", guibg = colors.surface0 },
           },
         },
         window = { margin = { vertical = 0, horizontal = 1 } },
