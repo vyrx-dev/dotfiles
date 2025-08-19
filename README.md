@@ -29,6 +29,7 @@ This is my personal configuration for a productive and enjoyable Linux environme
 ```
 rm ~/.bashrc
 rm ~/.Xcompose
+rm ~/.config/starship.toml
 rm -r ~/.config/alacritty
 rm -r ~/.config/hypr
 rm -r ~/.config/kitty
@@ -59,7 +60,8 @@ stow .
 
 - [ ] automate Installation process
 - [ ] obsidian purple colorscheme
-- [ ] customize Starship or maybe try zsh
+- [x] customize Starship
+- [ ] customize fish shell
 
 <!-- ## What is Symlinking? -->
 <!---->
