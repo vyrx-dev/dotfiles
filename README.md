@@ -16,7 +16,7 @@ This is my personal configuration for a productive and enjoyable Linux environme
 - **Tmux** --- Terminal multiplexer to manage multiple sessions efficiently
 - **Bash** --- The classic shell that still gets the job done
 - **Starship** --- My shell prompt for a clean, informative terminal look (default config)
-- **Xcompose** — Is a feature that allows users to input special characters by pressing a designated key
+- **XCompose** — Is a feature that allows users to input special characters by pressing a designated key
 
 ## Neovim & Tmux
 
