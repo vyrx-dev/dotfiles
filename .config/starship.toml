@@ -1,0 +1,41 @@
+# add_newline = false
+
+# Multiline prompt - path and git on first line, command on second
+format = """$directory$git_branch$git_status$line_break$character"""
+palette = "gruvbox_material"
+
+# # Minimal left prompt
+# format = """$directory$character"""
+# palette = "gruvbox_material"
+# # Move git info or rest of the prompt to the right
+# right_format = """$git_branch$git_status"""  #"""$all"""
+
+command_timeout = 1000
+
+[character]
+success_symbol = '[❯](bold yellow)'   #(bold green)
+error_symbol = '[❯](bold red)'
+vicmd_symbol = '[❮](bold yellow)'     #"[N] >>>"
+
+[directory]
+style = "bold #d4be98"
+format = "[$path]($style) "
+truncation_length = 0
+truncate_to_repo = false
+
+[directory.substitutions]
+'~/100xCodes/Cohort-3-WebDev' = 'Learning'
+'~/Testing-repo' = 'work-project'
+
+[git_branch]
+# symbol = ""
+style = "bold #7daea3"
+format = '[$symbol$branch]($style) '
+
+
+[line_break]
+disabled = false
+
+[palettes.gruvbox_material]
+yellow = "#d79921"
+red = "#ea6962"
