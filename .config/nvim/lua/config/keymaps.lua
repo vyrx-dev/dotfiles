@@ -60,8 +60,11 @@ keymap.set("i", "jj", "<Esc>", opts)
 -- Toggle Screenkey
 keymap.set("n", "<leader>vk", "<cmd>Screenkey<CR>", opts)
 
---live server
+-- live server
 -- keymap.set("n", "<C-g>", "<cmd>terminal live-server<CR>", opts)
+
+-- Code Snippets
+keymap.set("v", "cx", ":CodeSnapSave<CR>", { desc = "Save with CodeSnap", silent = true })
 
 -- Delete a word backwards
 keymap.set("n", "dw", 'vb"_d')
