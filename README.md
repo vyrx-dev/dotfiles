@@ -28,7 +28,7 @@ This is my personal configuration for a productive and enjoyable Linux environme
 
 ```
 rm ~/.bashrc
-rm ~/.Xcompose
+rm ~/.XCompose
 rm ~/.config/starship.toml
 rm -r ~/.config/alacritty
 rm -r ~/.config/hypr
