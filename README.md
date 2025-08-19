@@ -60,7 +60,8 @@ stow .
 
 - [ ] automate Installation process
 - [ ] obsidian purple colorscheme
-- [x] customize Starship
+- [x] customize starship
+- [ ] add catppuccin and kanagawa colors to starship
 - [ ] customize fish shell
 
 <!-- ## What is Symlinking? -->
