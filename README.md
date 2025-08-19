@@ -14,8 +14,9 @@ This is my personal configuration for a productive and enjoyable Linux environme
 - **Walker** --- Application launcher
 - **Waybar** --- Highly customizable status bar
 - **Tmux** --- Terminal multiplexer to manage multiple sessions efficiently
-- **Bash** --- The classic shell that still gets the job done
-- **Starship** --- My shell prompt for a clean, informative terminal look (default config)
+- **Bash** --- The classic shell that still gets the job done (switched to fish)
+- **Starship** --- My shell prompt for a clean, informative terminal look
+- **fish** --- Modern and user-friendly interactive shell (even the default configuration is awesome)
 - **XCompose** — Is a feature that allows users to input special characters by pressing a designated key
 
 ## Neovim & Tmux
@@ -29,7 +30,7 @@ This is my personal configuration for a productive and enjoyable Linux environme
 ```
 rm ~/.bashrc
 rm ~/.XCompose
-rm ~/.config/starship.toml
+rm -r ~/.config/fish
 rm -r ~/.config/alacritty
 rm -r ~/.config/hypr
 rm -r ~/.config/kitty
@@ -38,6 +39,7 @@ rm -r ~/.config/nvim
 rm -r ~/.config/tmux
 rm -r ~/.config/waybar
 rm -r ~/.config/walker
+rm ~/.config/starship.toml
 ```
 
 ### 2. Clone the Repository
