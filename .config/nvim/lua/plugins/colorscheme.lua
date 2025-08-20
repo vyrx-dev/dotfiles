@@ -1,3 +1,6 @@
+-- NOTE:
+-- lazy = false, -- make sure we load this during startup if it is your main colorscheme
+-- priority = 1000, -- make sure to load this before all the other plugins
 return {
   -- Solarized Osaka
   {
@@ -25,7 +28,6 @@ return {
     lazy = true,
     priority = 1000,
     opts = {
-      -- Added optional setting for consistency
       transparent_mode = true,
     },
   },
@@ -36,12 +38,11 @@ return {
     opts = {},
     config = function()
       vim.g.gruvbox_material_background = "hard"
-      vim.g.gruvbox_material_foreground = "material"
       vim.g.gruvbox_material_palette = "material"
-      vim.opt.termguicolors = true
+      vim.g.gruvbox_material_transparent_background = "1"
     end,
   },
-  -- Catppuccin (pre-installed, added for custom settings)
+  -- Catppuccin
   {
     "catppuccin/nvim",
     name = "catppuccin",
@@ -51,7 +52,7 @@ return {
       transparent_background = true,
     },
   },
-  -- Tokyo Night (pre-installed, added for custom settings)
+  -- Tokyo Night
   {
     "folke/tokyonight.nvim",
     lazy = true,
@@ -59,6 +60,14 @@ return {
     opts = {
       style = "night",
       transparent = true,
+    },
+  },
+  {
+    "vague2k/vague.nvim",
+    lazy = true,
+    priority = 1000,
+    opts = {
+      transparent = false,
     },
   },
   -- Set the active theme
