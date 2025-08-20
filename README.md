@@ -61,6 +61,7 @@ stow .
 ## What’s Next (TODO)
 
 - [ ] automate Installation process
+- [ ] add snippets (NVIM)
 - [ ] obsidian purple colorscheme
 - [x] customize starship
 - [ ] add catppuccin and kanagawa colors to starship
