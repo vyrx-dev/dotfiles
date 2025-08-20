@@ -31,6 +31,7 @@ return {
       transparent_mode = true,
     },
   },
+  -- Gruvbox Material
   {
     "sainnhe/gruvbox-material",
     lazy = true,
@@ -38,8 +39,6 @@ return {
     opts = {},
     config = function()
       vim.g.gruvbox_material_background = "hard"
-      vim.g.gruvbox_material_palette = "material"
-      vim.g.gruvbox_material_transparent_background = "1"
     end,
   },
   -- Catppuccin
@@ -62,6 +61,7 @@ return {
       transparent = true,
     },
   },
+  -- Vague
   {
     "vague2k/vague.nvim",
     lazy = true,
