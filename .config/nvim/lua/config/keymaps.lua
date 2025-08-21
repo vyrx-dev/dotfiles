@@ -51,17 +51,11 @@ keymap.set("n", "<leader>c", ":q<cr>")
 keymap.set("v", "K", ":m '<-2<CR>gv=gv", { silent = true })
 keymap.set("v", "J", ":m '>+1<CR>gv=gv", { silent = true })
 
--- change inner word
-vim.keymap.set("n", "<C-c>", "ciw")
-
 -- jj to escape insert mode
 keymap.set("i", "jj", "<Esc>", opts)
 
 -- Toggle Screenkey
 keymap.set("n", "<leader>vk", "<cmd>Screenkey<CR>", opts)
-
--- live server
--- keymap.set("n", "<C-g>", "<cmd>terminal live-server<CR>", opts)
 
 -- Code Snippets
 keymap.set("v", "cx", ":CodeSnapSave<CR>", { desc = "Save with CodeSnap", silent = true })
