@@ -64,6 +64,7 @@ alias f="find . | grep "
 
 #Life Easy
 alias cd='z'
+alias cat='bat'
 alias nd='npm run dev'
 alias open='nautilus'
 alias zz='yazi'
@@ -96,6 +97,12 @@ alias gl='git pull'
 alias gco='git checkout'
 alias gb='git branch'
 alias gd='git diff'
+alias ghs='streaker theamit-969'
+
+# Prevent pager mode in tmux sessions
+if set -q TMUX
+    set -x PAGER cat
+end
 
 # yazi shell wrapper(change the current working directory when exiting Yazi)
 function y
