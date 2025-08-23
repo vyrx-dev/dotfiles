@@ -64,7 +64,6 @@ alias f="find . | grep "
 
 #Life Easy
 alias cd='z'
-alias cat='bat'
 alias nd='npm run dev'
 alias open='nautilus'
 alias zz='yazi'
