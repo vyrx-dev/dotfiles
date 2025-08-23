@@ -5,8 +5,8 @@ if status is-interactive
 end
 
 # Set the default editor
-export EDITOR=nvim
-export VISUAL=nvim
+export EDITOR="nvim"
+export VISUAL="nvim"
 alias snano='sudo nano'
 alias vim='nvim'
 alias n='nvim'
@@ -112,6 +112,9 @@ function y
     end
     rm -f -- "$tmp"
 end
+
+# MPD_HOST
+export MPD_HOST="/run/user/$(id -u)/mpd/socket"
 
 zoxide init fish | source
 starship init fish | source
