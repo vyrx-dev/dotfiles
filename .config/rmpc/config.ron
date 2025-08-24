@@ -3,10 +3,11 @@
 #![enable(unwrap_variant_newtypes)]
 (
     address: "127.0.0.1:6600",
+    cache_dir: Some("/tmp/rmpc/cache"),
+    lyrics_dir: Some("~/Music/mpd"),
     password: None,
-	enable_config_hot_reload: true,
-    cache_dir: None,
-    on_song_change: None,
+
+    on_song_change: ["~/.config/rmpc/increment_play_count"], 
     volume_step: 5,
     max_fps: 30,
     scrolloff: 0,
@@ -14,6 +15,7 @@
     enable_mouse: true,
     status_update_interval_ms: 1000,
     select_current_song_on_change: false,
+    browser_column_widths: [20, 38, 42],
     album_art: (
         method: Auto,
         max_size_px: (width: 500, height: 500),
@@ -30,9 +32,12 @@
             "<Tab>":   NextTab,
             "<S-Tab>": PreviousTab,
             "1":       SwitchToTab("Playing"),
-            "4":       SwitchToTab("Dir"),
-            "3":       SwitchToTab("Lists"),
             "2":       SwitchToTab("Find"),
+            "3":       SwitchToTab("Lists"),
+            "4":       SwitchToTab("Artists"),
+            "5":       SwitchToTab("Albums"),
+            "6":       SwitchToTab("Dir"),
+            "7":       SwitchToTab("Lyrics"),
             "q":       Quit,
             ">":       NextTrack,
             "p":       TogglePause,
@@ -96,11 +101,12 @@
         mode: Contains,
         tags: [
             (value: "any",         label: "Any Tag"),
-            (value: "title",       label: "Title"),
-            (value: "album",       label: "Album"),
             (value: "artist",      label: "Artist"),
+            (value: "album",       label: "Album"),
+            (value: "title",       label: "Title"),
             (value: "filename",    label: "Filename"),
             (value: "genre",       label: "Genre"),
+            (value: "albumartist", label: "Featured"),
         ],
     ),
     artists: (
@@ -112,35 +118,36 @@
             name: "Playing",
             pane: Split(
                 direction: Horizontal,
-                panes: [(size: "85%", pane: Pane(Queue)), (size: "20%", pane: Pane(AlbumArt))],
+                panes: [(size: "80%", pane: Pane(Queue)),(size: "20%", pane: Pane(AlbumArt))],
             ),
         ),
         (
-            name: "Find",
-            pane: Pane(Search),
+         name: "Find",
+         pane: Pane(Search),
         ),
-       (
-            name: "Lists",
-            pane: Pane(Playlists),
-        ),
-       (
-            name: "Dir",
-            pane: Pane(Directories),
-        ), 
         (
-            name: "Albums",
-            pane: Pane(Albums),
+         name: "Lists",
+         pane: Pane(Playlists),
         ),
         (
             name: "Artists",
             pane: Pane(Artists),
         ),
         (
-            name:"Lyrics",
+            name: "Albums",
+            pane: Pane(Albums),
+        ),
+        (
+            name: "Dir",
+            pane: Pane(Directories),
+        ),
+        (
+            name: "Lyrics",
             pane: Split(
                 direction: Vertical,
-                panes: [(size: "25%", pane: Pane(AlbumArt)), (size: "70%", pane: Pane(Lyrics), vertical_align: Bottom)]
+                panes: [(size: "25%", pane: Pane(AlbumArt)), (size: "70%", pane: Pane(Lyrics), vertical_align: Bottom)],
             ),
         ),
     ],
 )
+
