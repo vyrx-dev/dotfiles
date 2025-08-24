@@ -11,6 +11,7 @@ alias snano='sudo nano'
 alias vim='nvim'
 alias n='nvim'
 
+fish_default_key_bindings
 # ┌─────────┐
 # │ Aliases │
 # └─────────┘
