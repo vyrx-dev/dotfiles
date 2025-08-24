@@ -3,10 +3,10 @@
 #![enable(unwrap_variant_newtypes)]
 (
     address: "127.0.0.1:6600",
+    cache_dir: Some("/tmp/rmpc/cache"),
+    theme: "doublek_CT",
     password: None,
-	enable_config_hot_reload: true,
-    cache_dir: None,
-    on_song_change: None,
+    enable_config_hot_reload: true,
     volume_step: 5,
     max_fps: 30,
     scrolloff: 0,
@@ -30,9 +30,11 @@
             "<Tab>":   NextTab,
             "<S-Tab>": PreviousTab,
             "1":       SwitchToTab("Playing"),
-            "4":       SwitchToTab("Dir"),
-            "3":       SwitchToTab("Lists"),
             "2":       SwitchToTab("Find"),
+            "3":       SwitchToTab("Dir"),
+            "4":       SwitchToTab("Playlists"),
+            "5":       SwitchToTab("Artists"),
+            "6":       SwitchToTab("Albums"),
             "q":       Quit,
             ">":       NextTrack,
             "p":       TogglePause,
@@ -96,9 +98,9 @@
         mode: Contains,
         tags: [
             (value: "any",         label: "Any Tag"),
-            (value: "title",       label: "Title"),
-            (value: "album",       label: "Album"),
             (value: "artist",      label: "Artist"),
+            (value: "album",       label: "Album"),
+            (value: "title",       label: "Title"),
             (value: "filename",    label: "Filename"),
             (value: "genre",       label: "Genre"),
         ],
@@ -112,35 +114,29 @@
             name: "Playing",
             pane: Split(
                 direction: Horizontal,
-                panes: [(size: "85%", pane: Pane(Queue)), (size: "20%", pane: Pane(AlbumArt))],
+                panes: [(size: "25%", pane: Pane(AlbumArt)), (size: "80%", pane: Pane(Queue))],
             ),
         ),
         (
             name: "Find",
             pane: Pane(Search),
         ),
-       (
-            name: "Lists",
-            pane: Pane(Playlists),
-        ),
-       (
+        (
             name: "Dir",
             pane: Pane(Directories),
-        ), 
+        ),
         (
-            name: "Albums",
-            pane: Pane(Albums),
+            name: "Playlists",
+            pane: Pane(Playlists),
         ),
         (
             name: "Artists",
             pane: Pane(Artists),
         ),
         (
-            name:"Lyrics",
-            pane: Split(
-                direction: Vertical,
-                panes: [(size: "25%", pane: Pane(AlbumArt)), (size: "70%", pane: Pane(Lyrics), vertical_align: Bottom)]
-            ),
+            name: "Albums",
+            pane: Pane(Albums),
         ),
     ],
 )
+
