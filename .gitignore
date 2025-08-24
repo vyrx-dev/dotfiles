@@ -1,4 +1,7 @@
-*.bak   #ignore all backup files
+*.bak
 
 config/tmux/plugins
 
+# Fish local config
+.config/fish/config-local.fish
+.config/fish/fish_variables.x86_64
