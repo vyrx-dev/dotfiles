@@ -22,7 +22,7 @@ opacity = 0.96
 normal = { family = "JetBrains Mono" }
 bold = { family = "JetBrains Mono" }
 italic = { family = "JetBrains Mono" }
-size = 12
+size = 9
 
 # previous "font = CaskaydiaCove Nerd Font"
 
