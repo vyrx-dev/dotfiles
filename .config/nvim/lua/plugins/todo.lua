@@ -7,7 +7,7 @@ return {
       width = 0.8, -- width of window in % of screen size
       height = 0.8, -- height of window in % of screen size
       position = "center", -- topleft, topright, bottomleft, bottomright
-    })pr
+    })
     vim.keymap.set("n", "<leader>td", ":Td<CR>", { silent = true })
   end,
 }
