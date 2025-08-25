@@ -122,20 +122,20 @@
             pane: Pane(Search),
         ),
         (
-            name: "Dir",
-            pane: Pane(Directories),
+         name: "Artists",
+         pane: Pane(Artists),
         ),
         (
-            name: "Playlists",
-            pane: Pane(Playlists),
+         name: "Albums",
+         pane: Pane(Albums),
         ),
         (
-            name: "Artists",
-            pane: Pane(Artists),
+         name: "Dir",
+         pane: Pane(Directories),
         ),
         (
-            name: "Albums",
-            pane: Pane(Albums),
+         name: "Playlists",
+         pane: Pane(Playlists),
         ),
     ],
 )
