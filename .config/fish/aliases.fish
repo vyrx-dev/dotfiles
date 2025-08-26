@@ -17,9 +17,9 @@ alias fish='source ~/.config/fish/config.fish'
 alias xx='tmux'
 
 # change your default USER shell
-alias tobash="chsh $USER -s /bin/bash && echo 'Log out and log back in for change to take effect.'"
-alias tozsh="chsh $USER -s /bin/zsh && echo 'Log out and log back in for change to take effect.'"
-alias tofish="chsh $USER -s /bin/fish && echo 'Log out and log back in for change to take effect.'"
+alias tobash="chsh $USER -s /usr/bin/bash && echo 'Log out and log back in for change to take effect.'"
+alias tozsh="chsh $USER -s /usr/bin/zsh && echo 'Log out and log back in for change to take effect.'"
+alias tofish="chsh $USER -s /usr/bin/fish && echo 'Log out and log back in for change to take effect.'"
 
 #When was the Last update
 alias last-updated='grep -i "full system upgrade" /var/log/pacman.log | tail -n 1'
