@@ -83,7 +83,7 @@ alias d='docker'
 
 # bigger font in tty and regular font in tty
 alias bigfont="setfont ter-131b"
-alias regfont="setfont default9x16"
+alias regfont="setfont default8x16"
 
 # Some useful aliases
 alias update='sudo pacman -Syu'
