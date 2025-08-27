@@ -58,21 +58,43 @@ From inside the `dotfiles` folder:
 stow .
 ```
 
-## What’s Next (TODO)
+## What is Symlinking?
 
-- [ ] automate Installation process
-- [ ] add snippets (NVIM)
-- [ ] obsidian purple colorscheme
-- [x] customize starship
-- [ ] add catppuccin and kanagawa colors to starship
-- [x] customize fish shell
+Symlinking (symbolic linking) is like creating a shortcut.  
+It **points from the location where your system expects configs** → **to the version inside your dotfiles folder**.
 
-<!-- ## What is Symlinking? -->
-<!---->
-<!-- Symlinking (symbolic linking) is like creating a shortcut.   -->
-<!-- It **points from the location where your system expects configs** → **to the version inside your dotfiles folder**. -->
-<!---->
-<!-- - **Source:** the config in your dotfiles folder (e.g., `~/dotfiles/nvim`) -->
-<!-- - **Target:** where the system looks for it (e.g., `~/.config/nvim`) -->
-<!---->
-<!-- This way, you update configs in one place and your system will always use the latest version. -->
+- **Source:** the config in your dotfiles folder (e.g., `~/dotfiles/nvim`)
+- **Target:** where the system looks for it (e.g., `~/.config/nvim`)
+
+This way, you update configs in one place and your system will always use the latest version.
+
+## TODO ✅
+
+- [ ] Scripts 📃
+  - [x] fprintd fix
+  - [ ] automate Installation process
+  - [ ] tmux sessionzer scripts
+  - [x] rmpc cache clear scripts
+  - [x] dns setup scripts
+
+---
+
+- [ ] Customization 🎨
+  - [x] rmpc gruvbox-material palletes
+  - [ ] obsidian purple colorscheme
+  - [x] customize starship
+  - [ ] catppuccin and kanagawa colors for starship
+  - [x] customize fish shell
+  - [x] customize fastfetch
+
+---
+
+- [ ] Extras 📌
+  - [ ] Visualy explained the config files location
+  - [ ] Add a README (with screenshots if needed) to each directory in the repo.
+  - [ ] Neovim cleanup
+  - [ ] RMPC walkthrough gif
+  - [ ] Make a single CLI to manage all the core script
+  - [ ] add snippets (NVIM)
+  - [ ] connect obsidan and nvim
+  - [ ] Create a TODO plugin for neovim that adds tasks to the selected path and uses (.md).
