@@ -1,16 +1,36 @@
 {
   "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
   "logo": {
-    "type": "file",
-    "source": "~/.config/omarchy/branding/about.txt",
-    "color": { "1": "green" },
+    "source": "~/Downloads/Assets/fastfe",
+    // "source": "~/.config/omarchy/branding/about.txt",
+    // "type": "file",
+    "height": 25,
     "padding": {
-      "top": 1,
-      "right": 5,
+      "top": 2,
+      "right": 6,
       "left": 2,
     },
   },
   "modules": [
+    // {
+    //   "type": "custom",
+    //   "format": "\u001b[90m┌────────────────────────────────────────────────────┐",
+    // },
+    {
+      "type": "title",
+      "key": " ",
+      "format": "{6} {7} {8}",
+      "keyWidth": 5,
+    },
+    {
+      "type": "media",
+      "key": "󰝚 ",
+      "keyColor": "33",
+    },
+    // {
+    //   "type": "custom",
+    //   "format": "\u001b[90m└────────────────────────────────────────────────────┘",
+    // },
     "break",
     {
       "type": "custom",
@@ -18,7 +38,7 @@
     },
     {
       "type": "host",
-      "key": " PC",
+      "key": "  PC",
       "keyColor": "green",
     },
     {
@@ -65,39 +85,17 @@
     {
       "type": "os",
       "key": "󰣇 OS",
-      "keyColor": "yellow",
+      "keyColor": "blue",
+    },
+    {
+      "type": "command",
+      "key": "│ ├\ue900",
+      "keyColor": "blue",
+      "text": "version=$(omarchy-version); echo \"Omarchy $version\"",
     },
     {
       "type": "kernel",
       "key": "│ ├",
-      "keyColor": "yellow",
-    },
-    {
-      "type": "packages",
-      "key": "│ ├󰏖",
-      "keyColor": "yellow",
-    },
-    {
-      "type": "shell",
-      "key": "└ └",
-      "keyColor": "yellow",
-    },
-    "break",
-    {
-      "type": "command",
-      "key": "Ø Omarchy",
-      "keyColor": "blue",
-      "text": "version=$(git -C ~/.local/share/omarchy describe --tags --abbrev=0 2>/dev/null); echo \"$version\"",
-    },
-    {
-      "type": "command",
-      "key": "│ ├󰸌",
-      "keyColor": "blue",
-      "text": "theme=$(omarchy-theme-current); echo -e \"$theme \\e[38m●\\e[37m●\\e[36m●\\e[35m●\\e[34m●\\e[33m●\\e[32m●\\e[31m●\"",
-    },
-    {
-      "type": "de",
-      "key": " DE",
       "keyColor": "blue",
     },
     {
@@ -106,28 +104,39 @@
       "keyColor": "blue",
     },
     {
+      "type": "de",
+      "key": " DE",
+      "keyColor": "blue",
+    },
+    {
+      "type": "shell",
+      "key": "│ ├",
+      "keyColor": "blue",
+    },
+    {
+      "type": "terminal",
+      "key": "│ ├",
+      "keyColor": "blue",
+    },
+    {
+      "type": "packages",
+      "key": "│ ├󰏖",
+      "keyColor": "blue",
+    },
+    {
       "type": "wmtheme",
       "key": "│ ├󰉼",
       "keyColor": "blue",
     },
     {
-      "type": "icons",
-      "key": "│ ├󰀻",
+      "type": "command",
+      "key": "│ ├󰸌",
       "keyColor": "blue",
-    },
-    {
-      "type": "cursor",
-      "key": "│ ├",
-      "keyColor": "blue",
+      "text": "theme=$(omarchy-theme-current); echo -e \"$theme \\e[38m●\\e[37m●\\e[36m●\\e[35m●\\e[34m●\\e[33m●\\e[32m●\\e[31m●\"",
     },
     {
       "type": "terminalfont",
-      "key": "│ ├",
-      "keyColor": "blue",
-    },
-    {
-      "type": "terminal",
-      "key": "└ └",
+      "key": "└ └",
       "keyColor": "blue",
     },
     {
@@ -141,13 +150,13 @@
     },
     {
       "type": "command",
-      "key": "  OS Age ",
+      "key": "󱦟 OS Age ",
       "keyColor": "magenta",
       "text": "birth_install=$(stat -c %W /); current=$(date +%s); time_progression=$((current - birth_install)); days_difference=$((time_progression / 86400)); echo $days_difference days",
     },
     {
       "type": "uptime",
-      "key": "  Uptime ",
+      "key": "󱫐 Uptime ",
       "keyColor": "magenta",
     },
     {
