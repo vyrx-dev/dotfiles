@@ -8,7 +8,10 @@ $git_branch$git_status\
 $line_break\
 $character\
 """
-continuation_prompt = '▶▶ '
+
+# right_format ="""
+# $time
+# """
 
 [character]
 success_symbol = '[❯](bold yellow)'   #(bold green)
@@ -20,6 +23,7 @@ style = "bold #d4be98"
 format = "[$path]($style) "
 truncation_length = 0
 truncate_to_repo = false
+# home_symbol =   "
 
 [directory.substitutions]
 '~/100xCodes/Cohort-3-WebDev' = 'Learning'
@@ -38,9 +42,16 @@ diverged = '⇕⇡${ahead_count}⇣${behind_count}'
 format = '[[( $all_status$ahead_behind )](fg:#ea6962)]($style)'
 style = "bg:#394260"
 
+
+[time]
+disabled = false
+format = '[[ $time ](fg:#7CABA0 )]($style)'
+time_format = "%R"
+
 [line_break]
 disabled = false
 
 [palettes.gruvbox_material]
 yellow = "#d79921"
 red = "#ea6962"
+
