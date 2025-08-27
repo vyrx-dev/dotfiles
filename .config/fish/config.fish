@@ -1,8 +1,13 @@
 source ~/dotfiles/.config/fish/aliases.fish
 source ~/dotfiles/.config/fish/env.fish
 
+function fish_greeting
+    echo
+    fastfetch
+end
+
 ### EXPORT ###
-set -g fish_greeting ""
+# set -g fish_greeting ""
 export EDITOR="nvim"
 export SUDO_EDITOR="$EDITOR"
 export VISUAL="nvim"
