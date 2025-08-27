@@ -19,10 +19,10 @@ decorations = "None"
 opacity = 0.96
 
 [font]
-normal = { family = "JetBrains Mono" }
-bold = { family = "JetBrains Mono" }
-italic = { family = "JetBrains Mono" }
-size = 9
+normal = { family = "CaskaydiaMono Nerd Font" }
+bold = { family = "CaskaydiaMono Nerd Font" }
+italic = { family = "CaskaydiaMono Nerd Font" }
+size = 10
 
 # previous "font = CaskaydiaCove Nerd Font"
 
