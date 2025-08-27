@@ -108,6 +108,6 @@ This way, you update configs in one place and your system will always use the la
   - [ ] Make a single CLI to manage all the core script
   - [ ] add snippets (NVIM)
   - [ ] connect obsidan and nvim
-  - [ ] Create a TODO plugin for neovim that adds tasks to the selected path and uses (.md).
+  - [ ] Create a TODO plugin for Neovim
 
 ---
