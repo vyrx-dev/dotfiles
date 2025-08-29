@@ -59,6 +59,7 @@ alias f="find . | grep "
 #Life Easy
 alias cd='z'
 alias nd='npm run dev'
+alias n='nvim .'
 alias open='nautilus'
 alias zz='yazi'
 alias lg='lazygit'
