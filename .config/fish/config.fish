@@ -1,13 +1,8 @@
 source ~/dotfiles/.config/fish/aliases.fish
 source ~/dotfiles/.config/fish/env.fish
 
-function fish_greeting
-    echo
-    fastfetch
-end
-
 ### EXPORT ###
-# set -g fish_greeting ""
+set -g fish_greeting ""
 export EDITOR="nvim"
 export SUDO_EDITOR="$EDITOR"
 export VISUAL="nvim"
@@ -15,11 +10,6 @@ export VISUAL="nvim"
 # Choose any one binds settings
 # fish_vi_key_bindings
 fish_default_key_bindings
-
-# Prevent pager mode in tmux sessions
-if set -q TMUX
-    set -x PAGER cat
-end
 
 fzf --fish | source # fzf keybinding
 zoxide init fish | source #better cd
