@@ -16,13 +16,13 @@ padding.x = 10
 padding.y = 1
 # dynamic_padding = true
 decorations = "None"
-opacity = 0.96
+opacity = 0.90
 
 [font]
 normal = { family = "CaskaydiaMono Nerd Font" }
 bold = { family = "CaskaydiaMono Nerd Font" }
 italic = { family = "CaskaydiaMono Nerd Font" }
-size = 10
+size = 12
 
 # previous "font = CaskaydiaCove Nerd Font"
 
