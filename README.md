@@ -1,6 +1,6 @@
 # MyDotfile
 
-![My Homescreen](images/desktop_2.png)
+![My Homescreen](images/desktop_3.png)
 
 This is my personal configuration for a productive and enjoyable Linux environment. It's built around Hyprland on Arch Linux and includes tools I use daily. While I did take inspiration from various amazing dotfile setups shared by the community, these configs have been carefully tweaked by me to suit my own workflow and preferences.
 
@@ -21,7 +21,7 @@ This is my personal configuration for a productive and enjoyable Linux environme
 
 ## Neovim & Tmux
 
-![My Neovim Setup](images/neovim_setup.png)
+![My Neovim Setup](images/neovim_setup_2.png)
 
 ## Installation Guide
 
@@ -29,7 +29,6 @@ This is my personal configuration for a productive and enjoyable Linux environme
 
 ```
 rm ~/.bashrc
-rm ~/.XCompose
 rm -r ~/.config/fish
 rm -r ~/.config/alacritty
 rm -r ~/.config/hypr
@@ -57,57 +56,3 @@ From inside the `dotfiles` folder:
 ```
 stow .
 ```
-
-## What is Symlinking?
-
-Symlinking (symbolic linking) is like creating a shortcut.  
-It **points from the location where your system expects configs** → **to the version inside your dotfiles folder**.
-
-- **Source:** the config in your dotfiles folder (e.g., `~/dotfiles/nvim`)
-- **Target:** where the system looks for it (e.g., `~/.config/nvim`)
-
-This way, you update configs in one place and your system will always use the latest version.
-
-## TODO ✅
-
-- [ ] Scripts 📃
-  - [x] fprintd fix
-  - [ ] automate Installation process
-  - [ ] tmux sessionzer scripts
-  - [x] rmpc cache clear scripts
-  - [x] dns setup scripts
-  - [ ] one click theme switcher for every Application
-
----
-
-- [ ] Customization 🎨
-  - [x] rmpc gruvbox-material palletes
-  - [ ] obsidian purple colorscheme
-    - [x] kitty
-    - [ ] btop
-    - [ ] walker
-    - [ ] alacritty
-    - [ ] hyprland (border)
-    - [ ] hyprlock
-    - [ ] mako
-    - [ ] walker
-    - [ ] waybar
-    - [x] wallpapers
-  - [x] customize starship
-  - [ ] catppuccin and kanagawa colors for starship
-  - [x] customize fish shell
-  - [x] customize fastfetch
-
----
-
-- [ ] Extras 📌
-  - [ ] Visualy explained the config files location
-  - [ ] Add a README (with screenshots if needed) to each directory in the repo.
-  - [ ] Neovim cleanup
-  - [ ] RMPC walkthrough gif
-  - [ ] Make a single CLI to manage all the core script
-  - [ ] add snippets (NVIM)
-  - [ ] connect obsidan and nvim
-  - [ ] Create a TODO plugin for Neovim
-
----
