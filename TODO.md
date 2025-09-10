@@ -16,12 +16,13 @@
     - [x] kitty
     - [ ] btop
     - [ ] walker
-    - [ ] alacritty
+    - [x] alacritty
     - [ ] hyprland (border)
     - [ ] hyprlock
     - [ ] mako
     - [ ] walker
-    - [ ] waybar
+    - [x] neovim
+    - [x] waybar
     - [x] wallpapers
   - [x] customize starship
   - [ ] catppuccin and kanagawa colors for starship
