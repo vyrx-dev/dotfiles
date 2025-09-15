@@ -21,6 +21,9 @@ keymap.set("n", "<C-d>", "<C-d>zz")
 keymap.set("n", "<leader>ps", ":LiveServerStart<CR>", { desc = "Start Live Server" })
 keymap.set("n", "<leader>pe", ":LiveServerStop<CR>", { desc = "Stop Live Server" })
 
+-- lazygit
+keymap.set("n", "<leader>gg", ":LazyGit<CR>", opts)
+
 -- harpoon
 local mark = require("harpoon.mark")
 local ui = require("harpoon.ui")
