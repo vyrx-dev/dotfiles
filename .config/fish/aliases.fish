@@ -67,7 +67,7 @@ alias x='exit'
 alias h="history | grep "
 alias dot='cd ~/dotfiles/'
 alias kt='kitten themes'
-alias g='git'
+alias g='gemini'
 alias d='docker'
 
 # bigger font in tty and regular font in tty
