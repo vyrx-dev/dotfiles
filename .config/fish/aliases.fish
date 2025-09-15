@@ -59,7 +59,7 @@ alias f="find . | grep "
 #Life Easy
 alias cd='z'
 alias nd='npm run dev'
-alias n='nvim .'
+alias n='nvim'
 alias open='nautilus'
 alias zz='yazi'
 alias lg='lazygit'
@@ -67,7 +67,7 @@ alias x='exit'
 alias h="history | grep "
 alias dot='cd ~/dotfiles/'
 alias kt='kitten themes'
-alias g='gemini'
+alias g='git'
 alias d='docker'
 
 # bigger font in tty and regular font in tty
