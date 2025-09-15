@@ -8,7 +8,7 @@
     "custom/omarchy",
     "hyprland/workspaces",
     "custom/playerctl",
-    "mpris",
+    "mpris"
   ],
   "modules-center": ["clock", "custom/update"],
   "modules-right": [
@@ -17,7 +17,7 @@
     "network",
     "pulseaudio",
     "cpu",
-    "battery",
+    "battery"
   ],
   "hyprland/workspaces": {
     "on-click": "activate",
@@ -33,8 +33,8 @@
       "7": "7",
       "8": "8",
       "9": "9",
-      "active": "󱓻",
-    },
+      "active": "󱓻"
+    }
     // "persistent-workspaces": {
     //   "1": [],
     //   "2": [],
@@ -53,19 +53,19 @@
     "exec": "omarchy-update-available",
     "on-click": "alacritty --class Omarchy --title Omarchy -e omarchy-update",
     "tooltip-format": "Omarchy update available",
-    "interval": 3600,
+    "interval": 3600
   },
 
   "cpu": {
     "interval": 5,
     "format": "󰍛",
-    "on-click": "alacritty -e btop",
+    "on-click": "alacritty -e btop"
   },
   "clock": {
     "format": "{:L%A %H:%M}",
     "format-alt": "{:L%d %B W%V %Y}",
     "tooltip": false,
-    "on-click-right": "omarchy-cmd-tzupdate",
+    "on-click-right": "omarchy-cmd-tzupdate"
   },
   "network": {
     "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
@@ -78,7 +78,7 @@
     "tooltip-format-disconnected": "Disconnected",
     "interval": 3,
     "nospacing": 1,
-    "on-click": "alacritty --class=Impala -e impala",
+    "on-click": "alacritty --class=Impala -e impala"
   },
   "battery": {
     "format": "{capacity}% {icon}",
@@ -87,7 +87,7 @@
     "format-plugged": "",
     "format-icons": {
       "charging": ["󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"],
-      "default": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+      "default": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
     },
     "format-full": "󰂅",
     "tooltip-format-discharging": "{power:>1.0f}W↓ {capacity}%",
@@ -95,15 +95,15 @@
     "interval": 5,
     "states": {
       "warning": 20,
-      "critical": 10,
-    },
+      "critical": 10
+    }
   },
   "bluetooth": {
     "format": "",
     "format-disabled": "󰂲",
     "format-connected": "",
     "tooltip-format": "Devices connected: {num_connections}",
-    "on-click": "blueberry",
+    "on-click": "blueberry"
   },
   "pulseaudio": {
     "format": "{icon}",
@@ -113,35 +113,35 @@
     "scroll-step": 5,
     "format-muted": "󰝟",
     "format-icons": {
-      "default": ["", "", ""],
-    },
+      "default": ["", "", ""]
+    }
   },
   "group/tray-expander": {
     "orientation": "inherit",
     "drawer": {
       "transition-duration": 600,
-      "children-class": "tray-group-item",
+      "children-class": "tray-group-item"
     },
-    "modules": ["custom/expand-icon", "tray"],
+    "modules": ["custom/expand-icon", "tray"]
   },
   "custom/expand-icon": {
     "format": " ",
-    "tooltip": false,
+    "tooltip": false
   },
   "tray": {
     "icon-size": 12,
-    "spacing": 12,
+    "spacing": 12
   },
   "mpris": {
     "format": " {player_icon} {title} - {artist}",
     "format-paused": "{status_icon} {title} - {artist}",
     "player-icons": {
       "default": " ",
-      "mpv": "",
+      "mpv": ""
     },
     "status-icons": {
-      "paused": " ⏸",
+      "paused": " ⏸"
     },
-    "max-length": 30,
-  },
+    "max-length": 30
+  }
 }
