@@ -2,10 +2,10 @@
 include "%H/.local/share/omarchy/default/xcompose"
 
 # Identification
-<Multi_key> <space> <n> : "Amit"
+<Multi_key> <space> <n> : "Amit Dwivedi"
 <Multi_key> <space> <e> : "theamit.969@gmail.com"
-<Multi_key> <space> <g> : "https://github.com/theamit-969/dotfiles"
-<Multi_key> <space> <z> : "git@github.com:theamit-969/dotfiles.git"
+<Multi_key> <space> <g> : "https://github.com/vyrx-dev/dotfiles"
+<Multi_key> <space> <z> : "git@github.com:vyrx-dev/dotfiles.git"
 
 
 # Emoji
