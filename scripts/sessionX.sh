@@ -5,6 +5,7 @@ directories=(
   "$HOME/dotfiles/.config"
   "$HOME/100xCodes"
   "$HOME/100xCodes/Cohort-3-WebDev"
+  "$HOME/100xCodes/Projects/"
   "$HOME/Downloads"
   "$HOME/Documents/"
   "$HOME/Testing-repo/"
