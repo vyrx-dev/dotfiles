@@ -99,3 +99,7 @@ alias gco='git checkout'
 alias gb='git branch'
 alias gd='git diff'
 alias ghs='streaker vyrx-dev'
+
+# snapper
+alias snapl='sudo snapper -c home list'
+alias snapd='sudo snapper -c home delete --sync' # eg  --sync 1 or 2-4
