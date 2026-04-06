@@ -1,0 +1,119 @@
+{
+  "reload_style_on_change": true,
+  "layer": "top",
+  "position": "bottom",
+  "spacing": 0,
+  "height": 28,
+  "modules-left": [
+    "sway/workspaces",
+    "niri/workspaces"
+  ],
+  "modules-center": [
+    "mpris"
+  ],
+  "modules-right": [
+    "group/tray-drawer",
+    "custom/screenrecording-indicator",
+    "cpu",
+    "memory",
+    "disk",
+    "network",
+    "pulseaudio",
+    "battery",
+    "clock"
+  ],
+  "group/tray-drawer": {
+    "orientation": "horizontal",
+    "drawer": {
+      "transition-duration": 200
+    },
+    "modules": [
+      "custom/expand",
+      "tray"
+    ]
+  },
+  "custom/expand": {
+    "format": "❮",
+    "tooltip": false
+  },
+  "custom/screenrecording-indicator": {
+    "on-click": "~/Scripts/screenrecord",
+    "exec": "~/Scripts/indicator-record",
+    "signal": 8,
+    "return-type": "json"
+  },
+  "niri/workspaces": {
+    "on-scroll-up": "niri msg action focus-window-or-workspace-up",
+    "on-scroll-down": "niri msg action focus-column-right-or-first"
+  },
+  "sway/workspaces": {
+    "disable-scroll": false,
+    "all-outputs": false,
+    "format": "{name}",
+    "on-click": "activate"
+  },
+  "cpu": {
+    "interval": 2,
+    "format": "cpu {usage}%",
+    "on-click": "ghostty -e btop"
+  },
+  "memory": {
+    "format": "mem {used:0.1f}gb",
+    "interval": 2,
+    "on-click": "ghostty -e btop"
+  },
+  "disk": {
+    "interval": 30,
+    "format": "disk {percentage_free}%",
+    "tooltip-format": "Used: {used}\nFree: {free}\nTotal: {total}",
+    "path": "/",
+    "on-click": "ghostty -e duf"
+  },
+  "clock": {
+    "format": "{:%H:%M}",
+    "format-alt": "{:L%A %d %B}",
+    "tooltip": false
+  },
+  "network": {
+    "interface": "wlan*",
+    "format-wifi": "wifi {essid}",
+    "format-ethernet": "eth {ifname}",
+    "format-disconnected": "wifi --",
+    "tooltip-format-wifi": "{essid} ({frequency} GHz)\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
+    "tooltip-format-ethernet": "⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
+    "tooltip-format-disconnected": "Disconnected",
+    "interval": 3,
+    "on-click": "nmgui"
+  },
+  "battery": {
+    "format": "bat {capacity}%",
+    "format-discharging": "bat {capacity}%",
+    "format-charging": "bat {capacity}%",
+    "format-plugged": "bat {capacity}%",
+    "tooltip-format-discharging": "{power:>1.0f}W↓ {capacity}%",
+    "tooltip-format-charging": "{power:>1.0f}W↑ {capacity}%",
+    "interval": 5,
+    "states": {
+      "warning": 20,
+      "critical": 10
+    }
+  },
+  "pulseaudio": {
+    "format": "vol {volume}%",
+    "on-click": "pavucontrol",
+    "on-click-right": "pamixer -t",
+    "tooltip-format": "vol {volume}%",
+    "scroll-step": 5,
+    "format-muted": "vol muted"
+  },
+  "tray": {
+    "icon-size": 12,
+    "spacing": 4
+  },
+  "mpris": {
+    "format": "{artist} • {title}",
+    "format-paused": "{artist} • {title}",
+    "format-stopped": "",
+    "max-length": 55
+  }
+}

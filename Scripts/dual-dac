@@ -1,0 +1,390 @@
+#!/usr/bin/env bash
+#
+# ============================================================================
+# dual-dac - Mirror audio to multiple outputs for shared listening
+# ============================================================================
+#
+# WHAT THIS SCRIPT DOES:
+#   Enables simultaneous audio playback on two audio outputs (e.g., two USB
+#   DACs, or one DAC + laptop speakers). Perfect for sharing audio with
+#   someone using separate headphones or speakers from the same source.
+#
+# HOW PIPEWIRE LOOPBACK WORKS:
+#   PipeWire's module-loopback creates a virtual audio path between a source
+#   and a sink. A sink's ".monitor" is a special source that captures whatever
+#   audio is currently playing to that sink - essentially tapping the stream.
+#
+#   The loopback captures from: <sink>.monitor → plays to: <another_sink>
+#
+#   This allows one audio stream to be duplicated to multiple physical outputs
+#   without requiring application-level support for multi-output.
+#
+# AUDIO ROUTING DIAGRAM:
+#
+#   Single output mode (normal):
+#     ┌─────────┐     ┌─────────────┐     ┌──────┐
+#     │   App   │ ──▶ │ EasyEffects │ ──▶ │ DAC1 │ ──▶ 🎧
+#     └─────────┘     └─────────────┘     └──────┘
+#
+#   Dual output mode (with loopback):
+#     ┌─────────┐     ┌─────────────┐     ┌──────┐
+#     │   App   │ ──▶ │ EasyEffects │ ──▶ │ DAC1 │ ──▶ 🎧 Primary
+#     └─────────┘     └──────┬──────┘     └──────┘
+#                            │
+#                    [.monitor tap]
+#                            │
+#                            ▼
+#                   ┌────────────────┐     ┌──────┐
+#                   │ module-loopback│ ──▶ │ DAC2 │ ──▶ 🎧 Secondary
+#                   └────────────────┘     └──────┘
+#
+#   Both outputs receive the same processed audio from EasyEffects.
+#
+# KEY COMMANDS:
+#   pactl load-module module-loopback  - Create audio loopback between source/sink
+#     source=<sink>.monitor            - Capture audio from this sink's output
+#     sink=<sink>                       - Play captured audio to this sink
+#     latency_msec=<ms>                 - Buffer size (lower = less delay)
+#
+#   pactl unload-module <id>           - Remove a loaded module by ID
+#   pactl list sinks short             - List available audio output sinks
+#   pactl list modules short           - List all loaded PipeWire/PulseAudio modules
+#
+#   pw-link -o                         - List PipeWire output ports
+#   pw-link <out>:<port> <in>:<port>   - Manually connect PipeWire nodes
+#
+# BEHAVIOR BY OUTPUT COUNT:
+#   0 outputs: Falls back to laptop speakers (pci.*analog-stereo), single mode
+#   1 output:  Single output mode - no loopback needed, exits cleanly
+#   2+ outputs: Creates loopback to mirror EasyEffects output to second device
+#
+# USAGE:
+#   dual-dac on      Enable dual output mode (if 2+ outputs available)
+#   dual-dac off     Disable dual output mode, restore single output
+#   dual-dac toggle  Toggle between modes (default when no argument)
+#   dual-dac status  Show current state and available outputs
+#   dual-dac sync    Sync volume levels between primary and secondary
+#   dual-dac help    Show usage information
+#
+# ============================================================================
+
+set -euo pipefail
+
+# --- Configuration ---
+
+# Identifier for our loopback module (used for finding/cleanup)
+MODULE_NAME="dual_dac_loopback"
+
+# Device patterns in priority order
+# First match = primary output, second match = secondary output
+DEVICE_PATTERNS=(
+    "Audiocular_Spark"      # USB DACs (highest priority)
+    "pci.*analog-stereo"    # Internal laptop audio (fallback)
+)
+
+# --- Logging ---
+
+log() {
+    echo "[dual-dac] $*"
+}
+
+err() {
+    echo "[dual-dac] ERROR: $*" >&2
+}
+
+# --- Device Detection ---
+
+# Get all available sinks matching our device patterns
+# Returns sinks ordered by pattern priority (USB DACs first, then internal)
+get_available_sinks() {
+    local all_sinks
+    all_sinks=$(pactl list sinks short 2>/dev/null | awk '{print $2}') || return
+
+    # Iterate through patterns in priority order
+    for pattern in "${DEVICE_PATTERNS[@]}"; do
+        echo "$all_sinks" | while read -r sink; do
+            if [[ -n "$sink" && "$sink" =~ $pattern ]]; then
+                echo "$sink"
+            fi
+        done
+    done
+}
+
+# Count how many audio outputs are available
+count_available_sinks() {
+    get_available_sinks | grep -c . || echo 0
+}
+
+# Get EasyEffects sink (if running)
+get_easyeffects_sink() {
+    pactl list sinks short 2>/dev/null | grep "easyeffects_sink" | awk '{print $2}'
+}
+
+# --- Module Management ---
+
+# Check if our loopback module is currently loaded
+is_enabled() {
+    pactl list modules short 2>/dev/null | grep -q "$MODULE_NAME"
+}
+
+# Get loaded module IDs matching our loopback
+get_module_ids() {
+    pactl list modules short 2>/dev/null | grep "$MODULE_NAME" | awk '{print $1}'
+}
+
+# --- Volume Helpers ---
+
+# Get volume percentage for a sink
+get_sink_volume() {
+    local sink="$1"
+    pactl get-sink-volume "$sink" 2>/dev/null | grep -oP '\d+%' | head -1 || echo "?"
+}
+
+# Set volume for a sink
+set_sink_volume() {
+    local sink="$1"
+    local volume="$2"
+    pactl set-sink-volume "$sink" "$volume" 2>/dev/null
+}
+
+# --- Main Functions ---
+
+# Enable dual output mode by creating a loopback to the secondary sink
+enable_dual_mode() {
+    # Already enabled?
+    if is_enabled; then
+        log "Already enabled"
+        return 0
+    fi
+
+    # Detect available outputs
+    mapfile -t sinks < <(get_available_sinks)
+    local sink_count=${#sinks[@]}
+
+    # Handle different output scenarios
+    case $sink_count in
+        0)
+            err "No audio outputs detected"
+            err "Check PipeWire status: systemctl --user status pipewire"
+            return 1
+            ;;
+        1)
+            # Single output - no mirroring possible
+            log "Single output - no mirroring needed"
+            log "Output: ${sinks[0]}"
+            log ""
+            log "Connect a second audio device to enable dual mode"
+            return 0
+            ;;
+        *)
+            log "Found $sink_count outputs, enabling dual mode..."
+            ;;
+    esac
+
+    local primary="${sinks[0]}"
+    local secondary="${sinks[1]}"
+
+    # Determine source: prefer EasyEffects if running, otherwise primary sink
+    local ee_sink source_sink
+    ee_sink=$(get_easyeffects_sink)
+
+    if [[ -n "$ee_sink" ]]; then
+        source_sink="$ee_sink"
+        log "Routing through EasyEffects"
+    else
+        source_sink="$primary"
+        log "EasyEffects not running, using direct routing"
+    fi
+
+    log "Primary:   $primary"
+    log "Secondary: $secondary"
+
+    # Create loopback module
+    # - source: tap the EasyEffects (or primary) monitor
+    # - sink: output to secondary device
+    # - latency_msec: minimize delay between outputs
+    # - media.name: tag for identification and cleanup
+    pactl load-module module-loopback \
+        source="${source_sink}.monitor" \
+        sink="$secondary" \
+        latency_msec=1 \
+        sink_input_properties="media.name=$MODULE_NAME" \
+        source_output_properties="media.name=$MODULE_NAME" \
+        > /dev/null
+
+    # Brief pause for PipeWire to create loopback nodes
+    sleep 0.3
+
+    # Manually connect loopback if auto-connect didn't work
+    local loopback_out
+    loopback_out=$(pw-link -o 2>/dev/null | grep "output.loopback" | head -1 | sed 's/:.*//') || true
+    if [[ -n "$loopback_out" ]]; then
+        pw-link "${loopback_out}:output_FL" "${secondary}:playback_FL" 2>/dev/null || true
+        pw-link "${loopback_out}:output_FR" "${secondary}:playback_FR" 2>/dev/null || true
+    fi
+
+    # Sync volumes: match secondary to primary
+    local primary_vol
+    primary_vol=$(get_sink_volume "$primary")
+    [[ "$primary_vol" != "?" ]] && set_sink_volume "$secondary" "$primary_vol"
+
+    log "Enabled - audio mirrored to both outputs"
+}
+
+# Disable dual output mode by removing loopback modules
+disable_dual_mode() {
+    # Nothing to disable?
+    if ! is_enabled; then
+        log "Already in single output mode"
+        return 0
+    fi
+
+    # Unload all our loopback modules
+    local unloaded=0
+    while read -r id; do
+        if [[ -n "$id" ]]; then
+            pactl unload-module "$id" 2>/dev/null || true
+            ((unloaded++))
+        fi
+    done < <(get_module_ids)
+
+    if [[ $unloaded -gt 0 ]]; then
+        log "Restored to single output mode"
+    else
+        log "No loopback modules found"
+    fi
+
+    # Show which output is now active
+    mapfile -t sinks < <(get_available_sinks)
+    if [[ ${#sinks[@]} -gt 0 ]]; then
+        log "Active output: ${sinks[0]}"
+    fi
+}
+
+# Toggle between single and dual output modes
+toggle_dual_mode() {
+    if is_enabled; then
+        disable_dual_mode
+    else
+        enable_dual_mode
+    fi
+}
+
+# Display current status and available outputs
+show_status() {
+    echo "=== Dual DAC Status ==="
+    echo ""
+
+    # Current mode
+    if is_enabled; then
+        echo "Mode: DUAL (loopback active)"
+    else
+        echo "Mode: SINGLE"
+    fi
+
+    # List outputs
+    echo ""
+    echo "Available outputs:"
+    mapfile -t sinks < <(get_available_sinks)
+
+    if [[ ${#sinks[@]} -eq 0 ]]; then
+        echo "  (none detected)"
+    else
+        local i=1
+        for sink in "${sinks[@]}"; do
+            local vol name role
+            vol=$(get_sink_volume "$sink")
+            # Clean up sink name for display
+            name=$(echo "$sink" | sed 's/alsa_output\.//' | sed 's/\.analog-stereo//' | sed 's/_/ /g')
+
+            case $i in
+                1) role="[primary]" ;;
+                2) role="[secondary]" ;;
+                *) role="" ;;
+            esac
+
+            printf "  %d. %-40s vol: %s %s\n" "$i" "$name" "$vol" "$role"
+            ((i++))
+        done
+    fi
+
+    # EasyEffects status
+    echo ""
+    if [[ -n "$(get_easyeffects_sink)" ]]; then
+        echo "EasyEffects: running (audio processed)"
+    else
+        echo "EasyEffects: not running (direct audio)"
+    fi
+
+    # Capability note
+    echo ""
+    case ${#sinks[@]} in
+        0) echo "Note: No outputs detected. Check PipeWire." ;;
+        1) echo "Note: Single output. Connect another for dual mode." ;;
+        *) echo "Note: ${#sinks[@]} outputs available. Dual mode supported." ;;
+    esac
+}
+
+# Sync secondary volume to match primary
+sync_volume() {
+    mapfile -t sinks < <(get_available_sinks)
+
+    if [[ ${#sinks[@]} -lt 2 ]]; then
+        err "Need at least 2 outputs to sync"
+        return 1
+    fi
+
+    local primary="${sinks[0]}"
+    local secondary="${sinks[1]}"
+    local primary_vol
+
+    primary_vol=$(get_sink_volume "$primary")
+    if [[ "$primary_vol" == "?" ]]; then
+        err "Could not read primary volume"
+        return 1
+    fi
+
+    set_sink_volume "$secondary" "$primary_vol"
+    log "Synced secondary volume to $primary_vol"
+}
+
+# --- Entry Point ---
+
+case "${1:-toggle}" in
+    on|enable)
+        enable_dual_mode
+        ;;
+    off|disable)
+        disable_dual_mode
+        ;;
+    toggle)
+        toggle_dual_mode
+        ;;
+    status|s)
+        show_status
+        ;;
+    sync)
+        sync_volume
+        ;;
+    help|--help|-h)
+        echo "Usage: dual-dac [command]"
+        echo ""
+        echo "Commands:"
+        echo "  on, enable    Enable dual output (mirror to 2nd output)"
+        echo "  off, disable  Disable dual output (single output)"
+        echo "  toggle        Toggle mode (default)"
+        echo "  status, s     Show current state and outputs"
+        echo "  sync          Sync volume between outputs"
+        echo "  help          Show this help"
+        echo ""
+        echo "Behavior:"
+        echo "  0 outputs  - Error (check PipeWire)"
+        echo "  1 output   - Single mode, no loopback"
+        echo "  2+ outputs - Loopback mirrors audio to secondary"
+        ;;
+    *)
+        err "Unknown command: $1"
+        echo "Run 'dual-dac help' for usage"
+        exit 1
+        ;;
+esac

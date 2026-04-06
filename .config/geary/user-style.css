@@ -1,0 +1,22 @@
+@media (prefers-color-scheme: dark) {
+  :root,
+  body,
+  *:not(a) {
+    background-color: #1e1e1e !important;
+    color: #dcdcdc !important;
+  }
+
+  a {
+    color: #78aeed !important;
+  }
+
+  table,
+  div,
+  section {
+    background-color: transparent !important;
+  }
+
+  img {
+    filter: brightness(0.85) !important;
+  }
+}

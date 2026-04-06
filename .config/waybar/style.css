@@ -1,0 +1,140 @@
+/* colors */
+@define-color waybar-bg #121212;
+@define-color waybar-fg #d0d0d0;
+
+@define-color waybar-warning #7a8b6e;
+@define-color waybar-danger #6b3a3a;
+
+@define-color waybar-surface #1e1e1e;
+@define-color waybar-surface-hover #2a2a2a;
+@define-color waybar-border #3a3a3a;
+@define-color waybar-workspace-active-bg #333333;
+@define-color waybar-workspace-occupied-fg #a0a0a0;
+@define-color waybar-workspace-empty-fg #505050;
+
+* {
+  background-color: transparent;
+  color: @waybar-fg;
+  border: none;
+  border-radius: 0;
+  font-family: "Inter";
+  font-size: 11px;
+}
+
+tooltip {
+  background: @waybar-bg;
+  border-radius: 4px;
+  padding: 6px 10px;
+}
+
+menu {
+  background: @waybar-surface;
+  border: 1px solid @waybar-border;
+  padding: 4px;
+}
+
+menu menuitem:hover {
+  background: @waybar-surface-hover;
+}
+
+window#waybar {
+  background: @waybar-bg;
+}
+
+.modules-center {
+  padding: 0 80px;
+}
+
+#workspaces button {
+  padding: 0 2px;
+  margin: 0 1px;
+  min-width: 12px;
+  min-height: 12px;
+  background-color: transparent;
+  color: @waybar-workspace-empty-fg;
+  font-weight: 400;
+  transition: all 100ms ease;
+  border-radius: 0;
+  border: none;
+}
+
+#workspaces button.focused {
+  background-color: @waybar-workspace-active-bg;
+  font-weight: 500;
+}
+
+#workspaces button.persistent,
+#workspaces button.empty {
+  color: @waybar-workspace-empty-fg;
+  opacity: 0.5;
+}
+
+#workspaces button.visible {
+  color: @waybar-workspace-occupied-fg;
+}
+
+#mpris.paused {
+  opacity: 0.4;
+}
+
+#memory,
+#cpu,
+#disk,
+#battery,
+#network,
+#pulseaudio,
+#backlight,
+#tray,
+#custom-screenrecording-indicator,
+#custom-expand,
+#mpris,
+#clock,
+#custom-idle-indicator,
+#custom-dnd-indicator {
+  padding: 0 6px;
+  font-weight: 600;
+  opacity: 1;
+  transition: opacity 150ms ease;
+}
+
+#clock {
+  font-weight: 700;
+}
+
+#custom-expand {
+  font-size: 10px;
+}
+
+#custom-screenrecording-indicator {
+  min-width: 12px;
+  font-size: 12px;
+}
+
+#custom-screenrecording-indicator.active {
+  color: @waybar-danger;
+}
+
+#bluetooth,
+#battery.warning {
+  color: @waybar-warning;
+}
+
+#battery.critical {
+  color: @waybar-danger;
+  animation: blink 1s infinite;
+}
+
+#cpu,
+#memory,
+#network,
+#pulseaudio,
+#battery,
+#clock {
+  margin: 0 1px;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0.5;
+  }
+}

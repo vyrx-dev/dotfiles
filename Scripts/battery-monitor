@@ -1,0 +1,83 @@
+#!/bin/bash
+
+CHECK_INTERVAL=60
+NOTIFY_LEVELS=(20 15)
+LOCK_LEVEL=10
+LOCK_TIMEOUT=30
+
+get_battery_path() {
+	for bat in /sys/class/power_supply/BAT*; do
+		[[ -d "$bat" ]] && {
+			echo "$bat"
+			return
+		}
+	done
+}
+
+BATTERY_PATH=$(get_battery_path)
+[[ -z "$BATTERY_PATH" ]] && {
+	echo "No battery found"
+	exit 1
+}
+
+script_name=$(basename "$0")
+if pgrep -f "$script_name" | grep -v $$ >/dev/null 2>&1; then
+	echo "Battery monitor already running"
+	exit 0
+fi
+
+is_charging() {
+	local status
+	status=$(cat "$BATTERY_PATH/status" 2>/dev/null)
+	[[ "$status" == "Charging" || "$status" == "Full" ]]
+}
+
+get_percentage() {
+	cat "$BATTERY_PATH/capacity" 2>/dev/null || echo 100
+}
+
+is_notified() {
+	local level=$1
+	[[ -f "/tmp/battery-notified-$level" ]]
+}
+
+mark_notified() {
+	touch "/tmp/battery-notified-$1"
+}
+
+clear_notifications() {
+	rm -f /tmp/battery-notified-*
+}
+
+lock_and_suspend() {
+	local i=$LOCK_TIMEOUT
+	while [[ $i -gt 0 ]]; do
+		notify-send -u critical -t 1100 "Battery Critical" "Suspending in ${i}s..."
+		sleep 1
+		((i--))
+	done
+	swaylock -f
+	systemctl suspend
+}
+
+while true; do
+	if is_charging; then
+		clear_notifications
+	else
+		percentage=$(get_percentage)
+
+		for level in "${NOTIFY_LEVELS[@]}"; do
+			if [[ $percentage -le $level ]] && ! is_notified "$level"; then
+				notify-send -u normal "Low Battery" "${percentage}% remaining"
+				mark_notified "$level"
+			fi
+		done
+
+		if [[ $percentage -le $LOCK_LEVEL ]] && ! is_notified "lock"; then
+			lock_and_suspend
+			mark_notified "lock"
+		fi
+	fi
+
+	sleep $CHECK_INTERVAL
+done

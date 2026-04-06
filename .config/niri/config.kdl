@@ -1,0 +1,462 @@
+// Niri Configuration
+// https://github.com/YaLTeR/niri/wiki/Configuration
+
+// ╭───────────────────────────────────────────────────────────────────────╮
+// │ ENVIRONMENT & INPUT                                                   │
+// ╰───────────────────────────────────────────────────────────────────────╯
+
+prefer-no-csd
+screenshot-path null
+
+environment {
+    ELECTRON_OZONE_PLATFORM_HINT "auto"
+    QT_QPA_PLATFORM "wayland"
+    QT_WAYLAND_DISABLE_WINDOWDECORATION "1"
+    XDG_SESSION_TYPE "wayland"
+    XDG_CURRENT_DESKTOP "niri"
+    QT_QPA_PLATFORMTHEME "qt6ct"
+    TERMINAL "ghostty"
+    XCURSOR_THEME "Bibata-Modern-Ice"
+    XCURSOR_SIZE "24"
+}
+
+hotkey-overlay {
+    skip-at-startup
+}
+
+debug {
+    honor-xdg-activation-with-invalid-serial
+}
+
+input {
+    keyboard {
+        xkb {
+            layout "us"
+        }
+        numlock
+        repeat-delay 200
+        repeat-rate 60
+    }
+
+    touchpad {
+        tap
+        natural-scroll
+    }
+
+    focus-follows-mouse
+    workspace-auto-back-and-forth
+}
+
+
+// ╭───────────────────────────────────────────────────────────────────────╮
+// │ OUTPUTS                                                               │
+// ╰───────────────────────────────────────────────────────────────────────╯
+
+output "eDP-1" {
+    mode "1920x1080@144.003"
+    scale 1
+    position x=0 y=0
+}
+
+output "HDMI-A-1" {
+    mode "1920x1080@100.000"
+    scale 1
+    // transform "90"      
+    position x=1920 y=0
+}
+
+// ╭───────────────────────────────────────────────────────────────────────╮
+// │ LAYOUT & APPEARANCE                                                   │
+// ╰───────────────────────────────────────────────────────────────────────╯
+
+layout {
+    gaps 0
+    center-focused-column "never"
+    default-column-width { proportion 0.5; }
+    background-color "transparent"
+
+    preset-column-widths {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+    }
+
+    struts {}
+
+    focus-ring {
+        on
+        width 1
+        active-color "#ffffff66"
+        inactive-color "#ffffff11"
+    }
+}
+
+overview {
+    backdrop-color "#1a1a1a"
+    zoom 0.3
+    workspace-shadow {
+        off
+    }
+}
+
+
+// ╭───────────────────────────────────────────────────────────────────────╮
+// │ ANIMATIONS                                                            │
+// ╰───────────────────────────────────────────────────────────────────────╯
+
+animations {
+    workspace-switch {
+        spring damping-ratio=1.0 stiffness=1000 epsilon=0.0001
+    }
+    window-open {
+        duration-ms 100
+        curve "ease-out-quad"
+    }
+    window-close {
+        duration-ms 100
+        curve "ease-out-cubic"
+    }
+    horizontal-view-movement {
+        spring damping-ratio=1.0 stiffness=900 epsilon=0.0001
+    }
+    window-movement {
+        spring damping-ratio=1.0 stiffness=800 epsilon=0.0001
+    }
+    window-resize {
+        spring damping-ratio=1.0 stiffness=1000 epsilon=0.0001
+    }
+    config-notification-open-close {
+        spring damping-ratio=0.6 stiffness=1200 epsilon=0.001
+    }
+    screenshot-ui-open {
+        duration-ms 300
+        curve "ease-out-quad"
+    }
+    overview-open-close {
+        spring damping-ratio=1.0 stiffness=900 epsilon=0.0001
+    }
+}
+
+
+// ╭───────────────────────────────────────────────────────────────────────╮
+// │ LAYER RULES                                                           │
+// ╰───────────────────────────────────────────────────────────────────────╯
+
+layer-rule {
+    match namespace="waybar"
+    match at-startup=true
+    opacity 0.90
+
+    shadow {
+        on
+        softness 10
+        spread 5
+        offset x=0 y=5
+    }
+
+    geometry-corner-radius 10
+}
+
+
+// ╭───────────────────────────────────────────────────────────────────────╮
+// │ WINDOW RULES                                                          │
+// ╰───────────────────────────────────────────────────────────────────────╯
+
+// Global defaults
+window-rule {
+    geometry-corner-radius 0
+    open-maximized true
+    clip-to-geometry true
+}
+
+// Floating dialogs & popups
+window-rule {
+    match app-id="confirm"
+    match app-id="satty"
+    match app-id="com.network.manager"
+    match app-id="pavucontrol"
+    match app-id="blueman-manager"
+    match app-id="nm-connection-editor"
+    match app-id="localsend"
+    match app-id="easyeffects"
+    match app-id="Hello"
+    match app-id="xdg-desktop-portal-gtk"
+    match app-id="system-config-printer"
+    match app-id="ghostty_journalctl"
+    match title=r#".*Extension.*Bitwarden.*"#
+    match app-id="brave-keep"
+    match app-id="thunar"
+    match title="Oklch Color Picker"
+    open-floating true
+    default-column-width { proportion 0.5; }
+    default-window-height { proportion 0.5; }
+}
+
+// Terminal applications that should float
+window-rule {
+    match app-id="ghostty" title="rmpc-music"
+    match app-id="ghostty" title="btop-system"
+    match app-id="ghostty" title="yazi-files"
+    match app-id="ghostty" title="webapp-list"
+    match app-id="ghostty" title="webapp-list"
+    match app-id="ghostty" title="gh-notify"
+    open-floating true
+    default-column-width { proportion 0.6; }
+    default-window-height { proportion 0.7; }
+}
+
+window-rule {
+    match app-id="ghostty" title="gh-dash"
+    open-fullscreen true
+}
+
+// Transparent applications
+window-rule {
+    draw-border-with-background false
+    match app-id="zed"
+    match app-id="code"
+    match app-id="ghostty"
+    match app-id="vesktop"
+    match app-id="org.qbittorrent.qBittorrent"
+    match app-id="thunar"
+    match app-id="org.gnome.Nautilus"
+    match app-id="zathura"
+    match app-id="obsidian"
+    match app-id="obs-studio"
+    opacity 0.95
+}
+
+// Terminal windows
+window-rule {
+    match app-id="com.mitchellh.ghostty"
+    open-maximized false
+    draw-border-with-background false
+    default-column-width { proportion 0.5; }
+}
+
+// Picture-in-Picture
+window-rule {
+    match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+    match app-id="zen" title="^Picture-in-Picture$"
+    open-floating true
+    open-focused false
+    default-floating-position x=32 y=32 relative-to="bottom-right"
+    default-column-width { proportion 0.3; }
+    default-window-height { proportion 0.3; }
+}
+
+// Block Bitwarden from screen capture
+window-rule {
+    match app-id=r#"Bitwarden"#
+    block-out-from "screen-capture"
+}
+
+// scrcpy (Android screen mirror)
+window-rule {
+    match app-id="scrcpy"
+    open-maximized false
+    default-column-width { fixed 478; }
+    default-window-height { fixed 1080; }
+}
+
+
+// ╭───────────────────────────────────────────────────────────────────────╮
+// │ STARTUP APPLICATIONS                                                  │
+// ╰───────────────────────────────────────────────────────────────────────╯
+
+spawn-sh-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
+spawn-sh-at-startup "swayidle -w timeout 300 'swaylock -f' timeout 600 'niri msg action power-off-monitors' resume 'niri msg action power-on-monitors' before-sleep 'swaylock -f'"
+spawn-at-startup "waybar"
+spawn-at-startup "mako"
+spawn-sh-at-startup "wl-clip-persist --clipboard regular"
+spawn-sh-at-startup "wl-paste --watch cliphist store"
+spawn-at-startup "kdeconnect-indicator"
+spawn-sh-at-startup "$HOME/Scripts/battery-monitor"
+spawn-sh-at-startup "$HOME/Scripts/set-wallpaper random"
+
+
+// ╭───────────────────────────────────────────────────────────────────────╮
+// │ KEYBINDINGS                                                           │
+// ╰───────────────────────────────────────────────────────────────────────╯
+
+binds {
+
+    // ─── Core Applications ───
+    Mod+Return                          hotkey-overlay-title="Open Terminal: ghostty" { spawn "ghostty"; }
+    Mod+Space                           hotkey-overlay-title="Open App Launcher: fuzzel" { spawn-sh "fuzzel"; }
+    // Mod+B                               hotkey-overlay-title="Open Browser: zen-browser" { spawn "zen-browser"; }
+    Mod+B                              hotkey-overlay-title="Open Browser: Brave Browser" { spawn "brave"; }
+    Mod+E                               hotkey-overlay-title="File Manager: Thunar" { spawn "thunar"; }
+    Mod+C                               hotkey-overlay-title="Open Vs Code Editor" { spawn "code"; }
+    Mod+D                               hotkey-overlay-title="Open Discord" { spawn "vesktop"; }
+    // Mod+M                               hotkey-overlay-title="Open Spotify" { spawn "spotify-launcher"; }
+    Mod+SHIFT+G                         hotkey-overlay-title="Open Email" { spawn "geary"; }
+
+    // ─── Terminal Applications ───
+    Mod+Shift+D                         hotkey-overlay-title="Open Lazy Docker" { spawn-sh "ghostty -e lazydocker"; }
+    Alt+Slash                           hotkey-overlay-title="Open btop" { spawn-sh "ghostty --title='btop-system' -e btop"; }
+    Alt+N                               hotkey-overlay-title="Open Nvim" { spawn-sh "ghostty -e nvim"; }
+    Alt+Q                               hotkey-overlay-title="Open Yazi" { spawn-sh "ghostty --title='yazi-files' -e yazi"; }
+    Alt+M                               hotkey-overlay-title="Open Rmpc" { spawn-sh "ghostty --title='rmpc-music' -e rmpc"; }
+    Alt+Return                          hotkey-overlay-title="Open Github notify" { spawn-sh "ghostty --title='gh-notify' -e sh -c 'gh notify; read'"; }
+    Alt+G                               hotkey-overlay-title="Open Github dash" { spawn-sh "ghostty --title='gh-dash' -e gh dash"; }
+    
+
+    // ─── Web Applications ───
+    Mod+A                               hotkey-overlay-title="Open ChatGpt" { spawn-sh "~/Scripts/launch-webapp https://chatgpt.com"; }
+    Mod+Shift+A                         hotkey-overlay-title="Open Gemini" { spawn-sh "~/Scripts/launch-webapp https://gemini.google.com"; }
+    Mod+Alt+A                               hotkey-overlay-title="Open perplexity" { spawn-sh "~/Scripts/launch-webapp https://perplexity.ai"; }
+    Mod+T                               hotkey-overlay-title="Open Todoist" { spawn-sh "~/Scripts/launch-webapp https://todoist.com"; }
+    Alt+C                               hotkey-overlay-title="Open Calendar" { spawn-sh "~/Scripts/launch-webapp https://calendar.google.com"; }
+    Mod+Y                               hotkey-overlay-title="Open Youtube" { spawn-sh "~/Scripts/launch-webapp https://youtube.com"; }
+    Mod+G                               hotkey-overlay-title="Open Github" { spawn-sh "~/Scripts/launch-webapp https://github.com"; }
+    Mod+W                               hotkey-overlay-title="Open Whatsapp" { spawn-sh "~/Scripts/launch-webapp https://web.whatsapp.com"; }
+    Mod+M                               hotkey-overlay-title="Open Spotify" { spawn-sh "~/Scripts/launch-webapp https://open.spotify.com/"; }
+    Mod+X                               hotkey-overlay-title="Open X" { spawn-sh "~/Scripts/launch-webapp https://x.com"; }
+    Mod+Backslash                       hotkey-overlay-title="Open DevHints" { spawn-sh "~/Scripts/launch-webapp https://devhints.io"; }
+    Mod+I                               hotkey-overlay-title="Install Webapps" { spawn-sh " ghostty --title='webapp-list' -e ~/Scripts/webapps"; }
+    Mod+Shift+I                         hotkey-overlay-title="Remove Webapps" { spawn-sh " ghostty --title='webapp-list' -e ~/Scripts/webapp-remove"; }
+
+    // ─── Utilities & Tools ───
+    Alt+comma                           hotkey-overlay-title="Open Clipboard" { spawn-sh "cliphist list | fuzzel --dmenu | cliphist decode | wl-copy"; }
+    Alt+period                          hotkey-overlay-title="Open Emoji" { spawn-sh "~/Scripts/fuzzel-emoji"; }
+    Mod+S                               hotkey-overlay-title="Open Volume Control" { spawn "pavucontrol"; }
+    Mod+Backspace                       hotkey-overlay-title="Toggle Terminal Transparency" { spawn-sh "~/Scripts/toggle-terminal-transparency"; }
+    Mod+Shift+Space                     hotkey-overlay-title="Toggle Waybar" { spawn-sh "~/Scripts/toggle-waybar"; }
+    Mod+SHIFT+M                         hotkey-overlay-title="Online Music" { spawn-sh "~/Scripts/beats"; }
+    Mod+Shift+Backspace                 hotkey-overlay-title="Mirror Phone" { spawn-sh "~/Scripts/run-scrcpy mirror"; }
+    Mod+Ctrl+Backspace                  hotkey-overlay-title="Phone Webcam" { spawn-sh "~/Scripts/run-scrcpy webcam"; }
+    Mod+Alt+Return                      hotkey-overlay-title="Attach Existing Tmux Session" { spawn-sh "ghostty -e tmux a"; }
+    Mod+Alt+N                           hotkey-overlay-title="Nightlight" { spawn-sh "~/Scripts/toggle-wlsunset"; }
+    Mod+N                               hotkey-overlay-title="Notification Restore" { spawn-sh "makoctl restore"; }
+    Mod+Shift+N                         hotkey-overlay-title="Notification Clear" { spawn-sh "makoctl dismiss -a"; }
+    // Alt+Space                           hotkey-overlay-title="Run Code in Tmux" { spawn-sh "ghostty -e ~/Scripts/code-in-tmux"; }
+    Alt+Space                           hotkey-overlay-title="Run Portfolio in Localhost" { spawn-sh "launch-webapp https://vyrx.dev"; }
+    Print                               hotkey-overlay-title="Color Picker" { spawn-sh "niri msg pick-color| wl-copy"; }
+    Mod+Alt+P                           hotkey-overlay-title="Launch Android Emulator" { spawn-sh "env QT_QPA_PLATFORM=xcb ~/Android/Sdk/emulator/emulator -avd Pixel_9 &"; }
+
+    // ─── Wallpaper ───
+    Ctrl+Alt+Space                      hotkey-overlay-title="Random Wallpaper" { spawn-sh "~/Scripts/set-wallpaper random"; }
+    Super+Ctrl+Shift+Space              hotkey-overlay-title="Choose Wallpaper" { spawn-sh "~/Scripts/set-wallpaper choose"; }
+
+    // ─── Screenshots & Recording ───
+    Mod+P                               { spawn-sh "$HOME/Scripts/screenshot"; }
+    Mod+Shift+P                         { spawn-sh "$HOME/Scripts/screenshot fullscreen"; }
+    Mod+R                               hotkey-overlay-title="Record Screen (Desktop Audio)" { spawn-sh "~/Scripts/screenrecord --with-desktop-audio"; }
+    Mod+Shift+R                         hotkey-overlay-title="Record Screen (Microphone)" { spawn-sh "~/Scripts/screenrecord --with-microphone-audio"; }
+
+    // ─── Session & Power ───
+    Mod+ALT+L                           hotkey-overlay-title="Lock Screen: swaylock" { spawn-sh "swaylock"; }
+    Mod+Escape                          hotkey-overlay-title="Session Menu: powermenu" { spawn-sh "~/Scripts/powermenu"; }
+    CTRL+ALT+Delete                     { quit; }
+
+    // ─── Monitor Power Controls ───
+    Ctrl+Shift+1                        hotkey-overlay-title="Toggle laptop monitor" { spawn-sh "$HOME/Scripts/toggle-output eDP-1"; }
+    Ctrl+Shift+2                        hotkey-overlay-title="Toggle external monitor" { spawn-sh "$HOME/Scripts/toggle-output HDMI-A-1"; }
+
+    // ─── Audio Controls ───
+    XF86AudioRaiseVolume                allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"; }
+    XF86AudioLowerVolume                allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"; }
+    XF86AudioMute                       allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
+    XF86AudioMicMute                    allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
+    Mod+XF86AudioMute                   allow-when-locked=true { spawn-sh "~/Scripts/audio-switch"; }
+
+    // ─── Media Controls ───
+    Mod+F10                             allow-when-locked=true { spawn-sh "playerctl previous"; }
+    Mod+F11                             allow-when-locked=true { spawn-sh "playerctl play-pause"; }
+    Mod+F12                             allow-when-locked=true { spawn-sh "playerctl next"; }
+
+    // ─── Brightness Controls ───
+    XF86MonBrightnessUp                 allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
+    XF86MonBrightnessDown               allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
+    Mod+Alt+XF86AudioRaiseVolume        allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
+    Mod+Alt+XF86AudioLowerVolume        allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
+    Mod+XF86AudioRaiseVolume            allow-when-locked=true { spawn-sh "ddcutil setvcp 10 + 10"; }
+    Mod+XF86AudioLowerVolume            allow-when-locked=true { spawn-sh "ddcutil setvcp 10 - 10"; }
+
+    // ─── Window Management ───
+    Mod+Q                               { close-window; }
+    Mod+V                               { toggle-window-floating; }
+    Mod+F                               { maximize-column; }
+    Mod+Shift+F                         { fullscreen-window; }
+    Mod+Shift+C                         { center-visible-columns; }
+    Mod+Ctrl+R                          { reset-window-height; }
+    Mod+BracketLeft                     { consume-or-expel-window-left; }
+    Mod+BracketRight                    { consume-or-expel-window-right; }
+
+    // ─── Window Focus (Vim-style) ───
+    Mod+H                               { focus-column-left; }
+    Mod+L                               { focus-column-right; }
+    Mod+K                               { focus-window-or-workspace-up; }
+    Mod+J                               { focus-window-or-workspace-down; }
+    Mod+Left                            { focus-column-left; }
+    Mod+Right                           { focus-column-right; }
+    Mod+Up                              { focus-window-up; }
+    Mod+Down                            { focus-window-down; }
+
+    // ─── Window Movement ───
+    Mod+CTRL+H                          { move-column-left; }
+    Mod+CTRL+L                          { move-column-right; }
+    Mod+Ctrl+K                          { move-window-up-or-to-workspace-up; }
+    Mod+Ctrl+J                          { move-window-down-or-to-workspace-down; }
+    Mod+CTRL+Left                       { move-column-left; }
+    Mod+CTRL+Right                      { move-column-right; }
+    Mod+CTRL+UP                         { move-window-up; }
+    Mod+CTRL+Down                       { move-window-down; }
+
+    // ─── Monitor Focus & Movement ───
+    Mod+Shift+H                         { focus-monitor-left; }
+    Mod+Shift+L                         { focus-monitor-right; }
+    Mod+Shift+K                         { focus-monitor-up; }
+    Mod+Shift+J                         { focus-monitor-down; }
+    Mod+Shift+CTRL+H                    { move-column-to-monitor-left; }
+    Mod+Shift+CTRL+L                    { move-column-to-monitor-right; }
+    Mod+Shift+CTRL+K                    { move-column-to-monitor-up; }
+    Mod+Shift+CTRL+J                    { move-column-to-monitor-down; }
+
+    // ─── Workspace Navigation ───
+    Mod+1                               { focus-workspace 1; }
+    Mod+2                               { focus-workspace 2; }
+    Mod+3                               { focus-workspace 3; }
+    Mod+4                               { focus-workspace 4; }
+    Mod+5                               { focus-workspace 5; }
+    Mod+6                               { focus-workspace 6; }
+    Mod+7                               { focus-workspace 7; }
+    Mod+8                               { focus-workspace 8; }
+    Mod+9                               { focus-workspace 9; }
+    Mod+TAB                             { focus-workspace-previous; }
+    Mod+O                               repeat=false { toggle-overview; }
+
+    // ─── Move Window to Workspace ───
+    Mod+SHIFT+1                         { move-column-to-workspace 1; }
+    Mod+SHIFT+2                         { move-column-to-workspace 2; }
+    Mod+SHIFT+3                         { move-column-to-workspace 3; }
+    Mod+SHIFT+4                         { move-column-to-workspace 4; }
+    Mod+SHIFT+5                         { move-column-to-workspace 5; }
+    Mod+SHIFT+6                         { move-column-to-workspace 6; }
+    Mod+SHIFT+7                         { move-column-to-workspace 7; }
+    Mod+SHIFT+8                         { move-column-to-workspace 8; }
+    Mod+SHIFT+9                         { move-column-to-workspace 9; }
+
+    // ─── Mouse Wheel Workspace Switching ───
+    Mod+WheelScrollDown                 cooldown-ms=150 { focus-workspace-down; }
+    Mod+WheelScrollUp                   cooldown-ms=150 { focus-workspace-up; }
+    Mod+CTRL+WheelScrollDown            cooldown-ms=150 { move-column-to-workspace-down; }
+    Mod+CTRL+WheelScrollUp              cooldown-ms=150 { move-column-to-workspace-up; }
+
+    // ─── Mouse Wheel Column Navigation ───
+    Mod+WheelScrollRight                { focus-column-right; }
+    Mod+WheelScrollLeft                 { focus-column-left; }
+    Mod+CTRL+WheelScrollRight           { move-column-right; }
+    Mod+CTRL+WheelScrollLeft            { move-column-left; }
+    Mod+Shift+WheelScrollDown           { focus-column-right; }
+    Mod+Shift+WheelScrollUp             { focus-column-left; }
+    Mod+CTRL+Shift+WheelScrollDown      { move-column-right; }
+    Mod+CTRL+Shift+WheelScrollUp        { move-column-left; }
+
+    // ─── Window Resizing ───
+    Mod+Minus                           { set-column-width "-10%"; }
+    Mod+Equal                           { set-column-width "+9%"; }
+    Mod+Shift+Minus                     { set-window-height "-10%"; }
+    Mod+Shift+Equal                     { set-window-height "+10%"; }
+}

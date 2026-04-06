@@ -1,0 +1,28 @@
+#!/bin/bash
+
+flutter clean
+echo
+echo ✅ flutter clean → Wipes stale build files
+echo
+
+flutter pub get
+echo
+echo ✅ flutter pub get → Fetches fresh dependencies
+echo
+
+dart fix --apply
+echo
+echo ✅ dart fix --apply → Auto-fixes deprecated API issues
+echo
+
+flutter pub outdated
+echo
+echo ✅ flutter pub outdated → Flags packages needing updates
+echo
+
+flutter doctor
+echo
+echo ✅ flutter doctor → Verifies your dev environment is healthy
+echo
+
+echo "it's done maybe the error was not working"

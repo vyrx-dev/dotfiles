@@ -1,0 +1,98 @@
+#!/bin/bash
+#|---/ /+---------------------+---/ /|#
+#|--/ /-| Symphony Dotfiles   |--/ /-|#
+#|-/ /--| Web Apps Installer  |-/ /--|#
+#|/ /---+---------------------+/ /---|#
+
+# Predefined webapps: "Name|URL|Icon"
+# Icons from https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/
+WEBAPPS=(
+	"GitHub|https://github.com/|https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/github.png"
+	"YouTube|https://youtube.com/|https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/youtube.png"
+	"Reddit|https://www.reddit.com/|https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/reddit.png"
+	"WhatsApp|https://web.whatsapp.com/|https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/whatsapp.png"
+	"ChatGPT|https://chatgpt.com/|https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/chatgpt.png"
+	"Perplexity|https://perplexity.ai/|https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/perplexity.png"
+	"Gmail|https://mail.google.com/|https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/gmail.png"
+	"Google Photos|https://photos.google.com/|https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/google-photos.png"
+	"Google Meet|https://meet.google.com/|https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/google-meet.png"
+	"Google Drive|https://drive.google.com/|https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/google-drive.png"
+	"Todoist|https://todoist.com/|https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/todoist.png"
+	"Calendar|https://calendar.google.com/|https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/google-calendar.png"
+	"LinkedIn|https://www.linkedin.com/|https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/linkedin.png"
+	"Pinterest|https://www.pinterest.com/|https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/pinterest.png"
+	"Figma|https://figma.com/|https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/figma.png"
+	"Notion|https://notion.so/|https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/notion.png"
+	"Twitter|https://x.com/|https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/twitter.png"
+	"DownGit|https://downgit.github.io/#/home|https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/synology-download-station.png"
+	"Wallhaven|https://wallhaven.cc/|https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/ward.png"
+	"Gemini|https://gemini.google.com/app|https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/google-gemini.png"
+	"Qobuz|https://www.qobuz.com/us-en/shop|https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/questdb.png"
+	"Excalidraw|https://excalidraw.com/|https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/excalidraw.png"
+	"Discord|https://discord.com/channels/@me|https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/discord.png"
+	"Spotify|https://open.spotify.com/|https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/spotify.png"
+	"Hotstar|https://www.hotstar.com/in/home|https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/jiohotstar.png"
+	"Netflix|https://www.netflix.com/|https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/netflix.png"
+	"Lucida|https://lucida.to/|https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/deezer.png"
+	"Aur Repository|https://aur.archlinux.org/|https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/arch-linux.png"
+	"Movie|https://www.1flex.nl/|https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/synology-video-station.png"
+	"Cohort|https://app.100xdevs.com/courses/14/|https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/google-contacts.png"
+	"Udemy|https://www.udemy.com/course/learn-flutter-dart-to-build-ios-android-apps/learn/lecture/37213680?start=15#overview|https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/udemy-light.png"
+	"LastFm|https://www.last.fm|https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/multi-scrobbler.png"
+	"Dropbox|https://www.dropbox.com|https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/dropbox.png"
+	"notebook-lm|https://notebooklm.google.com/?icid=home_maincta/|https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/notebook-lm.png"
+	"dashboard-icons|https://dashboardicons.com//|https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/dashboard-icons.png"
+	"Monkey Type|https://monkeytype.com/|https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/monkeytype.png"
+	"YouTube Music|https://music.youtube.com/|https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/youtube-music.png"
+	"Spotify|https://open.spotify.com/|https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/spotify.png"
+	"Chess|https://www.chess.com/|https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/chess.png"
+
+)
+
+WEBAPP_INSTALL="$HOME/Scripts/webapp-install"
+
+install_webapps() {
+	# Build selection list
+	local options=()
+	for entry in "${WEBAPPS[@]}"; do
+		IFS='|' read -r name url icon <<<"$entry"
+		options+=("$name")
+	done
+
+	echo -e "\n\033[1mSelect web apps to install:\033[0m\n"
+
+	selected=$(printf '%s\n' "${options[@]}" | gum choose --no-limit \
+		--cursor="› " \
+		--cursor-prefix="○ " \
+		--selected-prefix="● " \
+		--unselected-prefix="○ " \
+		--header "Space to select, Enter to confirm") || true
+
+	[[ -z "$selected" ]] && {
+		echo "No app selected."
+		return
+	}
+
+	# Install selected apps
+	while IFS= read -r choice; do
+		# Remove suffix if present (single selection)
+		name="${choice% (installed)}"
+
+		# Find the entry for selected app
+		for entry in "${WEBAPPS[@]}"; do
+			IFS='|' read -r n url icon <<<"$entry"
+			if [[ "$n" == "$name" ]]; then
+				echo "Installing $name..."
+				"$WEBAPP_INSTALL" "$name" "$url" "$icon" &&
+					echo -e "\033[32m✓\033[0m $name" ||
+					echo -e "\033[31m✗\033[0m $name (failed)"
+				break
+			fi
+		done
+	done <<<"$selected"
+
+	echo -e "\nDone! Apps available in launcher (Mod + Space)"
+}
+
+# Run if executed directly
+[[ "${BASH_SOURCE[0]}" == "${0}" ]] && install_webapps

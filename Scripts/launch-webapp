@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Auto-detect VA-API driver for hardware video acceleration
+if lspci | grep -qi "VGA.*AMD\|Radeon"; then
+	export LIBVA_DRIVER_NAME=radeonsi
+elif lspci | grep -qi "VGA.*Intel"; then
+	export LIBVA_DRIVER_NAME=iHD
+fi
+# NVIDIA uses nvidia-vaapi-driver if installed, no env var needed
+
+browser=$(xdg-settings get default-web-browser)
+
+case $browser in
+brave-browser* | google-chrome* | microsoft-edge* | opera* | vivaldi* | helium-browser*) ;;
+*) browser="brave-browser.desktop" ;;
+esac
+
+browser_exec=$(sed -n 's/^Exec=\([^ ]*\).*/\1/p' /usr/share/applications/$browser 2>/dev/null | head -1)
+
+exec setsid $browser_exec --app="$1" "${@:2}"

@@ -1,0 +1,22 @@
+#!/bin/bash
+
+WALLPAPER_DIR="$HOME/Pictures/Wallpapers/"
+
+case "${1:-}" in
+random)
+	wallpaper=$(find "$WALLPAPER_DIR" -type f \( -iname "*.jpg" -o -iname "*.png" -o -iname "*.jpeg" -o -iname "*.webp" \) | shuf -n 1)
+	[[ -z "$wallpaper" ]] && exit 1
+	pkill swaybg 2>/dev/null
+	swaybg -i "$wallpaper" -m fill &
+	notify-send "Wallpaper" "$(basename "$wallpaper")"
+	;;
+choose)
+	selection=$(find "$WALLPAPER_DIR" -type f \( -iname "*.jpg" -o -iname "*.png" -o -iname "*.jpeg" -o -iname "*.webp" \) -printf "%f\n" | sort | fuzzel --dmenu --prompt="Wallpaper: ")
+	[[ -z "$selection" ]] && exit 0
+	wallpaper=$(find "$WALLPAPER_DIR" -name "$selection" -type f | head -1)
+	[[ -z "$wallpaper" ]] && exit 1
+	pkill swaybg 2>/dev/null
+	swaybg -i "$wallpaper" -m fill &
+	notify-send "Wallpaper" "$selection"
+	;;
+esac

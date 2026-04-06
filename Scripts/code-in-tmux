@@ -1,0 +1,18 @@
+#!/bin/bash
+
+PROJECT_DIR="$HOME/Projects/flutter_projects/cloud"
+SESSION_NAME=$(basename "$PROJECT_DIR")
+
+if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
+	tmux attach -t "$SESSION_NAME"
+	exit 0
+fi
+
+tmux new-session -d -s "$SESSION_NAME" -c "$PROJECT_DIR"
+tmux new-window -t "$SESSION_NAME:2" -c "$PROJECT_DIR"
+tmux new-window -t "$SESSION_NAME:3" -c "$PROJECT_DIR"
+tmux send-keys -t "$SESSION_NAME:2" "opencode" Enter
+tmux send-keys -t "$SESSION_NAME:3" "flutter-watch" Enter
+sleep 1
+tmux select-window -t "$SESSION_NAME:1"
+tmux attach -t "$SESSION_NAME"

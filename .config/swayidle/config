@@ -1,0 +1,11 @@
+# swayidle configuration file
+# Idle timeout events for Sway
+
+# Lock screen after 5 minutes (300 seconds) of inactivity
+timeout 300 'swaylock -f'
+
+# Screen off after 5.5 minutes (330 seconds) of inactivity
+timeout 330 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"'
+
+# Lock session before sleep
+before-sleep 'swaylock -f'

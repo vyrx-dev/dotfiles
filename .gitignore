@@ -1,0 +1,8 @@
+# Fish shell auto-generated files
+.config/fish/fish_variables
+
+# Neovim plugin lock (auto-generated)
+.config/nvim/lazy-lock.json
+
+# Binary files
+Scripts/yt-dlp

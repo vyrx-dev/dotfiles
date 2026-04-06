@@ -1,0 +1,46 @@
+#!/bin/bash
+
+OUTPUT_DIR="$HOME/Pictures/Screenshots"
+mkdir -p "$OUTPUT_DIR"
+
+pkill -0 slurp 2>/dev/null && exit 0
+
+# Detect compositor
+if pgrep -x niri >/dev/null; then
+    COMP=niri
+elif pgrep -x sway >/dev/null; then
+    COMP=sway
+else
+    exit 1
+fi
+
+get_output() {
+    case "$COMP" in
+        niri) niri msg -j outputs | jq -r '.[] | select(.is_focused == true) | "\(.logical.x),\(.logical.y) \(.logical.width)x\(.logical.height)"' ;;
+        sway) swaymsg -t get_outputs | jq -r '.[] | select(.focused == true) | "\(.rect.x),\(.rect.y) \(.rect.width)x\(.rect.height)"' ;;
+    esac
+}
+
+MODE="${1:-smart}"
+
+if [[ "$MODE" == fullscreen ]]; then
+    grim -g "$(get_output)" - | wl-copy
+    notify-send "Screenshot captured"
+else
+    selection="$(case "$COMP" in
+        niri) niri msg -j outputs | jq -r '.[] | "\(.logical.x),\(.logical.y) \(.logical.width)x\(.logical.height)"'
+              niri msg -j windows | jq -r '.[] | select(.logical != null) | "\(.logical.x),\(.logical.y) \(.logical.width)x\(.logical.height)"' ;;
+        sway) swaymsg -t get_outputs | jq -r '.[] | "\(.rect.x),\(.rect.y) \(.rect.width)x\(.rect.height)"'
+              swaymsg -t get_tree | jq -r '.. | select(.type?) | select(.focused == true) | "\(.rect.x),\(.rect.y) \(.rect.width)x\(.rect.height)"' ;;
+    esac | slurp)"
+
+    [[ -z "$selection" ]] && exit 0
+
+    grim -g "$selection" - | satty \
+        --filename - \
+        --output-filename "$OUTPUT_DIR/screenshot-$(date +'%Y-%m-%d_%H-%M-%S').png" \
+        --early-exit \
+        --actions-on-enter save-to-clipboard \
+        --save-after-copy \
+        --copy-command 'wl-copy'
+fi

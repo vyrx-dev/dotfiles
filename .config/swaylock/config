@@ -1,0 +1,34 @@
+# --- Appearance & Blur ---
+# image=~/Wallpapers/monochrome/mac__.jpg
+screenshots
+clock
+indicator
+indicator-radius=100
+indicator-thickness=10
+
+# Performance Trick: Downscale before blurring for instant locking
+effect-scale=0.5
+effect-blur=7x5
+effect-scale=2
+effect-vignette=0.5:0.5
+
+# --- Midnight Obsidian Colors ---
+ring-color=3e4451
+key-hl-color=5c6370
+inside-color=0f0f17cc
+text-color=abb2bf
+line-color=00000000
+separator-color=00000000
+
+# --- Feedback Colors ---
+ring-ver-color=5c6370
+inside-ver-color=0f0f17cc
+ring-wrong-color=e06c75
+text-wrong-color=e06c75
+
+# --- Behavior ---
+ignore-empty-password
+show-failed-attempts
+font="Inter"
+datestr=%a, %B %e
+timestr=%I:%M %p

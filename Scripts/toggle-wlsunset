@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Toggle wlsunset (nightlight)
+if pgrep -x "wlsunset" > /dev/null; then
+    pkill wlsunset
+    notify-send "Nightlight" "Off" -a "wlsunset"
+else
+    wlsunset &
+    notify-send "Nightlight" "On" -a "wlsunset"
+fi

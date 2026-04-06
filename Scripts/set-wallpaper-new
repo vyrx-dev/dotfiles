@@ -1,0 +1,19 @@
+#!/bin/bash
+
+WALLPAPER_DIR="$HOME/Pictures/Wallpapers/"
+WALLPAPER_VERTICAL="$WALLPAPER_DIR/Vertical-wallpapers/"
+
+edp_wallpaper=$(find "$WALLPAPER_DIR" -type f \( -iname "*.jpg" -o -iname "*.png" -o -iname "*.jpeg" -o -iname "*.webp" \) ! -path "*/Vertical-wallpapers/*" | shuf -n 1)
+hdmi_wallpaper=$(find "$WALLPAPER_VERTICAL" -type f \( -iname "*.jpg" -o -iname "*.png" -o -iname "*.jpeg" -o -iname "*.webp" \) | shuf -n 1)
+
+if [[ -n "$edp_wallpaper" ]]; then
+	pkill swaybg 2>/dev/null
+	swaybg -o eDP-1 -i "$edp_wallpaper" -m fill &
+fi
+
+if [[ -n "$hdmi_wallpaper" ]]; then
+	swaybg -o HDMI-A-1 -i "$hdmi_wallpaper" -m fill &
+fi
+
+[[ -n "$edp_wallpaper" ]] && notify-send "Wallpaper (EDP)" "$(basename "$edp_wallpaper")"
+[[ -n "$hdmi_wallpaper" ]] && notify-send "Wallpaper (HDMI)" "$(basename "$hdmi_wallpaper")"

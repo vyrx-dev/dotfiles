@@ -1,0 +1,35 @@
+#!/bin/bash
+# Toggle monitor on/off
+
+OUTPUT="$1"
+STATE_FILE="/tmp/output-${OUTPUT}.state"
+
+# Only check actual compositor processes
+if pgrep -x sway >/dev/null; then
+    COMP=sway
+elif pgrep -x niri >/dev/null; then
+    COMP=niri
+else
+    exit 1
+fi
+
+# Check if currently off
+if [ -f "$STATE_FILE" ]; then
+    rm -f "$STATE_FILE"
+    state=on
+else
+    touch "$STATE_FILE"
+    state=off
+fi
+
+# Apply based on compositor (different syntax!)
+case "$COMP" in
+    niri) niri msg output "$OUTPUT" "$state" ;;
+    sway) 
+        if [ "$state" = on ]; then
+            swaymsg output "$OUTPUT" enable
+        else
+            swaymsg output "$OUTPUT" disable
+        fi
+        ;;
+esac

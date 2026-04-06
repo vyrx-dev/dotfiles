@@ -1,0 +1,16 @@
+#!/bin/bash
+
+pick=$(gum choose --no-show-help \
+    "← Laptop  → Monitor" \
+    "↑ Monitor  ↓ Laptop" \
+    "← Monitor  → Laptop" \
+    "Monitor Only")
+
+[ -z "$pick" ] && exit 0
+
+case "$pick" in
+    "← Laptop  → Monitor")   kanshictl switch laptop-left ;;
+    "↑ Monitor  ↓ Laptop")   kanshictl switch monitor-top ;;
+    "← Monitor  → Laptop")   kanshictl switch monitor-right ;;
+    "Monitor Only")           kanshictl switch monitor-only ;;
+esac

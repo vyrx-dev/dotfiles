@@ -1,0 +1,49 @@
+#!/bin/bash
+
+FUZZEL_OPTS="--dmenu --index"
+
+declare -A stations=(
+	["Radio - Lofi Girl"]="https://play.streamafrica.net/lofiradio"
+	["Radio - Chillhop"]="http://stream.zeno.fm/fyn8eh3h5f8uv"
+	["FM - Love Radio 90.7"]="https://radio-stations-philippines.com/love"
+	["YT - Relaxing Music"]="https://youtube.com/playlist?list=PLMIbmfP_9vb8BCxRoraJpoo4q1yMFg4CE"
+	["YT - Youtube Remix"]="https://youtube.com/playlist?list=PLeqTkIUlrZXlSNn3tcXAa-zbo95j0iN-0&si=4w8ngfzzs0BgdTg0"
+	["YT - Korean Drama OST"]="https://youtube.com/playlist?list=PLUge_o9AIFp4HuA-A3e3ZqENh63LuRRlQ"
+	["YT - Relaxing Piano Jazz"]="https://youtu.be/85UEqRat6E4?si=jXQL1Yp2VP_G6NSn"
+	["YT - John Snow reveal"]="https://youtu.be/dNOZ7MuET2E?si=MDfxr_LrpEEcYslC"
+	["YT - Moody Classic"]="https://youtube.com/playlist?list=PLgIxeDoNjzdD0EpiuE6KaBWiIrgGI2QvE&si=Z6C-Vm8u9cNZ8tny"
+	["YT - Japanese City Pop"]="https://youtu.be/Rh7u_cbAiZc?si=gRa6zNjYQZweSm8u"
+	["YT - Starboy Vibes"]="https://youtu.be/fykM0vDDUnU?si=bnfSyV-LTxVfSyhU"
+	["YT - Jazz Lounge"]="https://youtu.be/kJl319t76z8?si=ny03bA2GHDRwXW5-"
+	["YT - Friends S1"]="https://youtube.com/playlist?list=PLnS-KSZtIXlH8YNow_rTIflrX6ZEF1uNd&si=Y-0aWZSaBJ4peNfu"
+	["YT - Hindi Cover Songs"]="https://youtube.com/playlist?list=PLjqy7NBQvw8wnorOYEom-tBnd1wtiveQZ&si=hVjVxPXF5Bl8zH8l"
+	["YT - Friends From Starting"]="https://youtube.com/playlist?list=PL7PQp2APUAPL-q1GnguwovMusN6g3RdwX&si=K_uGlMO2HvIOR1Ha"
+	["YT - Entourage Soundtrack"]="https://youtube.com/playlist?list=PLIwK6Ozzhumi6NJDgPc1iN1HcDFL-IT48&si=veHxopeG-D974jv-"
+	["YT - Punjabi Sad"]="https://youtube.com/playlist?list=PLIwK6Ozzhumi6NJDgPc1iN1HcDFL-IT48&si=veHxopeG-D974jv-"
+	["YT - Rock Melody"]="https://youtu.be/X8CsR8nkOPQ"
+	["YT - Dream On"]="https://youtu.be/Yq4KA0mUnC8"
+)
+
+# Toggle logic: Stop playback if already running
+if pkill -x mpv; then
+	notify-send -u low "Music Player" "Playback stopped"
+	exit 0
+fi
+
+# Prepare and sort station names
+mapfile -t station_names < <(printf "%s\n" "${!stations[@]}" | sort)
+
+# Get selection index from Fuzzel
+choice_index=$(printf "%s\n" "${station_names[@]}" | fuzzel $FUZZEL_OPTS)
+
+# Exit if user cancels (Esc)
+[[ -z "$choice_index" ]] && exit 0
+
+# Extract selection
+selected_name="${station_names[$choice_index]}"
+url="${stations[$selected_name]}"
+
+# Notify and play
+# --script-opts=ytdl_hook-ytdl_path=yt-dlp forces mpv to use the correct tool
+notify-send -u normal "Now Playing" "$selected_name"
+mpv --vid=no --script-opts=ytdl_hook-ytdl_path=$HOME/yt-dlp "$url"

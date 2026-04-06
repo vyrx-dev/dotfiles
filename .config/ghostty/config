@@ -1,0 +1,59 @@
+# Fonts
+font-family = "JetBrainsMono Nerd Font"
+font-style = Medium
+font-size = 11
+
+# Mouse
+mouse-hide-while-typing = true
+
+# Window
+window-theme = ghostty
+window-padding-x = 10
+window-padding-y = 0
+confirm-close-surface=false
+resize-overlay = never
+gtk-toolbar-style = flat
+# gtk-single-instance = false
+background-opacity = 1
+
+# Cursor
+cursor-style = block
+cursor-style-blink = false
+shell-integration-features = no-cursor
+
+# Keybindings
+keybind = ctrl+shift+h=goto_split:left
+keybind = ctrl+shift+j=goto_split:bottom
+keybind = ctrl+shift+k=goto_split:top
+keybind = ctrl+shift+l=goto_split:right
+keybind = super+shift+enter=new_split:auto
+keybind = super+alt+m=toggle_split_zoom
+keybind = super+shift+q=close_surface
+keybind = ctrl+shift+comma=reload_config
+
+# Scrolling
+scrollback-limit = 100000
+mouse-scroll-multiplier = 2
+
+background = #0a0a0a
+foreground = #c0c0c0
+cursor-color = #c0c0c0
+selection-foreground = #0a0a0a
+selection-background = #c0c0c0
+
+palette = 0=#1a1a1a
+palette = 1=#a85858
+palette = 2=#6a8a5a
+palette = 3=#c4a65a
+palette = 4=#6a7a8a
+palette = 5=#8a6a8a
+palette = 6=#6a8a8a
+palette = 7=#a0a0a0
+palette = 8=#3a3a3a
+palette = 9=#c06060
+palette = 10=#8aaa7a
+palette = 11=#d4b87c
+palette = 12=#7a8a9a
+palette = 13=#9a7a9a
+palette = 14=#7a9a9a
+palette = 15=#c0c0c0

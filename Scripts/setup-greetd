@@ -1,0 +1,34 @@
+#!/bin/bash
+
+echo "Installing greetd and tuigreet..."
+sudo pacman -S --needed greetd greetd-tuigreet
+
+echo "Configuring greetd to use tuigreet..."
+sudo tee /etc/greetd/config.toml > /dev/null << 'EOF'
+[terminal]
+# The VT to run the greeter on. Can be "next", "current" and a number
+# designating the VT.
+vt = 1
+
+[initial_session]
+command = "sway"
+user = "vyrx"
+
+[default_session]
+# -r: remembers the last logged in username
+# --remember-session: remembers the last selected DE/WM session
+# --asterisks: shows stars when typing password
+# --time: shows the current time
+# --cmd sway: uses sway as the default session if no previous session is remembered
+command = "tuigreet -r --remember-session --asterisks --time --cmd sway"
+user = "greeter"
+EOF
+
+# Ensure the greeter user has permissions to write state for remember-session
+sudo usermod -aG video greeter 2>/dev/null
+
+echo "Enabling and starting greetd service..."
+sudo systemctl enable greetd.service
+sudo systemctl restart greetd.service
+
+echo "Done! tuigreet is now configured to remember your last username and session."

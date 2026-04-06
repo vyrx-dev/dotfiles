@@ -1,0 +1,26 @@
+# swaymsg -t get_outputs  →  check output names & modes
+# kanshictl switch <name>  →  switch to a profile by name
+
+profile laptop-only {
+    output eDP-1 enable mode 1920x1080@144.003Hz
+}
+
+profile laptop-left {
+    output eDP-1    enable mode 1920x1080@144.003Hz position 0,0
+    output HDMI-A-1 enable mode 1920x1080@100Hz     position 1920,0
+}
+
+profile monitor-top {
+    output HDMI-A-1 enable mode 1920x1080@100Hz     position 0,0
+    output eDP-1    enable mode 1920x1080@144.003Hz position 0,1080
+}
+
+profile monitor-right {
+    output HDMI-A-1 enable mode 1920x1080@100Hz     position 0,0
+    output eDP-1    enable mode 1920x1080@144.003Hz position 1920,0
+}
+
+profile monitor-only {
+    output HDMI-A-1 enable mode 1920x1080@100Hz position 0,0
+    output eDP-1    disable
+}

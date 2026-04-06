@@ -1,0 +1,40 @@
+#!/bin/bash
+
+APPS_DIR="$HOME/.local/share/applications"
+ICON_DIR="$APPS_DIR/icons"
+
+# Find only webapps (desktop files with X-WebApp=true or using launch-webapp)
+APP_NAMES=()
+for file in "$APPS_DIR"/*.desktop; do
+  [[ -f "$file" ]] || continue
+  if grep -q "X-WebApp=true\|launch-webapp" "$file"; then
+    APP_NAMES+=("$(basename "$file" .desktop)")
+  fi
+done
+
+if [[ ${#APP_NAMES[@]} -eq 0 ]]; then
+  echo "No webapps found."
+  exit 0
+fi
+
+# Let user select apps to remove
+SELECTED=$(printf '%s\n' "${APP_NAMES[@]}" | gum choose --no-limit \
+  --cursor="› " \
+  --cursor-prefix="○ " \
+  --selected-prefix="● " \
+  --unselected-prefix="○ " \
+  --header "Select webapps to remove (x toggle • enter submit)")
+
+if [[ -z "$SELECTED" ]]; then
+  echo "No apps selected."
+  exit 0
+fi
+
+# Remove selected apps
+while IFS= read -r app; do
+  rm -f "$APPS_DIR/$app.desktop"
+  rm -f "$ICON_DIR/$app.png"
+  echo "Removed: $app"
+done <<< "$SELECTED"
+
+echo -e "\nRemoval complete!"

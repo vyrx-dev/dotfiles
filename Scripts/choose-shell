@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+BOLD='\e[1m'
+YELLOW='\e[93m'
+GREEN='\e[92m'
+RESET='\e[0m'
+
+info()  { echo -e "${BOLD}${YELLOW}$1${RESET}"; }
+ok()    { echo -e "${BOLD}${GREEN}>> $1${RESET}\n"; }
+
+install_if_missing() {
+  command -v "$1" &>/dev/null && return
+  info "$1 not found. Installing..."
+  sudo pacman -S --noconfirm "$1"
+}
+
+set_shell() {
+  install_if_missing "$1"
+  sudo chsh -s "$(command -v "$1")" "$USER"
+  ok "Shell choice: $1"
+  echo "Logout and log back in for the change to take effect."
+  sleep 2
+}
+
+shell=$(gum choose --height 5 --header "Choose your default shell" bash fish zsh quit)
+
+case $shell in
+  bash|fish|zsh) set_shell "$shell" ;;
+  quit) echo "Exiting."; exit 0 ;;
+  *)    echo "Invalid choice."; exit 1 ;;
+esac

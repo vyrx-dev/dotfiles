@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# Cleanup existing sessions
+if pgrep -x "scrcpy" > /dev/null; then
+    pkill -9 scrcpy
+    sleep 0.5
+fi
+
+# 2. Check for driver and install if missing
+if ! pacman -Qq v4l2loopback-dkms &>/dev/null; then
+    pkexec pacman -S --needed --noconfirm v4l2loopback-dkms
+fi
+
+# 3. Load driver via Polkit if /dev/video2 is missing
+if [[ ! -c /dev/video2 ]]; then
+    pkexec modprobe v4l2loopback video_nr=2 card_label="AndroidCam" exclusive_caps=1
+fi
+
+case "$1" in
+    webcam)
+        # Using Front Camera
+        scrcpy --video-source=camera --camera-facing=front --camera-size=1920x1080 --v4l2-sink=/dev/video2 --no-playback --no-window &
+        notify-send "Webcam" "Front camera live" -i camera-webcam
+        ;;
+    mirror)
+        # Mobile Development Mirror
+        scrcpy --max-size=1920 --always-on-top --window-title="Android Dev" --stay-awake &
+        notify-send "Mirror" "Mobile Screen Live" -i phone
+        ;;
+    *)
+        echo "Usage: run-scrcpy [webcam|mirror]"
+        ;;
+esac
