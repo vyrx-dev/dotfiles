@@ -8,10 +8,6 @@ Sway is my main compositor with animations and gaps disabled. Sometimes I switch
 
 <img src="assets/setup-1.png" alt="Setup 1">
 
-<img src="assets/setup-2.png" alt="Setup 2">
-
-## Neovim + Tmux
-
 <img src="assets/nvim-tmux.png" alt="Neovim + Tmux">
 
 ## Usage
