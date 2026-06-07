@@ -5,6 +5,6 @@ if pgrep -x "wlsunset" > /dev/null; then
     pkill wlsunset
     notify-send "Nightlight" "Off" -a "wlsunset"
 else
-    wlsunset &
+    wlsunset -t 4000 -T 4001 &
     notify-send "Nightlight" "On" -a "wlsunset"
 fi

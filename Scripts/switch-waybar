@@ -1,0 +1,19 @@
+#!/bin/bash
+cd ~/.config/waybar || exit
+
+themes=(waybar-*/)
+# Get active theme folder from the current symlink
+current=$(dirname "$(readlink config.jsonc 2>/dev/null)" 2>/dev/null)
+
+for i in "${!themes[@]}"; do
+    [[ "${themes[$i]%/}" == "$current" ]] && break
+done
+
+# Cycle to next theme (modulo math wraps back to 0 at the end)
+next="${themes[$(( (i + 1) % ${#themes[@]} ))]%/}"
+
+ln -sf "$next/config.jsonc" config.jsonc
+ln -sf "$next/style.css" style.css
+
+killall -q waybar
+setsid waybar &>/dev/null &

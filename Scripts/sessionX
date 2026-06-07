@@ -7,7 +7,7 @@ dirs=(
 	"$HOME/Testing-repo"
 	"$HOME/Git"
 	"$HOME/Projects"
-	"$HOME/dotfiles"
+	"$HOME/dotfiles-private"
 	"$HOME/Projects/flutter_projects"
 )
 

@@ -1,0 +1,18 @@
+#!/bin/bash
+# Game menu with icons
+
+mapfile -t game_files < <(grep -rl "Categories=Game" ~/.local/share/applications/*.desktop 2>/dev/null | sort)
+[ ${#game_files[@]} -eq 0 ] && exit 1
+
+# Build list with icon protocol
+for file in "${game_files[@]}"; do
+    name=$(grep -m1 "^Name=" "$file" | cut -d= -f2-)
+    icon=$(grep -m1 "^Icon=" "$file" | cut -d= -f2-)
+    [ -n "$name" ] && printf "%s\0icon\x1f%s\n" "$name" "${icon:-application-x-executable}"
+done | fuzzel --dmenu --lines=8 | {
+    read -r selected
+    [ -z "$selected" ] && exit 0
+    for file in "${game_files[@]}"; do
+        grep -q "^Name=$selected$" "$file" 2>/dev/null && gtk-launch "$(basename "$file" .desktop)" && break
+    done
+}

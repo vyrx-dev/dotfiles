@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+DIR="$HOME/Pictures/Wallpapers"
+
+# find image files and shuffle
+files=$(find "$DIR" -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' \) -print | shuf)
+
+# show list in vicinae
+choice=$(printf '%s\n' "$files" | vicinae dmenu -p 'Pick a wallpaper...')
+
+# apply selection
+if [ -n "$choice" ]; then
+	pkill swaybg 2>/dev/null || true
+	swaybg -i "$choice" -m fill &
+fi

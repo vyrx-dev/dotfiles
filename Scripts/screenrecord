@@ -12,6 +12,7 @@ DESKTOP_AUDIO="false"
 MICROPHONE_AUDIO="false"
 WEBCAM="false"
 STOP_RECORDING="false"
+REGION_SELECT="false"
 
 for arg in "$@"; do
   case "$arg" in
@@ -19,6 +20,7 @@ for arg in "$@"; do
   --with-microphone-audio) MICROPHONE_AUDIO="true" ;;
   --with-webcam) WEBCAM="true" ;;
   --stop-recording) STOP_RECORDING="true" ;;
+  --region) REGION_SELECT="true" ;;
   esac
 done
 
@@ -29,9 +31,8 @@ cleanup_webcam() {
 start_webcam_overlay() {
   cleanup_webcam
 
-  # Get monitor scale (fallback to 1.0 for Sway)
+  # Get monitor scale (fallback to 1.0)
   local scale=1.0
-  # Try to get scale from Sway if possible
   if command -v swaymsg >/dev/null; then
     scale=$(swaymsg -t get_outputs | jq -r '.[] | select(.focused == true) | .scale // 1.0' | head -1)
   fi
@@ -61,10 +62,34 @@ start_webcam_overlay() {
   sleep 1
 }
 
+select_region() {
+  if ! command -v slurp >/dev/null; then
+    notify-send "Region selection requires 'slurp' to be installed" -u critical -t 3000
+    return 1
+  fi
+
+  local region
+  region=$(slurp -f "%wx%h+%x+%y" 2>/dev/null)
+
+  if [[ -z "$region" ]]; then
+    notify-send "Region selection cancelled" -t 2000
+    return 1
+  fi
+
+  echo "$region"
+}
+
 start_screenrecording() {
   local filename="$OUTPUT_DIR/screenrecording-$(date +'%Y-%m-%d_%H-%M-%S').mp4"
   local audio_devices=""
   local audio_args=""
+  local capture_mode="portal"
+
+  if [[ "$REGION_SELECT" == "true" ]]; then
+    local region
+    region=$(select_region) || { cleanup_webcam; return 1; }
+    capture_mode="$region"  # pass coordinates directly to -w (e.g. "1920x1080+0+0")
+  fi
 
   [[ "$DESKTOP_AUDIO" == "true" ]] && audio_devices+="default_output"
 
@@ -81,7 +106,7 @@ start_screenrecording() {
 
   [[ -n "$audio_devices" ]] && audio_args+="-a $audio_devices"
 
-  gpu-screen-recorder -w portal -f 60 -fallback-cpu-encoding yes -o "$filename" $audio_args -ac aac &
+  gpu-screen-recorder -w "$capture_mode" -f 60 -fallback-cpu-encoding yes -o "$filename" $audio_args -ac aac &
   toggle_screenrecording_indicator
 }
 

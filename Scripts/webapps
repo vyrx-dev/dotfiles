@@ -46,6 +46,8 @@ WEBAPPS=(
 	"YouTube Music|https://music.youtube.com/|https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/youtube-music.png"
 	"Spotify|https://open.spotify.com/|https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/spotify.png"
 	"Chess|https://www.chess.com/|https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/chess.png"
+	"Game-Deals|https://isthereanydeal.com/browse/|https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/gamevault.png"
+	"White-screen|https://www.whitescreen.online/|https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/screenconnect.png"
 
 )
 
