@@ -12,7 +12,7 @@ return {
   config = function()
     require("flutter-tools").setup {
       flutter_path = "/home/vyrx/dev-tools/flutter/bin/flutter",
-      widget_guides = { enabled = true },
+      widget_guides = { enabled = false },
       debugger = {
         enabled = true,
         evaluate_to_string_in_debug_views = true,

@@ -25,5 +25,23 @@ return {
     -- Other
     { "<leader>/", function() require("fzf-lua").blines() end, desc = "Search Current Buffer" },
   },
-  opts = {},
-}
+  opts = {
+    file_ignore_patterns = {
+      -- VCS
+      ".git/", ".jj/", ".gitlab/",
+      -- JS / TS
+      "node_modules/", "dist/", "build/", ".next/", "out/",
+      "package-lock.json", "yarn.lock", "pnpm-lock.yaml", "bun.lockb",
+      -- Python
+      "__pycache__/", ".venv/", "venv/",
+      ".mypy_cache/", ".pytest_cache/", ".ruff_cache/",
+      -- Go
+      "vendor/",
+      -- Flutter / Dart
+      ".dart_tool/", "build/", ".flutter-plugins",
+      ".flutter-plugins-dependencies", ".packages", "pubspec.lock", ".fvm/",
+      -- Editors / OS
+      ".DS_Store", ".idea/", ".vscode/",
+    },
+  },
+}  

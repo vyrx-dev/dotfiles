@@ -6,8 +6,8 @@ vim.g.maplocalleader = " "
 local set = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
--- jj to escape insert mode
-set("i", "jj", "<Esc>", opts)
+-- jj to restart
+set("n", "<leader>rr", "<cmd>restart<CR>", opts)
 
 -- Disable the spacebar key's default behavior in Normal and Visual modes
 set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
@@ -104,3 +104,5 @@ set(
   { desc = "Flutter watch" }
 )
 
+-- Transparent toggle
+set("n", "<leader>tt", "<cmd>TransparentToggle<CR>", { desc = "Toggle transparent background" })

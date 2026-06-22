@@ -3,6 +3,7 @@ return
 {
   "nvim-tree/nvim-tree.lua",
   cmd = { "NvimTreeToggle", "NvimTreeFocus" },
+  lazy = false,
   config = function()
     -- remove background color from the nvimtree window (ui fix)
     vim.cmd [[hi nvimtreenormal guibg=none ctermbg=none]]
@@ -17,6 +18,7 @@ return
       },
       view = {
         width = 30,
+        side = "right",
         preserve_window_proportions = true,
       },
       renderer = {
