@@ -18,4 +18,5 @@ font=Inter 11
 layer=overlay
 history=0
 
-
+[mode=do-not-disturb]
+invisible=1
