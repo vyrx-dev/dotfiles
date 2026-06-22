@@ -1,0 +1,197 @@
+{
+  "reload_style_on_change": true,
+  "layer": "top",
+  "position": "top",
+  "spacing": 0,
+  "height": 24,
+  "modules-left": [
+    "niri/workspaces",
+    "sway/workspaces"
+  ],
+  "modules-center": [
+    "mpris"
+  ],
+  "modules-right": [
+    "custom/screenrecording-indicator",
+    "custom/last-updated",
+    "idle_inhibitor",
+    "pulseaudio#microphone",
+    "pulseaudio",
+    "backlight",
+    "network",
+    "cpu",
+    "memory",
+    "disk",
+    "battery",
+    "clock",
+    "tray"
+  ],
+  "custom/screenrecording-indicator": {
+    "on-click": "~/Scripts/screenrecord",
+    "exec": "~/Scripts/indicator-record",
+    "signal": 8,
+    "return-type": "json"
+  },
+  "niri/workspaces": {
+    "on-scroll-up": "niri msg action focus-window-or-workspace-up",
+    "on-scroll-down": "niri msg action focus-column-right-or-first"
+  },
+  "sway/workspaces": {
+    "disable-scroll": false,
+    "all-outputs": false,
+    "format": "{name}",
+    "on-click": "activate"
+  },
+  "cpu": {
+    "interval": 2,
+    "format": " {usage}%",
+    "on-click": "ghostty -e btop"
+  },
+  "memory": {
+    "format": " {used:0.1f}G",
+    "interval": 2,
+    "on-click": "ghostty -e btop"
+  },
+  "custom/last-updated": {
+    "exec": "~/Scripts/last-updated-days.sh",
+    "return-type": "json",
+    "interval": 3600,
+    "format": " {text}",
+    "on-click": "ghostty -e topgrade"
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "",
+      "deactivated": ""
+    }
+  },
+  "disk": {
+    "interval": 30,
+    "format": "󰋊 {percentage_free}%",
+    "tooltip-format": "Used: {used}\nFree: {free}\nTotal: {total}",
+    "path": "/",
+    "on-click": "ghostty -e duf"
+  },
+  "clock": {
+    "format": "{:%H:%M}",
+    "format-alt": "{:L%A %d %B}",
+    "tooltip": false
+  },
+  "network": {
+    "format-icons": {
+      "wifi": [
+        "󰤯",
+        "󰤟",
+        "󰤢",
+        "󰤥",
+        "󰤨"
+      ],
+      "format-ethernet": "󰀂",
+      "disabled": "󰤮",
+      "disconnected": "󰤭"
+    },
+    "format-wifi": "{icon} {essid}",
+    "format-ethernet": "{icon}",
+    "format-disconnected": "{icon}",
+    "format-disabled": "{icon}",
+    "interval": 3,
+    "tooltip-format": "IP: {ipaddr}\n\n⇣ {bandwidthDownBytes}  ⇡ {bandwidthUpBytes}",
+    "tooltip-format-wifi": "IP: {ipaddr}\n\n⇣ {bandwidthDownBytes}  ⇡ {bandwidthUpBytes}",
+    "tooltip-format-ethernet": "IP: {ipaddr}\n\n⇣ {bandwidthDownBytes}  ⇡ {bandwidthUpBytes}",
+    "tooltip-format-disconnected": "Disconnected",
+    "on-click": "nmgui",
+    "on-click-right": "rfkill toggle wifi",
+    "tooltip": true,
+    "max-length": 20
+  },
+  "backlight": {
+    "device": "intel_backlight",
+    "format": "{icon} {percent}%",
+    "format-icons": [
+      "󰃞",
+      "󰃟",
+      "󰃠"
+    ],
+    "reverse-scrolling": true,
+    "smooth-scrolling-threshold": 0.2,
+    "tooltip": false
+  },
+  "battery": {
+    "interval": 5,
+    "states": {
+      "warning": 20,
+      "critical": 10
+    },
+    "format": "{icon} {capacity}%",
+    "format-full": "󰂅",
+    "format-icons": {
+      "charging": [
+        "󰢜",
+        "󰂆",
+        "󰂇",
+        "󰂈",
+        "󰢝",
+        "󰂉",
+        "󰢞",
+        "󰂊",
+        "󰂋",
+        "󰂅"
+      ],
+      "default": [
+        "󰁺",
+        "󰁻",
+        "󰁼",
+        "󰁽",
+        "󰁾",
+        "󰁿",
+        "󰂀",
+        "󰂁",
+        "󰂂",
+        "󰁹"
+      ]
+    },
+    "format-charging": "{icon} {capacity}%",
+    "format-plugged": " {capacity}%",
+    "format-critical": "󰂃 {capacity}%",
+    "tooltip": true,
+    "tooltip-format": "Not Charging",
+    "tooltip-format-charging": "Charging"
+  },
+  "pulseaudio#microphone": {
+    "format": "{format_source}",
+    "format-source": "",
+    "format-source-muted": "",
+    "on-click": "pactl set-source-mute @DEFAULT_SOURCE@ toggle",
+    "on-click-right": "pavucontrol -t 4",
+    "tooltip": false
+  },
+  "pulseaudio": {
+    "interval": 1,
+    "format": "{icon} {volume}%",
+    "format-icons": [
+      "",
+      "",
+      ""
+    ],
+    "format-muted": " muted",
+    "on-click": "pavucontrol",
+    "on-click-right": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+    "reverse-scrolling": true,
+    "tooltip": true,
+    "tooltip-format": "Volume: {volume}%\n{desc}",
+    "ignored-sinks": [
+      "Easy Effects Sink"
+    ]
+  },
+  "tray": {
+    "icon-size": 12,
+    "spacing": 4
+  },
+  "mpris": {
+    "format": "{artist} • {title}",
+    "format-paused": "{artist} • {title}",
+    "format-stopped": "",
+    "max-length": 55
+  }
+}
