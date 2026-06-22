@@ -42,7 +42,8 @@ abbr -a gits 'git status'
 abbr -a ghp 'gh repo create --public $(basename "$PWD") --source=. --description="desc" --push'
 
 # ── Mobile & Android ──
-alias emu "QT_QPA_PLATFORM=xcb ~/Android/Sdk/emulator/emulator -avd Pixel_9 &"
+alias emu "QT_QPA_PLATFORM=xcb ~/Android/Sdk/emulator/emulator -avd Pixel_9_Pro &"
+alias devices ~/Android/Sdk/emulator/emulator -list-avds
 
 # ── Media ──
 alias rip "yt-dlp -x --audio-format=\"mp3\""
