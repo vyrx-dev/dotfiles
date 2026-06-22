@@ -10,9 +10,9 @@ ALACRITTY="$HOME/.config/alacritty/alacritty.toml"
 # Kitty: background_opacity 1 <-> 0.8
 if [ -f "$KITTY" ]; then
 	if grep -q "background_opacity 1" "$KITTY"; then
-		sed -i "s/background_opacity 1/background_opacity 0.95/" "$KITTY"
+		sed -i "s/background_opacity 1/background_opacity 0.96/" "$KITTY"
 	else
-		sed -i "s/background_opacity 0.95/background_opacity 1/" "$KITTY"
+		sed -i "s/background_opacity 0.96/background_opacity 1/" "$KITTY"
 	fi
 	pkill -SIGUSR1 kitty
 fi
@@ -20,9 +20,9 @@ fi
 # Ghostty: background-opacity = 1 <-> 0.8
 if [ -f "$GHOSTTY" ]; then
 	if grep -q "background-opacity = 1" "$GHOSTTY"; then
-		sed -i "s/background-opacity = 1/background-opacity = 0.90/" "$GHOSTTY"
+		sed -i "s/background-opacity = 1/background-opacity = 0.96/" "$GHOSTTY"
 	else
-		sed -i "s/background-opacity = 0.90/background-opacity = 1/" "$GHOSTTY"
+		sed -i "s/background-opacity = 0.96/background-opacity = 1/" "$GHOSTTY"
 	fi
 	pkill -SIGUSR2 ghostty
 fi
