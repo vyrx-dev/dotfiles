@@ -95,6 +95,9 @@ set("n", "<leader>tf", ":ToggleAutoformat<CR>", { desc = "Toggle format on save"
 -- Markdown render
 set("n", "<leader>pt", "<cmd>RenderMarkdown toggle<CR>", { desc = "Toggle Markdown Render" })
 
+-- Waka Time
+set("n", "<leader>xw", "<cmd>WakaTimeToday<CR>", { desc = "WakaTime Today" })
+
 -- Flutter watch
 set(
   "n",
