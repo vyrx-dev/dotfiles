@@ -1,8 +1,4 @@
 #!/bin/bash
-#|---/ /+---------------------+---/ /|#
-#|--/ /-| Symphony Dotfiles   |--/ /-|#
-#|-/ /--| Web Apps Installer  |-/ /--|#
-#|/ /---+---------------------+/ /---|#
 
 # Predefined webapps: "Name|URL|Icon"
 # Icons from https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/
@@ -35,9 +31,8 @@ WEBAPPS=(
 	"Netflix|https://www.netflix.com/|https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/netflix.png"
 	"Lucida|https://lucida.to/|https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/deezer.png"
 	"Aur Repository|https://aur.archlinux.org/|https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/arch-linux.png"
-	"Movie|https://www.1flex.nl/|https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/synology-video-station.png"
-	"Cohort|https://app.100xdevs.com/courses/14/|https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/google-contacts.png"
-	"Udemy|https://www.udemy.com/course/learn-flutter-dart-to-build-ios-android-apps/learn/lecture/37213680?start=15#overview|https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/udemy-light.png"
+	"Movie|https://www.1flex.org/|https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/synology-video-station.png"
+	"Udemy|https://www.udemy.com/|https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/udemy-light.png"
 	"LastFm|https://www.last.fm|https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/multi-scrobbler.png"
 	"Dropbox|https://www.dropbox.com|https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/dropbox.png"
 	"notebook-lm|https://notebooklm.google.com/?icid=home_maincta/|https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/notebook-lm.png"
@@ -48,6 +43,7 @@ WEBAPPS=(
 	"Chess|https://www.chess.com/|https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/chess.png"
 	"Game-Deals|https://isthereanydeal.com/browse/|https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/gamevault.png"
 	"White-screen|https://www.whitescreen.online/|https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/screenconnect.png"
+	"DDIA Book|https://learning.oreilly.com/library/view/designing-data-intensive-applications/9781098119058/ch01.html|https://cdn.jsdelivr.net/gh/selfhst/icons/png/booklogr.png"
 
 )
 

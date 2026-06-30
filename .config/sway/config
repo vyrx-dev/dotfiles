@@ -13,7 +13,7 @@ exec kdeconnect-indicator
 exec wl-clip-persist --clipboard regular
 exec wl-paste --watch cliphist store
 exec ~/Scripts/battery-monitor
-# exec ~/Scripts/set-wallpaper random
+exec ~/Scripts/set-wallpaper random
 
 # ╭───────────────────────────────────────────────────────────────────────╮
 # │ VARIABLES                                                             │
@@ -31,7 +31,7 @@ set $menu fuzzel
 # │ OUTPUT                                                                │
 # ╰───────────────────────────────────────────────────────────────────────╯
 # Run: swaymsg -t get_outputs
-output * bg /home/vyrx/Pictures/Wallpapers/others/a_forest_of_trees_with_fog.jpg fill
+# output * bg /home/vyrx/Pictures/Wallpapers/others/a_forest_of_trees_with_fog.jpg fill
 # output * bg /home/vyrx/Pictures/Wallpapers/others/a_sculpture_of_a_man_with_a_face_on_his_head.png fill
 
 # ╭───────────────────────────────────────────────────────────────────────╮
@@ -50,10 +50,10 @@ input * {
 }
 
 # Lock after 300s (5min), turn off monitors after 600s (10min), lock before sleep
-# exec swayidle -w \
-#     timeout 300 'swaylock -f' \
-#     timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-#     before-sleep 'swaylock -f'
+exec swayidle -w \
+    timeout 300 'swaylock -f' \
+    timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+    before-sleep 'swaylock -f'
 
 
 # Basic touchpad settings
@@ -97,29 +97,28 @@ seat * hide_cursor when-typing enable
 # │ WINDOW RULES                                                          │
 # ╰───────────────────────────────────────────────────────────────────────╯
 # ─── Workspace Assignments ───
-assign [app_id="vesktop"] workspace number 10
-assign [class="Vesktop"] workspace number 10
-assign [app_id="obsidian"] workspace number 8
-assign [app_id="spotify"] workspace number 9
 assign [app_id="code"] workspace number 2
+assign [app_id="dev.zed.Zed"] workspace number 2
 assign [app_id="org.telegram.desktop"] workspace number 7
-assign [app_id="brave-todoist.com__-Default"] workspace number 6
-assign [app_id="brave-web.whatsapp.com__-Default"] workspace number 5
-assign [app_id="mpv"] workspace number 4
+assign [app_id="obsidian"] workspace number 8
+assign [class="Spotify"] workspace number 9
+assign [app_id="vesktop"] workspace number 10
+assign [app_id="chrome-web.whatsapp.com__-Default"] workspace number 5
+assign [app_id="chrome-app.todoist.com__app-Default"] workspace number 6
 
-# ─── Focus on Open ───
+# ─── Focus ───
 for_window [app_id="vesktop"] focus
-for_window [class="Vesktop"] focus
 for_window [app_id="obsidian"] focus
-for_window [app_id="spotify"] focus
+for_window [class="Spotify"] focus
 for_window [app_id="code"] focus
+for_window [app_id="dev.zed.Zed"] focus
 for_window [app_id="org.telegram.desktop"] focus
-for_window [app_id="brave-todoist.com__-Default"] focus
-for_window [app_id="brave-web.whatsapp.com__-Default"] focus
+for_window [app_id="chrome-app.todoist.com__app-Default"] focus
+for_window [app_id="chrome-web.whatsapp.com__-Default"] focus
 for_window [app_id="mpv"] focus
 
 # ─── Floating Windows ───
-for_window [app_id="mpv"] floating enable, resize set width 960 height 540, move position center
+for_window [app_id="mpv"] floating enable, resize set width 960 height 540, move position center 
 for_window [app_id="thunar"] floating enable, resize set width 1000 height 600, move position center
 for_window [class="feh"] floating enable, resize set width 960 height 540, move position center
 for_window [app_id="com.github.wwmm.easyeffects"] floating enable, resize set 1000 600, move position center
@@ -131,65 +130,77 @@ for_window [app_id="com.vyrx.kanshi-switch"] floating enable, resize set width 4
 # ─── Core Applications ───
 bindsym $mod+Return exec $term
 bindsym $mod+Space exec $menu
-bindsym $mod+b exec brave
+bindsym $mod+b exec helium-browser
 bindsym $mod+e exec thunar
 bindsym $mod+c exec code
 bindsym $mod+o exec obsidian
 bindsym $mod+Shift+G exec geary
-bindsym $mod+q kill
-
-# ─── Communication & Media ───
 bindsym $mod+d exec vesktop
 bindsym $mod+m exec spotify-launcher
+
+# ─── Kill App ───
+bindsym $mod+q kill
 
 # ─── Terminal Applications ───
 bindsym Alt+slash exec ghostty -e btop
 bindsym Alt+N exec ghostty -e nvim
 bindsym Alt+M exec ghostty -e rmpc
 bindsym Alt+Q exec ghostty -e yazi
+bindsym Alt+Escape exec ghostty -e tmux a
+bindsym $mod+Shift+T exec ghostty -e toofan
+bindsym Alt+G exec ghostty --title='gh-dash' -e gh dash
 bindsym Alt+I exec ghostty --class=com.vyrx.kanshi-switch -e ~/Scripts/kanshi-switch
-# bindsym $mod+Shift+Return exec ghostty -e tmux a 
-bindsym $mod+Shift+BackSpace exec ~/Scripts/run-scrcpy mirror
-
-bindsym --locked XF86PowerOff exec systemctl suspend | swaylock
 
 
 # ─── Web Applications ───
 bindsym $mod+a exec ~/Scripts/launch-webapp https://chatgpt.com
-bindsym $mod+Alt+a exec ~/Scripts/launch-webapp https://chat.z.ai
-# bindsym $mod+Alt+a exec ~/Scripts/launch-webapp https://www.kimi.com/en
-# bindsym $mod+Alt+a exec ~/Scripts/launch-webapp https://perplexity.ai
+bindsym $mod+Alt+a exec ~/Scripts/launch-webapp https://claude.ai/
 bindsym $mod+Shift+a exec ~/Scripts/launch-webapp https://gemini.google.com
 bindsym $mod+T exec ~/Scripts/launch-webapp https://app.todoist.com/app
 bindsym $mod+Y exec ~/Scripts/launch-webapp https://youtube.com
 bindsym $mod+G exec ~/Scripts/launch-webapp https://github.com
 # bindsym $mod+Shift+G exec ~/Scripts/launch-webapp https://mail.google.com
-bindsym Alt+G exec ghostty --title='gh-dash' -e gh dash
 bindsym $mod+X exec ~/Scripts/launch-webapp https://X.com
 bindsym $mod+Shift+W exec ~/Scripts/launch-webapp https://web.whatsapp.com
 bindsym $mod+Backslash exec ~/Scripts/launch-webapp https://devhints.io
 bindsym Alt+Space exec ~/Scripts/launch-webapp https://vyrx.dev
 
-# ─── Utilities ───
-bindsym $mod+Alt+m exec ~/Scripts/dual-dac
-bindsym Alt+comma exec cliphist list | fuzzel --dmenu | cliphist decode | wl-copy
-bindsym Alt+period exec ~/Scripts/fuzzel-emoji
-bindsym Alt+P exec hyprpicker -a
-bindsym $mod+BackSpace exec ~/Scripts/toggle-terminal-transparency
-bindsym $mod+Shift+Space exec ~/Scripts/toggle-waybar
-bindsym $mod+Shift+M exec ~/Scripts/beats
-bindsym $mod+XF86AudioMute exec ~/Scripts/audio-switch
+# ╭───────────────────────────────────────────────────────────────────────╮
+# │ Utilities                                                             │
+# ╰───────────────────────────────────────────────────────────────────────╯
+# ─── Fuzzel Menu ───
+bindsym Alt+comma exec cliphist list | fuzzel --dmenu | cliphist decode | wl-copy #clipboard
+bindsym Alt+period exec ~/Scripts/fuzzel-emoji #emoji
+bindsym $mod+Shift+M exec ~/Scripts/beats #music stations and youtube (audio only)
+bindsym $mod+Alt+Space exec ~/Scripts/game-menu #installed game
+
+# ─── Notification ───
 bindsym $mod+Shift+n exec makoctl dismiss -a
 bindsym $mod+n exec makoctl restore
-bindsym $mod+Alt+n exec ~/Scripts/toggle-wlsunset
+
+# ─── Screenrecording ───
 bindsym $mod+R exec ~/Scripts/screenrecord --with-desktop-audio 
+bindsym $mod+Alt+R exec ~/Scripts/screenrecord --region
 bindsym $mod+Shift+R exec ~/Scripts/screenrecord --with-microphone-audio 
+
+# ─── Screenshot ───
+bindsym Print exec ~/Scripts/screenshot
 bindsym $mod+P exec ~/Scripts/screenshot
 bindsym $mod+Shift+P exec ~/Scripts/screenshot fullscreen
-bindsym Print exec grim
 
-# Launch Pixel_9
-bindsym $mod+Alt+p exec ~/Android/Sdk/emulator/emulator -avd Pixel_9 &
+# ─── Waybar ───
+bindsym $mod+Shift+Space exec ~/Scripts/toggle-waybar
+bindsym $mod+Shift+backslash exec ~/Scripts/switch-waybar #waybar layouts
+
+# ─── Mobile ───
+bindsym $mod+Alt+p exec ~/Android/Sdk/emulator/emulator -avd Pixel_9_Pro &
+bindsym $mod+Shift+BackSpace exec ~/Scripts/run-scrcpy mirror
+bindsym $mod+Ctrl+BackSpace exec ~/Scripts/run-scrcpy webcam
+
+# ─── Others ───
+bindsym Alt+P exec hyprpicker -a #color picker
+bindsym $mod+BackSpace exec ~/Scripts/toggle-terminal-transparency
+bindsym $mod+Alt+n exec ~/Scripts/toggle-wlsunset
 
 # ─── Wallpaper ───
 bindsym Ctrl+Alt+Space exec ~/Scripts/set-wallpaper random
@@ -200,36 +211,39 @@ bindsym $mod+Alt+l exec swaylock
 bindsym $mod+escape exec ~/Scripts/powermenu
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+e exec swaynag -t warning -m 'Exit sway?' -B 'Yes' 'swaymsg exit'
+bindsym --locked XF86PowerOff exec systemctl suspend | swaylock
 
 # ─── Monitor Toggle ───
 bindsym Ctrl+Shift+1 exec ~/Scripts/toggle-output eDP-1
 bindsym Ctrl+Shift+2 exec ~/Scripts/toggle-output HDMI-A-1
 
-# ─── Hardware Keys ───
+# ─── Audio Keys & Scripts ───
 bindsym --locked XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
 bindsym --locked XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym $mod+Alt+m exec ~/Scripts/dual-dac #support dual audio output (only works with Audiocular Spark dac)
+bindsym $mod+XF86AudioMute exec ~/Scripts/audio-switch #switch to different audio outputs
 
-# Laptop brightness (brightnessctl)
+# ───  Laptop brightness  ───
 bindsym --locked XF86MonBrightnessDown exec brightnessctl set 10%-
 bindsym --locked XF86MonBrightnessUp exec brightnessctl set 10%+
 bindsym $mod+Alt+XF86AudioRaiseVolume exec brightnessctl --class=backlight set +10%
 bindsym $mod+Alt+XF86AudioLowerVolume exec brightnessctl --class=backlight set 10%-
 
-# External monitor brightness (DDC/CI)
+# ───  External monitor brightness  ───
 bindsym $mod+XF86AudioRaiseVolume exec ddcutil setvcp 10 + 10
 bindsym $mod+XF86AudioLowerVolume exec ddcutil setvcp 10 - 10
 
-# Media controls
-bindsym $mod+F10 exec playerctl previous
-bindsym $mod+F11 exec playerctl play-pause
-bindsym $mod+F12 exec playerctl next
+# # ───  Media controls  ───
+bindsym $mod+F10 exec mpc prev
+bindsym $mod+F11 exec mpc toggle
+bindsym $mod+F12 exec mpc next
 
 # ─── Window Focus (Vim-style) ───
+# bindsym $mod+$up focus up -- commented for workspace switching
+# bindsym $mod+$down focus down  -- commented for workspace switching
 bindsym $mod+$left focus left
-bindsym $mod+$down focus down
-bindsym $mod+$up focus up
 bindsym $mod+$right focus right
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
@@ -241,7 +255,7 @@ bindsym $mod+Shift+$left move left
 bindsym $mod+Shift+$down move down
 bindsym $mod+Shift+$up move up
 bindsym $mod+Shift+$right move right
-# bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
@@ -257,8 +271,8 @@ bindsym $mod+7 workspace number 7
 bindsym $mod+8 workspace number 8
 bindsym $mod+9 workspace number 9
 bindsym $mod+0 workspace number 10
-bindsym Alt+K workspace next
-bindsym Alt+J workspace prev
+bindsym $mod+K workspace next
+bindsym $mod+J workspace prev
 
 # ─── Move to Workspace ───
 bindsym $mod+Shift+1 move container to workspace number 1
@@ -283,7 +297,7 @@ bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 
 # ─── Resize Mode ───
-bindsym $mod+Alt+r mode "resize"
+bindsym $mod+Shift+z mode "resize"
 mode "resize" {
     bindsym $left resize shrink width 10px
     bindsym $down resize grow height 10px
