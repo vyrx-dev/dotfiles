@@ -75,7 +75,7 @@ binds {
     Mod+Alt+R                           hotkey-overlay-title="Record Screen (Region)" { spawn-sh "~/Scripts/screenrecord --with-desktop-audio --region"; }
 
     // ─── Session & Power ───
-    Mod+ALT+L                           hotkey-overlay-title="Lock Screen" { spawn-sh "noctalia msg session lock"; }
+    Mod+ALT+L                           hotkey-overlay-title="Lock Screen" { spawn "swaylock"; }
     Mod+Escape                          hotkey-overlay-title="Session Menu" { spawn-sh "noctalia msg panel-toggle session"; }
     CTRL+ALT+Delete                     { quit; }
 
