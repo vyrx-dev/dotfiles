@@ -1,0 +1,56 @@
+#!/bin/bash
+# Toggles between Noctalia and Custom niri keybind profiles.
+# Noctalia mode: noctalia bar + notifications + wallpaper
+# Custom mode:   waybar + mako + swaybg wallpaper
+
+CONFIG="$HOME/.config/niri/config.kdl"
+
+# ── Detect current mode ───────────────────────────────────────────────────────
+
+if grep -q '^include "binds-noctalia.kdl"' "$CONFIG"; then
+    CURRENT="noctalia"
+elif grep -q '^include "binds-custom.kdl"' "$CONFIG"; then
+    CURRENT="custom"
+else
+    notify-send "switch-niri-mode" "Could not detect current mode — check config.kdl includes."
+    exit 1
+fi
+
+# ── Switch ────────────────────────────────────────────────────────────────────
+
+if [ "$CURRENT" = "noctalia" ]; then
+    # → Custom
+    sed -i \
+        -e 's|^include "binds-noctalia.kdl"|// include "binds-noctalia.kdl"|' \
+        -e 's|^// include "binds-custom.kdl"|include "binds-custom.kdl"|' \
+        "$CONFIG"
+
+    pkill -x noctalia 2>/dev/null
+
+    pgrep -x waybar > /dev/null || { waybar & disown; }
+    pgrep -x mako   > /dev/null || { mako  & disown; }
+    ~/Scripts/set-wallpaper random
+
+    sleep 0.3
+    niri msg action reload-config
+    sleep 0.5
+    notify-send "Custom mode"
+
+else
+    # → Noctalia
+    sed -i \
+        -e 's|^include "binds-custom.kdl"|// include "binds-custom.kdl"|' \
+        -e 's|^// include "binds-noctalia.kdl"|include "binds-noctalia.kdl"|' \
+        "$CONFIG"
+
+    pkill -x waybar 2>/dev/null
+    pkill -x mako   2>/dev/null
+    pkill -x swaybg 2>/dev/null
+
+    pgrep -x noctalia > /dev/null || { noctalia & disown; }
+
+    sleep 0.3
+    niri msg action reload-config
+    sleep 0.5
+    notify-send "Noctalia mode"
+fi
