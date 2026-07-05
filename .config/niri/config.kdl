@@ -134,10 +134,10 @@ overview {
 }
 
 blur {
-    passes 2        // 2 passes = good quality, one less GPU render pass than 3
-    offset 2.0      // Sample spread per pass (1.5–2.0 is the sweet spot)
-    noise 0.03      // Grain overlay to hide banding
-    saturation 1.0  // Color saturation
+    passes 2
+    offset 2.0
+    noise 0.03
+    saturation 1.0
 }
 
 
