@@ -39,9 +39,7 @@ return {
     lazy = false,
     priority = 1000,
     opts = {
-      keywordStyle = {
-        italic = false,
-      },
+      keywordStyle = { italic = false },
 
       -- Remove gutter background
       colors = {
@@ -62,9 +60,9 @@ return {
         }
       end,
     },
-    config = function(_, opts)
-      require("kanagawa").setup(opts)
-      vim.cmd "colorscheme kanagawa"
+
+    config = function()
+      vim.cmd.colorscheme "kanagawa"
     end,
   },
 }
