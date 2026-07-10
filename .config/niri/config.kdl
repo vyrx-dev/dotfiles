@@ -134,7 +134,7 @@ overview {
 }
 
 blur {
-    passes 2
+    passes 3
     offset 2.0
     noise 0.03
     saturation 1.0
@@ -243,6 +243,7 @@ window-rule {
 window-rule {
     opacity 1.0
     match app-id="chrome-youtube.com__-Default"
+    match app-id="helium"
 }
 
 // Transparent applications

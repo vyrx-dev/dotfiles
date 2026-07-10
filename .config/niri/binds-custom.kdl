@@ -9,6 +9,7 @@ binds {
     Mod+comma                           repeat=false { spawn "vicinae" "vicinae://launch/clipboard/history"; }
     Mod+period                          repeat=false { spawn "vicinae" "vicinae://launch/core/search-emojis"; }
     Mod+B                               hotkey-overlay-title="Helium Browser" { spawn "helium-browser"; }
+    Mod+Shift+B                         hotkey-overlay-title="Helium Browser (Private)" { spawn "helium-browser" "--incognito"; }
     Mod+E                               hotkey-overlay-title="Thunar" { spawn "thunar"; }
     Mod+C                               hotkey-overlay-title="VS Code" { spawn "code"; }
     Mod+D                               hotkey-overlay-title="Discord" { spawn "vesktop"; }
