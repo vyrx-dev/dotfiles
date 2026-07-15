@@ -1,0 +1,21 @@
+#!/bin/bash
+# quick book picker with fzf, opens in zathura
+
+BOOK_DIR="$HOME/Documents/Books"
+
+mapfile -t books < <(find "$BOOK_DIR" -type f \( -iname '*.pdf' -o -iname '*.epub' \) 2>/dev/null)
+
+if [[ ${#books[@]} -eq 0 ]]; then
+	exit 0
+fi
+
+if [[ $# -eq 1 ]]; then
+	selected="$1"
+else
+	selected=$(printf '%s\n' "${books[@]}" | sed "s|^$BOOK_DIR/||" | fzf)
+	[[ -n $selected ]] && selected="$BOOK_DIR/$selected"
+fi
+
+[[ -z $selected ]] && exit 0
+
+exec zathura "$selected"
