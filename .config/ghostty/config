@@ -35,8 +35,8 @@ keybind = ctrl+shift+comma=reload_config
 scrollback-limit = 100000
 mouse-scroll-multiplier = 2
 
-# background = #121212
-background = #000000
+background = #121212
+# background = #000000
 foreground = #c0c0c0
 cursor-color = #c0c0c0
 selection-foreground = #0a0a0a
