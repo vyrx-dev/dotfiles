@@ -26,6 +26,7 @@ binds {
     Alt+G                               hotkey-overlay-title="gh-dash" { spawn-sh "ghostty --title='gh-dash' -e gh dash"; }
     Alt+L                               hotkey-overlay-title="Suspend & Lock" { spawn-sh "systemctl suspend && swaylock"; }
     Alt+Space                           hotkey-overlay-title="Attach Tmux" { spawn-sh "ghostty -e tmux a"; }
+    Alt+P                               hotkey-overlay-title="Book Reader" { spawn-sh "ghostty -e ~/Scripts/book-reader"; }
     // Alt+Return                       { spawn-sh "ghostty --title='gh-notify' -e sh -c 'gh notify; read'"; }
 
     // ─── Web Applications ───
@@ -44,7 +45,7 @@ binds {
 
     // ─── Wallpaper ───
     Ctrl+Alt+Space                      hotkey-overlay-title="Random Wallpaper" { spawn-sh "~/Scripts/set-wallpaper random"; }
-    Mod+Ctrl+Shift+Space                hotkey-overlay-title="Choose Wallpaper" { spawn-sh "~/Scripts/set-wallpaper choose"; }
+    Mod+Ctrl+Shift+Space                hotkey-overlay-title="Choose Wallpaper" { spawn-sh "~/Scripts/vicinae-wallpaper"; }
 
     // ─── Utilities ───
     Mod+S                               hotkey-overlay-title="Volume Control" { spawn "pavucontrol"; }

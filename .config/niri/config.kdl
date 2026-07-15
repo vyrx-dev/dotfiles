@@ -29,7 +29,7 @@ environment {
     XDG_SESSION_TYPE "wayland"
     XDG_CURRENT_DESKTOP "niri"
     QT_QPA_PLATFORMTHEME "qt6ct"
-    TERMINAL "ghostty"
+    TERMINAL "kitty"
     XCURSOR_THEME "Bibata-Modern-Ice"
     XCURSOR_SIZE "24"
 }
@@ -361,5 +361,5 @@ window-rule {
 // ╰───────────────────────────────────────────────────────────────────────╯
 
 // Switch by commenting one out:
-include "binds-noctalia.kdl"
-// include "binds-custom.kdl"
+// include "binds-noctalia.kdl"
+include "binds-custom.kdl"

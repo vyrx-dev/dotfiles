@@ -4,7 +4,7 @@
 
 binds {
     // ─── Core Applications ───
-    Mod+Return                          hotkey-overlay-title="Terminal" { spawn "ghostty"; }
+    Mod+Return                          hotkey-overlay-title="Terminal" { spawn "kitty"; }
     Mod+Space                           repeat=false { spawn "vicinae" "toggle"; }
     Mod+comma                           repeat=false { spawn "vicinae" "vicinae://launch/clipboard/history"; }
     Mod+period                          repeat=false { spawn "vicinae" "vicinae://launch/core/search-emojis"; }
@@ -26,6 +26,7 @@ binds {
     Alt+G                               hotkey-overlay-title="gh-dash" { spawn-sh "ghostty --title='gh-dash' -e gh dash"; }
     Alt+L                               hotkey-overlay-title="Suspend & Lock" { spawn-sh "systemctl suspend && swaylock"; }
     Alt+Space                           hotkey-overlay-title="Attach Tmux" { spawn-sh "ghostty -e tmux a"; }
+    Alt+P                               hotkey-overlay-title="Book Reader" { spawn-sh "ghostty -e ~/Scripts/book-reader"; }
     // Alt+Return                       { spawn-sh "ghostty --title='gh-notify' -e sh -c 'gh notify; read'"; }
 
     // ─── Web Applications ───

@@ -18,7 +18,10 @@ set("n", "sv", ":vsplit<Return>", opts)
 set("n", "sx", "<cmd>close<CR>", opts)
 
 -- Make current file executable
-vim.keymap.set("n", "<leader>X", "<cmd>!chmod +x %<CR>", { silent = true, desc = "Make current file executable" })
+set("n", "<leader>X", "<cmd>!chmod +x %<CR>", { silent = true, desc = "Make current file executable" })
+
+-- Select all
+set("n", "<C-a>", "gg<S-v>G")
 
 -- Jumping
 set({ "n", "o", "x" }, "<s-h>", "^", { desc = "Jump to beginning of line" })
