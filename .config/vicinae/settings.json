@@ -10,6 +10,7 @@
 
 {
    "$schema": "https://vicinae.com/schemas/config.json",
+   "encrypt_sensitive_data": true,
    "theme": {
       "dark": {
          "name": "vicinae-dark"
@@ -33,6 +34,13 @@
       "applications:zen"
    ],
    "providers": {
+      "@rithvikvibhu/store.vicinae.arch-packages": {
+         "entrypoints": {
+            "search-arch-packages": {
+               "alias": "aur"
+            }
+         }
+      },
       "@thomas/store.raycast.downloads-manager": {
          "entrypoints": {
             "manage-downloads": {
@@ -53,6 +61,9 @@
             },
             "bvnc": {
                "enabled": false
+            },
+            "com.github.johnfactotum.Foliate": {
+               "alias": "book"
             },
             "com.github.mtkennerly.ludusavi": {
                "alias": "lg"

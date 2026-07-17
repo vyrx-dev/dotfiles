@@ -10,11 +10,14 @@ set -gx MANPAGER "nvim +Man!"
 set -gx MPD_HOST "/run/user/"(id -u)"/mpd/socket"
 
 # PATH
-fish_add_path ~/.local/bin
-# fish_add_path ~/Scripts
-fish_add_path ~/dev-tools/flutter/bin
-fish_add_path ~/.pub-cache/bin
-fish_add_path ~/.spicetify/bin
+fish_add_path $HOME/.local/bin
+# fish_add_path $HOME/Scripts
+fish_add_path $HOME/dev-tools/flutter/bin
+fish_add_path $HOME/.pub-cache/bin
+fish_add_path $HOME/.spicetify/bin
+fish_add_path $HOME/Downloads/Windsurf
+fish_add_path $HOME/go/bin
+fish_add_path $HOME/.cargo/bin
 
 # Keybinds
 bind \ck sessionizer
@@ -31,3 +34,6 @@ end
 
 # Aliases
 source ~/.config/fish/aliases.fish
+
+# Generated for envman. Do not edit.
+test -s ~/.config/envman/load.fish; and source ~/.config/envman/load.fish

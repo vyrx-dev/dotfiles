@@ -1,0 +1,28 @@
+#!/bin/bash
+
+set -e
+
+HELIUM_SOURCE="$HOME/.config/net.imput.helium"
+BACKUP_DIR="$PWD/helium-complete-backup"
+
+echo "Backing up Helium browser data..."
+
+mkdir -p "$BACKUP_DIR"
+
+for PROFILE in "Default" "Profile 1"; do
+	if [ -d "$HELIUM_SOURCE/$PROFILE" ]; then
+		echo "  → Backing up profile: $PROFILE"
+		cp -r "$HELIUM_SOURCE/$PROFILE" "$BACKUP_DIR/"
+	fi
+done
+
+for ITEM in "Local State" "Last Version" "First Run" "Variations" "Dictionaries" "NativeMessagingHosts"; do
+	if [ -e "$HELIUM_SOURCE/$ITEM" ]; then
+		cp -r "$HELIUM_SOURCE/$ITEM" "$BACKUP_DIR/"
+	fi
+done
+
+echo ""
+echo "Backup complete!"
+echo "Files saved to: $BACKUP_DIR"
+ls -la "$BACKUP_DIR"

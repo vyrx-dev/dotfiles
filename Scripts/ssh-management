@@ -1,0 +1,41 @@
+#!/bin/bash
+
+SSH_DIR="$HOME/.ssh"
+BACKUP_DIR="$HOME/dotfiles-private/ssh"
+
+if [ "$1" == "--backup" ]; then
+	echo "Starting SSH backup..."
+
+	mkdir -p "$BACKUP_DIR"
+
+	cp "$SSH_DIR/id_rsa" "$BACKUP_DIR/"
+	cp "$SSH_DIR/id_rsa.pub" "$BACKUP_DIR/"
+	cp "$SSH_DIR/aur_key" "$BACKUP_DIR/"
+	cp "$SSH_DIR/aur_key.pub" "$BACKUP_DIR/"
+	cp "$SSH_DIR/known_hosts" "$BACKUP_DIR/"
+
+	chmod 700 "$BACKUP_DIR"
+	chmod 600 "$BACKUP_DIR"/*
+
+	echo "✅ Backup done! Keys saved to ~/dotfiles-private/ssh"
+
+elif [ "$1" == "--restore" ]; then
+	echo "Starting SSH restore..."
+
+	mkdir -p "$SSH_DIR"
+
+	cp "$BACKUP_DIR"/* "$SSH_DIR/"
+
+	chmod 700 "$SSH_DIR"
+	chmod 600 "$SSH_DIR/id_rsa"
+	chmod 600 "$SSH_DIR/aur_key"
+	chmod 600 "$SSH_DIR/known_hosts"
+	chmod 644 "$SSH_DIR/id_rsa.pub"
+	chmod 644 "$SSH_DIR/aur_key.pub"
+
+	echo "✅ Restore done!"
+
+else
+	echo "Usage: ./ssh-management --backup | --restore"
+	exit 1
+fi

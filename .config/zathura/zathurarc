@@ -1,0 +1,27 @@
+
+# Smooth scrolling and window settings
+set scroll-step 50
+set statusbar-home-tilde true
+set selection-clipboard clipboard
+
+# Set the font family and make it much larger
+set font "monospace 14"
+
+
+# Open pages fit-to-width automatically
+set pages-per-row 1
+set adjust-open "width"
+
+# Dark Mode / Recoloring (Perfect for reading at night)
+set recolor "true"
+set recolor-keephue "false"
+
+# Customize your color theme (Dark charcoal vibe)
+set default-bg "#1e1e2e"
+set default-fg "#cdd6f4"
+set recolor-lightcolor "#1e1e2e"
+set recolor-darkcolor "#cdd6f4"
+
+# Interactive search highlights
+set highlight-color "#f38ba8"
+set highlight-active-color "#a6e3a1"

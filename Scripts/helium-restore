@@ -1,0 +1,35 @@
+#!/bin/bash
+
+set -e
+
+HELIUM_TARGET="$HOME/.config/net.imput.helium"
+BACKUP_DIR="$PWD/helium-complete-backup"
+
+if [ ! -d "$BACKUP_DIR" ]; then
+    echo "Error: No backup found at $BACKUP_DIR"
+    exit 1
+fi
+
+echo "Close Helium before continuing!"
+echo "Press Enter to continue..."
+read -r
+
+echo "Restoring Helium browser data..."
+
+for PROFILE in "Default" "Profile 1"; do
+    if [ -d "$BACKUP_DIR/$PROFILE" ]; then
+        echo "  → Restoring profile: $PROFILE"
+        rm -rf "$HELIUM_TARGET/$PROFILE"
+        cp -r "$BACKUP_DIR/$PROFILE" "$HELIUM_TARGET/"
+    fi
+done
+
+for ITEM in "Local State" "Last Version" "First Run" "Variations" "Dictionaries" "NativeMessagingHosts"; do
+    if [ -e "$BACKUP_DIR/$ITEM" ]; then
+        cp -r "$BACKUP_DIR/$ITEM" "$HELIUM_TARGET/"
+    fi
+done
+
+echo ""
+echo "Restore complete!"
+echo "Launch Helium to see your restored data."
