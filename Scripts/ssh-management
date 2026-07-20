@@ -1,39 +1,31 @@
 #!/usr/bin/env bash
 
+# === New Machine Setup ===
+# 1. git clone dotfiles + dotfiles-private
+# 2. ssh-management --restore
+# 3. ssh-keygen -y -f ~/.ssh/id_ed25519 > ~/.ssh/id_ed25519.pub
+# 4. sudo nixos-rebuild switch --flake
+# 5. Enter passphrase once (agent remembers for the session)
+# =========================
+
 SSH_DIR="$HOME/.ssh"
 BACKUP_DIR="$HOME/dotfiles-private/ssh"
 
 if [ "$1" == "--backup" ]; then
-	echo "Starting SSH backup..."
-
+	echo "Backing up SSH keys..."
 	mkdir -p "$BACKUP_DIR"
-
-	cp "$SSH_DIR/id_rsa" "$BACKUP_DIR/"
-	cp "$SSH_DIR/id_rsa.pub" "$BACKUP_DIR/"
-	cp "$SSH_DIR/aur_key" "$BACKUP_DIR/"
-	cp "$SSH_DIR/aur_key.pub" "$BACKUP_DIR/"
-	cp "$SSH_DIR/known_hosts" "$BACKUP_DIR/"
-
+	cp "$SSH_DIR/id_ed25519" "$BACKUP_DIR/"
 	chmod 700 "$BACKUP_DIR"
-	chmod 600 "$BACKUP_DIR"/*
-
-	echo "✅ Backup done! Keys saved to ~/dotfiles-private/ssh"
+	chmod 600 "$BACKUP_DIR/id_ed25519"
+	echo "✅ Backup done!"
 
 elif [ "$1" == "--restore" ]; then
-	echo "Starting SSH restore..."
-
+	echo "Restoring SSH keys..."
 	mkdir -p "$SSH_DIR"
-
-	cp "$BACKUP_DIR"/* "$SSH_DIR/"
-
+	cp "$BACKUP_DIR/id_ed25519" "$SSH_DIR/"
 	chmod 700 "$SSH_DIR"
-	chmod 600 "$SSH_DIR/id_rsa"
-	chmod 600 "$SSH_DIR/aur_key"
-	chmod 600 "$SSH_DIR/known_hosts"
-	chmod 644 "$SSH_DIR/id_rsa.pub"
-	chmod 644 "$SSH_DIR/aur_key.pub"
-
-	echo "✅ Restore done!"
+	chmod 600 "$SSH_DIR/id_ed25519"
+	echo "✅ Restore done! Run: sudo nixos-rebuild switch --flake"
 
 else
 	echo "Usage: ./ssh-management --backup | --restore"
