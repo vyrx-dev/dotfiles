@@ -82,7 +82,6 @@
     "tooltip": false
   },
   "network": {
-    "interface": "wlan*",
     "format-wifi": "wifi {essid}",
     "format-ethernet": "eth {ifname}",
     "format-disconnected": "wifi --",
