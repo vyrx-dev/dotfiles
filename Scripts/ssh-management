@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 SSH_DIR="$HOME/.ssh"
 BACKUP_DIR="$HOME/dotfiles-private/ssh"

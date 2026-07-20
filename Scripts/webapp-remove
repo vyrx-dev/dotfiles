@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 APPS_DIR="$HOME/.local/share/applications"
 ICON_DIR="$APPS_DIR/icons"

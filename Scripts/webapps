@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Predefined webapps: "Name|URL|Icon"
 # Icons from https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/

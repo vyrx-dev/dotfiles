@@ -1,20 +1,30 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# Auto-detect VA-API driver for hardware video acceleration
-if lspci | grep -qi "VGA.*AMD\|Radeon"; then
+# Auto-detect VA-API video drivers using universal Linux kernel flags
+if grep -q "AMD" /sys/class/drm/card*/device/vendor 2>/dev/null; then
 	export LIBVA_DRIVER_NAME=radeonsi
-elif lspci | grep -qi "VGA.*Intel"; then
+elif grep -q "Intel" /sys/class/drm/card*/device/vendor 2>/dev/null; then
 	export LIBVA_DRIVER_NAME=iHD
 fi
-# NVIDIA uses nvidia-vaapi-driver if installed, no env var needed
 
-browser=$(xdg-settings get default-web-browser)
+browser=$(xdg-settings get default-web-browser 2>/dev/null)
 
 case $browser in
 brave-browser* | google-chrome* | microsoft-edge* | opera* | vivaldi* | helium-browser* | helium.desktop) ;;
-*) browser="helium-browser.desktop" ;;
+*) browser="brave-browser.desktop" ;;
 esac
 
-browser_exec=$(sed -n 's/^Exec=\([^ ]*\).*/\1/p' /usr/share/applications/$browser 2>/dev/null | head -1)
+# Universal search across standard Linux paths and NixOS system environments
+for dir in "$HOME/.local/share/applications" "/usr/share/applications" "/run/current-system/sw/share/applications"; do
+	if [ -f "$dir/$browser" ]; then
+		browser_exec=$(sed -n 's/^Exec=\([^ ]*\).*/\1/p' "$dir/$browser" | head -1)
+		break
+	fi
+done
 
-exec setsid $browser_exec --app="$1" "${@:2}"
+# Absolute fallback if system application definitions cannot be located
+if [ -z "$browser_exec" ]; then
+	browser_exec="brave-browser"
+fi
+
+exec setsid "$browser_exec" --app="$1" "${@:2}"

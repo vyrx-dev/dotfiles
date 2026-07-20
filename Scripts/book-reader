@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # quick book picker with fzf, opens in zathura
 
 BOOK_DIR="$HOME/Documents/Books"

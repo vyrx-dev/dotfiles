@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 echo "Usage: add-audio video.mp4 audio.flac name=\"output.mp4\""
 echo "Supports: mp4, mkv, avi, mov, webm (video) | flac, mp3, wav, aac, ogg (audio)"

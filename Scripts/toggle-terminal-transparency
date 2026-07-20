@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Toggle terminal transparency between 1 and 0.8
 # Works for: Kitty, Ghostty, Alacritty

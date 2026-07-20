@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Toggle monitor on/off
 
 OUTPUT="$1"

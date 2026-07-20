@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-if pgrep -x waybar >/dev/null; then
-	pkill -x waybar
+if pgrep -f waybar | grep -v "$$" >/dev/null; then
+	pkill -f waybar
 else
 	waybar >/dev/null 2>&1 &
 fi

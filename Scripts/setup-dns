@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [[ -z $1 ]]; then
   dns=$(gum choose --height 5 --header "Select DNS provider" Cloudflare DHCP Custom)

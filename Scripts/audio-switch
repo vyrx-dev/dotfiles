@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 focused_monitor="$(hyprctl monitors -j | jq -r '.[] | select(.focused == true).name')"
 

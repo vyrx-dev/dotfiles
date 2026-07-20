@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Cleanup existing sessions
 if pgrep -x "scrcpy" > /dev/null; then

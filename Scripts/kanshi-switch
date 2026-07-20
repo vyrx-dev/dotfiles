@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 pick=$(gum choose --no-show-help \
     "← Laptop  → Monitor" \

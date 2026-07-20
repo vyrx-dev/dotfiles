@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Game menu with icons
 
 mapfile -t game_files < <(grep -rl "Categories=Game" ~/.local/share/applications/*.desktop 2>/dev/null | sort)

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 PROJECT_DIR="$HOME/Projects/flutter_projects/cloud"
 SESSION_NAME=$(basename "$PROJECT_DIR")

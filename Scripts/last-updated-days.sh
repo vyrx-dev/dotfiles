@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Days since last pacman -Syu
 
 last_update=$(grep -i "full system upgrade" /var/log/pacman.log 2>/dev/null | tail -n 1)

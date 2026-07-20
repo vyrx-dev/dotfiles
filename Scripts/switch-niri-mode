@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Toggles between Noctalia and Custom niri keybind profiles.
 # Noctalia mode: noctalia bar + notifications + wallpaper
 # Custom mode:   waybar + mako + swaybg wallpaper

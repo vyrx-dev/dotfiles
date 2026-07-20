@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # launch_webapp="$HOME/dotfiles/scripts/launch-webapp"
 if [ "$#" -lt 3 ]; then
   echo -e "\e[32mLet's create a new web app.\n\e[0m"

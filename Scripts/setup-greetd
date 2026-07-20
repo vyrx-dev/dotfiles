@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 echo "Installing greetd and tuigreet..."
 sudo pacman -S --needed greetd greetd-tuigreet
