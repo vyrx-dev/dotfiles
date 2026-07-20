@@ -10,8 +10,7 @@ set -gx MANPAGER "nvim +Man!"
 set -gx MPD_HOST "/run/user/"(id -u)"/mpd/socket"
 
 # PATH
-fish_add_path $HOME/.local/bin
-# fish_add_path $HOME/Scripts
+fish_add_path $HOME/Scripts
 fish_add_path $HOME/dev-tools/flutter/bin
 fish_add_path $HOME/.pub-cache/bin
 fish_add_path $HOME/.spicetify/bin
@@ -28,9 +27,9 @@ zoxide init fish | source
 starship init fish | source
 
 # Keychain
-if status is-interactive
-    keychain --eval --quiet id_rsa | source
-end
+# if status is-interactive
+#     keychain --eval --quiet id_rsa | source
+# end
 
 # Aliases
 source ~/.config/fish/aliases.fish

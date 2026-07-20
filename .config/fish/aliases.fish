@@ -17,9 +17,12 @@ alias .. 'cd ..'
 alias ... 'cd ../..'
 
 # ── Editors ──
-abbr -a n nvim
 alias zed 'zeditor'
 abbr -a c 'code .'
+
+# ── Nix ──
+abbr -a nb 'sudo nixos-rebuild switch --flake'
+abbr -a n 'nvim /etc/nixos/configuration.nix'
 
 # ── Config files ──
 alias bfile 'nvim ~/.bashrc'
