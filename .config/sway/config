@@ -1,19 +1,30 @@
-# Sway Configuration
+# Sway Configuratin
 # man 5 sway
+set $ipc noctalia msg
 
+# Explicitly sets your Bibata-Modern-Ice skin over your monitor seat layers on boot
+seat * xcursor_theme Bibata-Modern-Ice 24
+
+# Force GTK variables to apply directly inside the active wayland environment namespaces
+exec_always {
+    gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
+    gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+    gsettings set org.gnome.desktop.interface cursor-theme 'Bibata-Modern-Ice'
+    gsettings set org.gnome.desktop.interface cursor-size 24
+}
 
 # ╭───────────────────────────────────────────────────────────────────────╮
 # │ STARTUP                                                               │
 # ╰───────────────────────────────────────────────────────────────────────╯
 exec kanshi
 exec_always kanshictl reload
-exec waybar
-exec mako
+# exec waybar
+# exec mako
 exec kdeconnect-indicator
 exec wl-clip-persist --clipboard regular
 exec wl-paste --watch cliphist store
-exec ~/Scripts/battery-monitor
-exec ~/Scripts/set-wallpaper random
+# exec ~/Scripts/battery-monitor
+exec noctalia
 
 # ╭───────────────────────────────────────────────────────────────────────╮
 # │ VARIABLES                                                             │
@@ -23,7 +34,7 @@ set $left h
 set $down j
 set $up k
 set $right l
-set $term ghostty
+set $term kitty
 set $menu fuzzel
 
 
@@ -101,7 +112,7 @@ assign [app_id="code"] workspace number 2
 assign [app_id="dev.zed.Zed"] workspace number 2
 assign [app_id="org.telegram.desktop"] workspace number 7
 assign [app_id="obsidian"] workspace number 8
-assign [class="Spotify"] workspace number 9
+assign [app_id="spotify"] workspace number 9
 assign [app_id="vesktop"] workspace number 10
 assign [app_id="chrome-web.whatsapp.com__-Default"] workspace number 5
 assign [app_id="chrome-app.todoist.com__app-Default"] workspace number 6
@@ -109,7 +120,7 @@ assign [app_id="chrome-app.todoist.com__app-Default"] workspace number 6
 # ─── Focus ───
 for_window [app_id="vesktop"] focus
 for_window [app_id="obsidian"] focus
-for_window [class="Spotify"] focus
+for_window [app_id="spotify"] focus
 for_window [app_id="code"] focus
 for_window [app_id="dev.zed.Zed"] focus
 for_window [app_id="org.telegram.desktop"] focus
@@ -123,6 +134,7 @@ for_window [app_id="thunar"] floating enable, resize set width 1000 height 600, 
 for_window [class="feh"] floating enable, resize set width 960 height 540, move position center
 for_window [app_id="com.github.wwmm.easyeffects"] floating enable, resize set 1000 600, move position center
 for_window [app_id="com.vyrx.kanshi-switch"] floating enable, resize set width 400 height 220, move position center
+for_window [app_id="com.gabm.satty"] floating enable, resize set width 700 height 650, move position center
 
 # ╭───────────────────────────────────────────────────────────────────────╮
 # │ KEYBINDINGS                                                           │
@@ -130,13 +142,14 @@ for_window [app_id="com.vyrx.kanshi-switch"] floating enable, resize set width 4
 # ─── Core Applications ───
 bindsym $mod+Return exec $term
 bindsym $mod+Space exec $menu
-bindsym $mod+b exec helium-browser
+#bindsym $mod+b exec helium-browser
+bindsym $mod+b exec brave
 bindsym $mod+e exec thunar
 bindsym $mod+c exec code
 bindsym $mod+o exec obsidian
 bindsym $mod+Shift+G exec geary
 bindsym $mod+d exec vesktop
-bindsym $mod+m exec spotify-launcher
+bindsym $mod+m exec spotify
 
 # ─── Kill App ───
 bindsym $mod+q kill
@@ -175,22 +188,25 @@ bindsym $mod+Shift+M exec ~/Scripts/beats #music stations and youtube (audio onl
 bindsym $mod+Alt+Space exec ~/Scripts/game-menu #installed game
 
 # ─── Notification ───
-bindsym $mod+Shift+n exec makoctl dismiss -a
-bindsym $mod+n exec makoctl restore
+# bindsym $mod+Shift+n exec makoctl dismiss -a
+# bindsym $mod+n exec makoctl restore
+bindsym $mod+n exec $ipc panel-toggle control-center notifications
+bindsym $mod+Shift+n exec $ipc notification-clear-active
+bindsym $mod+Ctrl+n exec $ipc notification-dnd-toggle
 
 # ─── Screenrecording ───
 bindsym $mod+R exec ~/Scripts/screenrecord --with-desktop-audio 
 bindsym $mod+Alt+R exec ~/Scripts/screenrecord --region
 bindsym $mod+Shift+R exec ~/Scripts/screenrecord --with-microphone-audio 
 
-# ─── Screenshot ───
-bindsym Print exec ~/Scripts/screenshot
+# ─── Screenshot & Color Picker ───
 bindsym $mod+P exec ~/Scripts/screenshot
 bindsym $mod+Shift+P exec ~/Scripts/screenshot fullscreen
 
-# ─── Waybar ───
-bindsym $mod+Shift+Space exec ~/Scripts/toggle-waybar
-bindsym $mod+Shift+backslash exec ~/Scripts/switch-waybar #waybar layouts
+# ─── Bar ───
+bindsym $mod+Shift+Space exec $ipc bar-toggle
+# bindsym $mod+Shift+Space exec ~/Scripts/toggle-waybar
+# bindsym $mod+Shift+backslash exec ~/Scripts/switch-waybar #waybar layouts
 
 # ─── Mobile ───
 bindsym $mod+Alt+p exec ~/Android/Sdk/emulator/emulator -avd Pixel_9_Pro &
@@ -198,44 +214,60 @@ bindsym $mod+Shift+BackSpace exec ~/Scripts/run-scrcpy mirror
 bindsym $mod+Ctrl+BackSpace exec ~/Scripts/run-scrcpy webcam
 
 # ─── Others ───
-bindsym Alt+P exec hyprpicker -a #color picker
+bindsym Alt+P exec hyprpicker -a #color picker (fallback)
 bindsym $mod+BackSpace exec ~/Scripts/toggle-terminal-transparency
-bindsym $mod+Alt+n exec ~/Scripts/toggle-wlsunset
+bindsym $mod+Alt+n exec $ipc  nightlight-toggle
+# bindsym $mod+Alt+n exec ~/Scripts/toggle-wlsunset
+bindsym $mod+s exec $ipc panel-toggle control-center audio     #audio panel
+bindsym $mod+i exec $ipc caffeine-toggle
+bindsym $mod+period exec $ipc panel-toggle control-center network
+bindsym $mod+comma exec $ipc panel-toggle control-center system
 
 # ─── Wallpaper ───
-bindsym Ctrl+Alt+Space exec ~/Scripts/set-wallpaper random
-bindsym $mod+Ctrl+Shift+Space exec ~/Scripts/set-wallpaper choose
+# bindsym Ctrl+Alt+Space exec ~/Scripts/set-wallpaper random
+# bindsym $mod+Ctrl+Shift+Space exec ~/Scripts/set-wallpaper choose
+bindsym Ctrl+Alt+Space exec $ipc wallpaper-random
+bindsym $mod+Ctrl+Shift+Space exec $ipc panel-toggle wallpaper
 
 # ─── Session & Power ───
 bindsym $mod+Alt+l exec swaylock
-bindsym $mod+escape exec ~/Scripts/powermenu
+# bindsym $mod+escape exec ~/Scripts/powermenu
+bindsym $mod+escape exec $ipc panel-toggle session
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+e exec swaynag -t warning -m 'Exit sway?' -B 'Yes' 'swaymsg exit'
-bindsym --locked XF86PowerOff exec systemctl suspend | swaylock
+bindsym --locked XF86PowerOff exec systemctl suspend && swaylock
 
 # ─── Monitor Toggle ───
 bindsym Ctrl+Shift+1 exec ~/Scripts/toggle-output eDP-1
 bindsym Ctrl+Shift+2 exec ~/Scripts/toggle-output HDMI-A-1
 
 # ─── Audio Keys & Scripts ───
-bindsym --locked XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
-bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
-bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-bindsym --locked XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym --locked XF86AudioMute exec $ipc volume-mute
+bindsym --locked XF86AudioLowerVolume exec $ipc volume-down
+bindsym --locked XF86AudioRaiseVolume exec $ipc volume-up
+bindsym --locked XF86AudioMicMute exec $ipc mic-mute
+# bindsym --locked XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+# bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+# bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+# bindsym --locked XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
 bindsym $mod+Alt+m exec ~/Scripts/dual-dac #support dual audio output (only works with Audiocular Spark dac)
 bindsym $mod+XF86AudioMute exec ~/Scripts/audio-switch #switch to different audio outputs
 
 # ───  Laptop brightness  ───
-bindsym --locked XF86MonBrightnessDown exec brightnessctl set 10%-
-bindsym --locked XF86MonBrightnessUp exec brightnessctl set 10%+
-bindsym $mod+Alt+XF86AudioRaiseVolume exec brightnessctl --class=backlight set +10%
-bindsym $mod+Alt+XF86AudioLowerVolume exec brightnessctl --class=backlight set 10%-
+bindsym --locked XF86MonBrightnessDown exec $ipc brightness-down
+bindsym --locked XF86MonBrightnessUp exec $ipc brightness-up
+bindsym $mod+Alt+XF86AudioRaiseVolume exec $ipc brightness-up
+bindsym $mod+Alt+XF86AudioLowerVolume exec $ipc brightness-down
+# bindsym --locked XF86MonBrightnessDown exec brightnessctl set 10%-
+# bindsym --locked XF86MonBrightnessUp exec brightnessctl set 10%+
+# bindsym $mod+Alt+XF86AudioRaiseVolume exec brightnessctl --class=backlight set +10%
+# bindsym $mod+Alt+XF86AudioLowerVolume exec brightnessctl --class=backlight set 10%-
 
 # ───  External monitor brightness  ───
 bindsym $mod+XF86AudioRaiseVolume exec ddcutil setvcp 10 + 10
 bindsym $mod+XF86AudioLowerVolume exec ddcutil setvcp 10 - 10
 
-# # ───  Media controls  ───
+# ───  Media controls  ───
 bindsym $mod+F10 exec mpc prev
 bindsym $mod+F11 exec mpc toggle
 bindsym $mod+F12 exec mpc next
