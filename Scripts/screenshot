@@ -16,8 +16,8 @@ fi
 
 get_output() {
     case "$COMP" in
-        niri) niri msg -j outputs | jq -r '.[] | select(.is_focused == true) | "\(.logical.x),\(.logical.y) \(.logical.width)x\(.logical.height)"' ;;
-        sway) swaymsg -t get_outputs | jq -r '.[] | select(.focused == true) | "\(.rect.x),\(.rect.y) \(.rect.width)x\(.rect.height)"' ;;
+    niri) niri msg -j outputs | jq -r '.[] | select(.is_focused == true) | "\(.logical.x),\(.logical.y) \(.logical.width)x\(.logical.height)"' ;;
+    sway) swaymsg -t get_outputs | jq -r '.[] | select(.focused == true) | "\(.rect.x),\(.rect.y) \(.rect.width)x\(.rect.height)"' ;;
     esac
 }
 
@@ -28,11 +28,15 @@ if [[ "$MODE" == fullscreen ]]; then
     notify-send "Screenshot captured"
 else
     selection="$(case "$COMP" in
-        niri) niri msg -j outputs | jq -r '.[] | "\(.logical.x),\(.logical.y) \(.logical.width)x\(.logical.height)"'
-              niri msg -j windows | jq -r '.[] | select(.logical != null) | "\(.logical.x),\(.logical.y) \(.logical.width)x\(.logical.height)"' ;;
-        sway) swaymsg -t get_outputs | jq -r '.[] | "\(.rect.x),\(.rect.y) \(.rect.width)x\(.rect.height)"'
-              swaymsg -t get_tree | jq -r '.. | select(.type?) | select(.focused == true) | "\(.rect.x),\(.rect.y) \(.rect.width)x\(.rect.height)"' ;;
-    esac | slurp)"
+        niri)
+            niri msg -j outputs | jq -r '.[] | "\(.logical.x),\(.logical.y) \(.logical.width)x\(.logical.height)"'
+            niri msg -j windows | jq -r '.[] | select(.logical != null) | "\(.logical.x),\(.logical.y) \(.logical.width)x\(.logical.height)"'
+            ;;
+        sway)
+            swaymsg -t get_outputs | jq -r '.[] | "\(.rect.x),\(.rect.y) \(.rect.width)x\(.rect.height)"'
+            swaymsg -t get_tree | jq -r '.. | select(.type?) | select(.focused == true) | "\(.rect.x),\(.rect.y) \(.rect.width)x\(.rect.height)"'
+            ;;
+        esac | slurp)"
 
     [[ -z "$selection" ]] && exit 0
 

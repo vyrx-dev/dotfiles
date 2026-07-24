@@ -2,33 +2,33 @@
 # quick tmux session picker with fzf
 
 dirs=(
-	"$HOME/Downloads"
-	"$HOME/Documents"
-	"$HOME/Testing-repo"
-	"$HOME/Git"
-	"$HOME/Projects"
-	"$HOME/dotfiles-private"
-	"$HOME/Projects/flutter_projects"
+    "$HOME/Downloads"
+    "$HOME/Documents"
+    "$HOME/Testing-repo"
+    "$HOME/Git"
+    "$HOME/Projects"
+    "$HOME/dotfiles-private"
+    "$HOME/Projects/flutter_projects"
 )
 
 # these are added as-is, no subdir scan
 extras=(
-	"$HOME/Scripts"
-	"$HOME/Projects/flutter_projects"
+    "$HOME/Scripts"
+    "$HOME/Projects/flutter_projects"
 )
 
 all=()
 for d in "${dirs[@]}"; do
-	mapfile -t found < <(fd --type dir --max-depth 1 --full-path "" "$d" 2>/dev/null)
-	all+=("${found[@]}")
+    mapfile -t found < <(fd --type dir --max-depth 1 --full-path "" "$d" 2>/dev/null)
+    all+=("${found[@]}")
 done
 all+=("${extras[@]}")
 
 if [[ $# -eq 1 ]]; then
-	selected=$1
+    selected=$1
 else
-	selected=$(printf '%s\n' "${all[@]}" | sed "s|^$HOME/||" | fzf)
-	[[ -n $selected ]] && selected="$HOME/$selected"
+    selected=$(printf '%s\n' "${all[@]}" | sed "s|^$HOME/||" | fzf)
+    [[ -n $selected ]] && selected="$HOME/$selected"
 fi
 
 [[ -z $selected ]] && exit 0
@@ -37,8 +37,8 @@ name=$(basename "$selected" | tr '.' '_')
 
 # tmux not running
 if [[ -z $TMUX ]] && ! pgrep -q tmux; then
-	tmux new-session -s "$name" -c "$selected"
-	exit 0
+    tmux new-session -s "$name" -c "$selected"
+    exit 0
 fi
 
 # create session if needed

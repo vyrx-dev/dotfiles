@@ -15,5 +15,6 @@ next="${themes[$(( (i + 1) % ${#themes[@]} ))]%/}"
 ln -sf "$next/config.jsonc" config.jsonc
 ln -sf "$next/style.css" style.css
 
-killall -q waybar
-setsid waybar &>/dev/null &
+pkill waybar
+while pgrep -x waybar >/dev/null 2>&1; do sleep 0.1; done
+waybar >/dev/null 2>&1 &
