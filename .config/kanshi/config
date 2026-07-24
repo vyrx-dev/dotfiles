@@ -24,3 +24,8 @@ profile monitor-only {
     output HDMI-A-1 enable mode 1920x1080@100Hz position 0,0
     output eDP-1    disable
 }
+#
+# profile vertical-monitor-left {
+#     output HDMI-A-1 enable mode 1920x1080@100Hz transform 90 position 0,0
+#     output eDP-1    enable mode 1920x1080@144.003Hz transform normal position 1080,0
+# }
