@@ -83,12 +83,14 @@ start_screenrecording() {
   local filename="$OUTPUT_DIR/screenrecording-$(date +'%Y-%m-%d_%H-%M-%S').mp4"
   local audio_devices=""
   local audio_args=""
-  local capture_mode="portal"
+  local capture_mode
 
   if [[ "$REGION_SELECT" == "true" ]]; then
     local region
     region=$(select_region) || { cleanup_webcam; return 1; }
-    capture_mode="$region"  # pass coordinates directly to -w (e.g. "1920x1080+0+0")
+    capture_mode="$region"
+  else
+    capture_mode="portal"
   fi
 
   [[ "$DESKTOP_AUDIO" == "true" ]] && audio_devices+="default_output"
@@ -111,17 +113,17 @@ start_screenrecording() {
 }
 
 stop_screenrecording() {
-  pkill -SIGINT -f "^gpu-screen-recorder" # SIGINT required to save video properly
+  pkill -SIGINT -f "gpu-screen-recorder" # SIGINT required to save video properly
 
   # Wait a maximum of 5 seconds to finish before hard killing
   local count=0
-  while pgrep -f "^gpu-screen-recorder" >/dev/null && [ $count -lt 50 ]; do
+  while pgrep -f "gpu-screen-recorder" >/dev/null && [ $count -lt 50 ]; do
     sleep 0.1
     count=$((count + 1))
   done
 
-  if pgrep -f "^gpu-screen-recorder" >/dev/null; then
-    pkill -9 -f "^gpu-screen-recorder"
+  if pgrep -f "gpu-screen-recorder" >/dev/null; then
+    pkill -9 -f "gpu-screen-recorder"
     cleanup_webcam
     notify-send "Screen recording error" "Recording process had to be force-killed. Video may be corrupted." -u critical -t 5000
   else
@@ -136,18 +138,24 @@ toggle_screenrecording_indicator() {
 }
 
 screenrecording_active() {
-  pgrep -f "^gpu-screen-recorder" >/dev/null || pgrep -f "WebcamOverlay" >/dev/null
+  pgrep -f "gpu-screen-recorder" > /dev/null || pgrep -f "WebcamOverlay" > /dev/null
+}
+
+# Prevent stacking selection overlays if slurp is already waiting for input
+selection_in_progress() {
+  pgrep -x slurp > /dev/null
 }
 
 if screenrecording_active; then
-  if pgrep -f "WebcamOverlay" >/dev/null && ! pgrep -f "^gpu-screen-recorder" >/dev/null; then
+  if pgrep -f "WebcamOverlay" > /dev/null && ! pgrep -f "gpu-screen-recorder" > /dev/null; then
     cleanup_webcam
   else
     stop_screenrecording
   fi
+elif selection_in_progress; then
+  exit 0
 elif [[ "$STOP_RECORDING" == "false" ]]; then
   [[ "$WEBCAM" == "true" ]] && start_webcam_overlay
-
   start_screenrecording || cleanup_webcam
 else
   exit 1
