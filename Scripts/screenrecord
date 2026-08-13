@@ -83,14 +83,22 @@ start_screenrecording() {
   local filename="$OUTPUT_DIR/screenrecording-$(date +'%Y-%m-%d_%H-%M-%S').mp4"
   local audio_devices=""
   local audio_args=""
-  local capture_mode
+  local capture_args=()
 
   if [[ "$REGION_SELECT" == "true" ]]; then
     local region
     region=$(select_region) || { cleanup_webcam; return 1; }
-    capture_mode="$region"
+    capture_args=(-w region -region "$region")
+  elif command -v swaymsg >/dev/null 2>&1; then
+    local monitor
+    monitor=$(slurp -f '%o' -o 2>/dev/null)
+    if [[ -z "$monitor" ]]; then
+      notify-send "Monitor selection cancelled" -t 2000
+      return 1
+    fi
+    capture_args=(-w "$monitor")
   else
-    capture_mode="portal"
+    capture_args=(-w portal)
   fi
 
   [[ "$DESKTOP_AUDIO" == "true" ]] && audio_devices+="default_output"
@@ -108,7 +116,7 @@ start_screenrecording() {
 
   [[ -n "$audio_devices" ]] && audio_args+="-a $audio_devices"
 
-  gpu-screen-recorder -w "$capture_mode" -f 60 -fallback-cpu-encoding yes -o "$filename" $audio_args -ac aac &
+  gpu-screen-recorder "${capture_args[@]}" -f 60 -fallback-cpu-encoding yes -o "$filename" $audio_args -ac aac &
   toggle_screenrecording_indicator
 }
 

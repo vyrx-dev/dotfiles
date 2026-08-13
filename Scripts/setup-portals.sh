@@ -37,6 +37,8 @@ cat > "$PORTAL_DIR/niri-portals.conf" << 'EOF'
 [preferred]
 default=gnome;gtk;
 org.freedesktop.impl.portal.FileChooser=gtk
+org.freedesktop.impl.portal.ScreenCast=gnome
+org.freedesktop.impl.portal.Screenshot=gnome
 EOF
 echo "✓ Written niri-portals.conf"
 
