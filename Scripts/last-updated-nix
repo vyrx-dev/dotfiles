@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# Days since last `nix flake update` — based on newest input snapshot in flake.lock
+
+lock="/etc/nixos/flake.lock"
+
+if [ ! -f "$lock" ]; then
+	echo '{"text": "?", "class": "critical", "tooltip": "No flake.lock found"}'
+	exit 0
+fi
+
+last_epoch=$(jq -r '[.nodes[].locked.lastModified // empty] | max' "$lock")
+
+if [ -z "$last_epoch" ] || [ "$last_epoch" = "null" ]; then
+	echo '{"text": "?", "class": "critical", "tooltip": "Could not read flake.lock"}'
+	exit 0
+fi
+
+current_epoch=$(date +%s)
+days=$(((current_epoch - last_epoch) / 86400))
+
+if [ $days -gt 7 ]; then
+	class="critical"
+else
+	class=""
+fi
+
+last_date=$(date -d @"$last_epoch" +%F)
+
+if [ $days -eq 0 ]; then
+	tooltip="Last flake update: $last_date (today)"
+else
+	tooltip="$last_date"
+fi
+
+echo "{\"text\": \"$days\", \"class\": \"$class\", \"tooltip\": \"$tooltip\"}"

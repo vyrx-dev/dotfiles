@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+profiles="$(powerprofilesctl list | grep -oE '^[\* ]+[a-z-]+:' | sed 's/[:*]//g')"
+
+current="$(powerprofilesctl get)"
+
+choice="$(
+    printf '%s\n' "$profiles" |
+        awk -v cur="$current" '{ if ($1==cur) printf "** %s\n", $1; else printf "   %s\n", $1 }' |
+        fuzzel --match-mode fzf --dmenu --prompt="Power profile: "
+)"
+
+[ -z "$choice" ] && exit 0
+
+profile="$(printf '%s\n' "$choice" | sed -E 's/^[*[:space:]]+//')"
+
+[ -z "$profile" ] && exit 0
+
+powerprofilesctl set "$profile"

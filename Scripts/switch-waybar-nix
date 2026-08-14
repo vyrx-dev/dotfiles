@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+BACKUP_DIR="$HOME/backup-configs"
+DEST_NIX="/etc/nixos/modules/home-manager/waybar.nix"
+DEST_CSS="/etc/nixos/modules/home-manager/files/waybar/style.css"
+
+version="$(
+    find "$BACKUP_DIR" -mindepth 1 -maxdepth 1 -type d ! -name '.*' -printf "%f\n" | sort |
+        fuzzel --match-mode fzf --dmenu --prompt="Waybar version: "
+)"
+
+[ -z "$version" ] && exit 0
+
+src="$BACKUP_DIR/$version"
+[ -f "$src/waybar.nix" ] || { notify-send "waybar" "Missing waybar.nix in $version"; exit 1; }
+[ -f "$src/style.css" ] || { notify-send "waybar" "Missing style.css in $version"; exit 1; }
+
+cp "$src/waybar.nix" "$DEST_NIX"
+cp "$src/style.css" "$DEST_CSS"
+
+notify-send "waybar" "Switched to $version — run nixos-rebuild to apply"
