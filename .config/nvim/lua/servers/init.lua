@@ -1,19 +1,19 @@
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
+-- global capabilities shared across all LSP servers
+vim.lsp.config("*", {
+  capabilities = require("cmp_nvim_lsp").default_capabilities(),
+})
 
--- Language Server Protocol (LSP)
-require "servers.lua_ls"(capabilities)
-require("servers.pyright")(capabilities)
-require("servers.gopls")(capabilities)
-require("servers.jsonls")(capabilities)
-require("servers.ts_ls")(capabilities)
-require("servers.bashls")(capabilities)
-require("servers.dockerls")(capabilities)
-require("servers.emmet_ls")(capabilities)
-require("servers.yamlls")(capabilities)
-require("servers.tailwindcss")(capabilities)
-
--- Linters & Formatters
-require("servers.efm-langserver")(capabilities)
+-- per-server configs
+require "servers.lua_ls"
+require "servers.pyright"
+require "servers.gopls"
+require "servers.jsonls"
+require "servers.ts_ls"
+require "servers.bashls"
+require "servers.dockerls"
+require "servers.emmet_ls"
+require "servers.yamlls"
+require "servers.tailwindcss"
 
 vim.lsp.enable {
   "lua_ls",
@@ -26,5 +26,4 @@ vim.lsp.enable {
   "emmet_ls",
   "yamlls",
   "tailwindcss",
-  "efm",
 }
