@@ -11,31 +11,29 @@ return {
         ensure_installed = {
           -- LSP Servers
           "bash-language-server",
-          "docker-language-server",
+          "dockerfile-language-server",
           "emmet-ls",
-          "gopls",
-          "lua-language-server",
+          -- "gopls", -- running globally in nixos
+          -- "lua-language-server",
           "pyright",
           "typescript-language-server",
           "json-lsp",
           "yaml-language-server",
           "tailwindcss-language-server",
-          "efm",
 
           -- Formatters
           "prettierd",
-          "stylua",
+          -- "stylua", -- handled natively via nixos
           "gofumpt",
           "shfmt",
-          "fixjson",
 
           -- Linters
           "eslint_d",
-          "flake8",
+          -- "flake8", -- handled natively via nixos
           -- "luacheck",
           "hadolint",
           "shellcheck",
-          "revive",
+          -- "revive", -- handled natively via nixos
         },
         auto_update = false,
         run_on_start = true,
@@ -49,7 +47,6 @@ return {
     "neovim/nvim-lspconfig",
     dependencies = {
       "mason-org/mason.nvim", -- LSP/DAP/Linter installer & manager
-      "creativenull/efmls-configs-nvim", -- Preconfigured EFM Language Server setups
       "hrsh7th/cmp-nvim-lsp", -- nvim-cmp source for LSP-based completion
     },
     config = function()

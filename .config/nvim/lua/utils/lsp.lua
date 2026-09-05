@@ -36,7 +36,7 @@ M.on_attach = function(event)
   -- Order Imports (if supported by the client LSP)
   if client:supports_method("textDocument/codeAction", bufnr) then
     keymap("n", "<leader>oi", function()
-      m.lsp.buf.code_action {
+      vim.lsp.buf.code_action {
         context = {
           only = { "source.organizeImports" },
           diagnostics = {},
@@ -46,7 +46,7 @@ M.on_attach = function(event)
       }
       -- format after changing import order
       vim.defer_fn(function()
-        vim.lsp.buf.format { bufnr = bufnr }
+        require("conform").format { bufnr = bufnr }
       end, 50) -- slight delay to allow for the import order to go first
     end, opts)
   end
