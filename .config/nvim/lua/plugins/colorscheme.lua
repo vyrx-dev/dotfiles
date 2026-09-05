@@ -9,8 +9,7 @@ return {
   -- superior gruvbox variant
   {
     "sainnhe/gruvbox-material",
-    lazy = true,
-    priority = 1000,
+    lazy = false,
     config = function()
       vim.g.gruvbox_material_enable_italic = true
       vim.g.gruvbox_material_background = "hard"
